@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fortia OS</title>
+  <link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+  <main id="app">
+
+    <!-- USER SELECT SCREEN -->
+    <section id="welcome-screen" class="screen active">
+      <div class="top-band"></div>
+
+      <div class="welcome-layout">
+        <div class="welcome-left">
+          <div class="brand-block">
+            <div class="fortia-logo"></div>
+            <div>
+              <div class="brand-small">Fortia</div>
+              <div class="brand-main">Fortia<span>OS</span></div>
+            </div>
+          </div>
+
+          <p class="begin-text">To begin, click your user name</p>
+        </div>
+
+        <div class="welcome-divider"></div>
+
+        <div class="welcome-right">
+          <button id="user-tile" class="user-tile">
+            <div class="user-avatar">N</div>
+            <span>Name</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="bottom-band"></div>
+    </section>
+
+    <!-- PASSWORD DIALOG SCREEN -->
+    <section id="password-screen" class="screen">
+      <div class="dialog-window">
+        <div class="dialog-titlebar">Log On to Fortia OS</div>
+
+        <div class="dialog-hero">
+          <div class="fortia-logo large"></div>
+          <div>
+            <div class="dialog-brand">Fortia<span>OS</span></div>
+            <div class="dialog-subtitle">Professional</div>
+          </div>
+        </div>
+
+        <div class="dialog-body">
+          <div class="form-row">
+            <label for="username">User name:</label>
+            <input id="username" type="text" value="Name" readonly>
+          </div>
+
+          <div class="form-row">
+            <label for="password">Password:</label>
+            <input id="password" type="password" autocomplete="off">
+          </div>
+
+          <p id="login-message"></p>
+
+          <div class="dialog-bottom">
+            <span class="language-box">EN</span>
+
+            <div class="dialog-buttons">
+              <button id="login-button">OK</button>
+              <button id="cancel-button">Cancel</button>
+              <button id="shutdown-button">Shut Down...</button>
+              <button id="options-button">Options &lt;&lt;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESKTOP -->
+    <section id="desktop" class="screen">
+
+      <!-- DESKTOP ICONS -->
+      <div class="desktop-icons">
+        <button class="desktop-icon" data-window="computer-window">
+          <span class="icon computer-icon"></span>
+          <span>My Computer</span>
+        </button>
+
+        <button class="desktop-icon" data-window="recycle-window">
+          <span class="icon recycle-icon"></span>
+          <span>Recycle Bin</span>
+        </button>
+
+        <button class="desktop-icon" data-window="program-window">
+          <span class="icon exe-icon"></span>
+          <span>Access.exe</span>
+        </button>
+
+        <button class="desktop-icon" data-window="help-window">
+          <span class="icon help-icon"></span>
+          <span>Help</span>
+        </button>
+
+        <button class="desktop-icon" data-window="music-window">
+          <span class="icon music-icon"></span>
+          <span>Music</span>
+        </button>
+
+        <button class="desktop-icon" data-window="msn-window">
+          <span class="icon msn-icon"></span>
+          <span>MSN</span>
+        </button>
+
+        <button class="desktop-icon" data-window="gossip-window">
+          <span class="icon gossip-icon"></span>
+          <span>Gossip.exe</span>
+        </button>
+
+        <button class="desktop-icon" data-window="signal-window">
+          <span class="icon globe-icon"></span>
+          <span>Signal</span>
+        </button>
+
+        <button class="desktop-icon" data-window="system-window">
+          <span class="icon system-icon"></span>
+          <span>System</span>
+        </button>
+      </div>
+
+      <!-- MY COMPUTER -->
+      <article id="computer-window" class="window large-window">
+        <div class="window-titlebar">
+          <span>My Computer</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+
+        <div class="window-toolbar">
+          <button>Back</button>
+          <button>Search</button>
+          <button>Folders</button>
+          <button>Views</button>
+        </div>
+
+        <div class="computer-layout">
+          <aside class="explorer-sidebar">
+            <h3>System Tasks</h3>
+            <button data-window="help-window">View system help</button>
+            <button data-window="system-window">View system information</button>
+            <button data-window="program-window">Run Access.exe</button>
+
+            <h3>Other Places</h3>
+            <button data-window="recycle-window">Recycle Bin</button>
+            <button data-window="music-window">Media Library</button>
+            <button data-window="msn-window">MSN Messenger</button>
+
+            <h3>Details</h3>
+            <p>Some files are indexed. Some files are not supposed to be.</p>
+          </aside>
+
+          <div class="computer-content">
+            <h2>Files Stored on This Computer</h2>
+
+            <div class="drive-section">
+              <h4>Hard Disk Drives</h4>
+
+              <button class="drive-item" data-window="localdisk-window">
+                <span class="drive-icon"></span>
+                <div>
+                  <strong>Local Disk (C:)</strong>
+                  <span>System files and ordinary-looking fragments</span>
+                </div>
+              </button>
+
+              <button class="drive-item" data-window="future-window">
+                <span class="drive-icon future-drive"></span>
+                <div>
+                  <strong>Future Plans (F:)</strong>
+                  <span>Indexed, restricted, partially corrupted</span>
+                </div>
+              </button>
+            </div>
+
+            <div class="drive-section">
+              <h4>Files Stored on This Computer</h4>
+
+              <button class="drive-item" data-window="shared-window">
+                <span class="folder-mini big-mini"></span>
+                <div>
+                  <strong>Shared Files</strong>
+                  <span>Recovered notes, logs and route fragments</span>
+                </div>
+              </button>
+
+              <button class="drive-item" data-window="restricted-window">
+                <span class="lock-mini big-mini"></span>
+                <div>
+                  <strong>Restricted</strong>
+                  <span>Access controlled. Curiosity detected.</span>
+                </div>
+              </button>
+
+              <button class="drive-item" data-window="help-window">
+                <span class="help-mini big-mini"></span>
+                <div>
+                  <strong>Help and Support</strong>
+                  <span>Useful when text looks broken on purpose</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- LOCAL DISK -->
+      <article id="localdisk-window" class="window large-window">
+        <div class="window-titlebar">
+          <span>Local Disk (C:)</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+
+        <div class="window-toolbar">
+          <button>Back</button>
+          <button>Search</button>
+          <button>Folders</button>
+        </div>
+
+        <div class="window-content explorer-content">
+          <button class="file-item" data-window="welcome-note-window">
+            <span class="file-icon txt-icon"></span>
+            <span>welcome_note.txt</span>
+          </button>
+
+          <button class="file-item" data-window="system-log-window">
+            <span class="file-icon txt-icon"></span>
+            <span>system_log.txt</span>
+          </button>
+
+          <button class="file-item" data-window="route-fragment-window">
+            <span class="file-icon txt-icon"></span>
+            <span>route_fragment.txt</span>
+          </button>
+
+          <button class="file-item" data-window="program-window">
+            <span class="file-icon exe-file-icon"></span>
+            <span>Access.exe</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- SHARED FILES -->
+      <article id="shared-window" class="window large-window">
+        <div class="window-titlebar">
+          <span>Shared Files</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+
+        <div class="window-toolbar">
+          <button>Back</button>
+          <button>Search</button>
+          <button>Folders</button>
+        </div>
+
+        <div class="window-content explorer-content">
+          <button class="file-item" data-window="archive-note-window">
+            <span class="file-icon txt-icon"></span>
+            <span>archive_note.txt</span>
+          </button>
+
+          <button class="file-item" data-window="weekend-log-window">
+            <span class="file-icon txt-icon"></span>
+            <span>weekend.log</span>
+          </button>
+
+          <button class="file-item" data-window="playlist-note-window">
+            <span class="file-icon music-file-icon"></span>
+            <span>playlist.url</span>
+          </button>
+
+          <button class="file-item" data-window="old-chat-window">
+            <span class="file-icon msn-file-icon"></span>
+            <span>old_chat.log</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- FUTURE PLANS -->
+      <article id="future-window" class="window large-window">
+        <div class="window-titlebar">
+          <span>Future Plans (F:)</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+
+        <div class="window-toolbar">
+          <button>Back</button>
+          <button>Search</button>
+          <button>Folders</button>
+        </div>
+
+        <div class="window-content explorer-content">
+          <button class="file-item" data-window="flight-cache-window">
+            <span class="file-icon travel-file-icon"></span>
+            <span>flight_cache.tmp</span>
+          </button>
+
+          <button class="file-item" data-window="festival-cache-window">
+            <span class="file-icon festival-file-icon"></span>
+            <span>orange_index.dat</span>
+          </button>
+
+          <button class="file-item" data-window="balkan-cache-window">
+            <span class="file-icon map-file-icon"></span>
+            <span>balkan_route.tmp</span>
+          </button>
+
+          <button class="file-item" data-window="restricted-window">
+            <span class="file-icon locked-file-icon"></span>
+            <span>admin_only</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- RESTRICTED -->
+      <article id="restricted-window" class="window">
+        <div class="window-titlebar">
+          <span>Restricted</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+
+        <div class="window-content restricted-content">
+          <h2>Folder Access Denied</h2>
+          <p>You do not have permission to access this folder.</p>
+          <p>Reason: <strong>curiosity level too high</strong></p>
+          <button class="xp-button" data-window="help-window">Open Help and Support</button>
+        </div>
+      </article>
+
+      <!-- RECYCLE BIN -->
+      <article id="recycle-window" class="window large-window">
+        <div class="window-titlebar">
+          <span>Recycle Bin</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+
+        <div class="window-toolbar">
+          <button>Restore</button>
+          <button>Empty Recycle Bin</button>
+        </div>
+
+        <div class="window-content explorer-content">
+          <button class="file-item" data-window="deleted-note-window">
+            <span class="file-icon txt-icon deleted"></span>
+            <span>deleted_note.txt</span>
+          </button>
+
+          <button class="file-item" data-window="old-key-window">
+            <span class="file-icon txt-icon deleted"></span>
+            <span>old_key_fragment.txt</span>
+          </button>
+
+          <button class="file-item" data-window="restored-signal-window">
+            <span class="file-icon txt-icon deleted"></span>
+            <span>restored_signal.txt</span>
+          </button>
+
+          <button class="file-item" data-window="corrupt-window">
+            <span class="file-icon broken-icon"></span>
+            <span>corrupted_memory.dat</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- NOTEPAD WINDOWS -->
+      <article id="welcome-note-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>welcome_note.txt - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>Welcome to Fortia OS.</p>
+          <p>This machine contains indexed files, archived logs, and several items that have not been classified correctly.</p>
+          <p>If something looks unreadable, open Help and Support.</p>
+        </div>
+      </article>
+
+      <article id="system-log-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>system_log.txt - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>[09:41] User profile loaded.</p>
+          <p>[09:42] My Computer indexed.</p>
+          <p>[09:43] Access.exe moved from Documents to root desktop.</p>
+          <p>[09:44] Travel browser shell installed.</p>
+          <p>[09:45] Help database updated: Caesar, noise, fragments.</p>
+        </div>
+      </article>
+
+      <article id="route-fragment-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>route_fragment.txt - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>Recovered route fragment:</p>
+          <p><strong>QEB NRFZH YOLTK CLU GRJMP LSBO QEB IXWV ALD</strong></p>
+          <p>Help topic suggestion: Caesar recovery.</p>
+          <p>Status: readable, but not directly.</p>
+        </div>
+      </article>
+
+      <article id="archive-note-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>archive_note.txt - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>Archived note:</p>
+          <p>Normal files are rarely the most useful files.</p>
+          <p>Deleted files are sometimes less deleted than expected.</p>
+          <p>One access word is short. One destination is not.</p>
+        </div>
+      </article>
+
+      <article id="weekend-log-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>weekend.log - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>Log file:</p>
+          <p>F: Route proposal found.</p>
+          <p>R: Event index found.</p>
+          <p>B: Road sequence found.</p>
+          <p>Pattern note: three pages, three possible directions.</p>
+        </div>
+      </article>
+
+      <article id="playlist-note-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>playlist.url - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>[InternetShortcut]</p>
+          <p>URL=fortia://media/playlist</p>
+          <p>Comment=This playlist may or may not be part of the operating system's mood.</p>
+          <p>Open Media Player for playback.</p>
+        </div>
+      </article>
+
+      <article id="old-chat-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>old_chat.log - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>Unknown Contact: don't put the answer in a normal file</p>
+          <p>Unknown Contact: put the boring hint in Help</p>
+          <p>Unknown Contact: put the actual hint in the bin</p>
+          <p>Unknown Contact: nobody checks the bin first</p>
+        </div>
+      </article>
+
+      <article id="flight-cache-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>flight_cache.tmp - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>Cached route:</p>
+          <p>NYC → CPH</p>
+          <p>Carrier: unresolved</p>
+          <p>Status: visible in Access.exe after shell initialization</p>
+        </div>
+      </article>
+
+      <article id="festival-cache-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>orange_index.dat - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>ORANGE INDEX</p>
+          <p>crowd_density=unknown</p>
+          <p>weather=unreliable</p>
+          <p>sound_level=significant</p>
+          <p>interest_mode=enabled</p>
+        </div>
+      </article>
+
+      <article id="balkan-cache-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>balkan_route.tmp - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>Road sequence:</p>
+          <p>coast → mountains → border → unknown street food → better story</p>
+          <p>Classification: Balkan Roadtrip</p>
+        </div>
+      </article>
+
+      <article id="deleted-note-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>deleted_note.txt - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>This file was deleted, but not forgotten.</p>
+          <p>Recovery hint:</p>
+          <p><strong>Ignore the numbers: o1p2e3n4</strong></p>
+          <p>Help topic suggestion: Noise removal.</p>
+        </div>
+      </article>
+
+      <article id="old-key-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>old_key_fragment.txt - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>Old access note:</p>
+          <p>Access phrase was not long.</p>
+          <p>It was not dramatic.</p>
+          <p>It was what you do to a door.</p>
+        </div>
+      </article>
+
+      <article id="restored-signal-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>restored_signal.txt - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>Restored signal:</p>
+          <p>One route returns.</p>
+          <p>One field glows orange.</p>
+          <p>One road crosses borders.</p>
+        </div>
+      </article>
+
+      <article id="corrupt-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>corrupted_memory.dat</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="window-content">
+          <h2>Cannot open file</h2>
+          <p>The selected file appears to be damaged or encoded.</p>
+          <p>Error code: F0R-T1A</p>
+          <button class="xp-button" data-window="help-window">Search Help</button>
+        </div>
+      </article>
+
+      <!-- HELP AND SUPPORT -->
+      <article id="help-window" class="window help-window">
+        <div class="window-titlebar">
+          <span>Help and Support Center</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+
+        <div class="help-shell">
+          <div class="help-header">
+            <h2>Help and Support Center</h2>
+            <p>Search, decode, recover, and pretend this was documented properly.</p>
+          </div>
+
+          <div class="help-body">
+            <aside class="help-topics">
+              <button class="help-topic active" data-help-topic="decode">Decode Wizard</button>
+              <button class="help-topic" data-help-topic="hints">Hint Center</button>
+              <button class="help-topic" data-help-topic="recovery">File Recovery</button>
+            </aside>
+
+            <section class="help-panel active" id="help-decode">
+              <h3>Decode Wizard</h3>
+              <p>Paste suspicious text below. The system supports a very limited number of conveniently useful recoveries.</p>
+
+              <textarea id="decode-input" spellcheck="false" placeholder="Paste encoded text here..."></textarea>
+
+              <div class="decode-buttons">
+                <button id="decode-caesar" class="xp-button">Caesar -3</button>
+                <button id="decode-noise" class="xp-button">Remove numbers</button>
+                <button id="decode-clear" class="xp-button">Clear</button>
+              </div>
+
+              <div id="decode-output" class="decode-output">Decoded output will appear here.</div>
+            </section>
+
+            <section class="help-panel" id="help-hints">
+              <h3>Hint Center</h3>
+              <ul class="hint-list">
+                <li>Some deleted files contain active information.</li>
+                <li>If text contains random numbers, try removing them.</li>
+                <li>If text looks like nonsense, try shifting letters backwards.</li>
+                <li>Access.exe loads more information after the access phrase is accepted.</li>
+                <li>Not every interesting file grants access. Some are just there to annoy you.</li>
+              </ul>
+            </section>
+
+            <section class="help-panel" id="help-recovery">
+              <h3>File Recovery</h3>
+              <p>Recycle Bin is not only for trash. It may contain:</p>
+              <ul>
+                <li>fragments</li>
+                <li>old keys</li>
+                <li>accidentally useful notes</li>
+                <li>things someone clearly tried to hide badly</li>
+              </ul>
+
+              <button class="xp-button" data-window="recycle-window">Open Recycle Bin</button>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <!-- ACCESS.EXE / BROWSER TRAVEL PORTAL -->
+      <article id="program-window" class="window travel-window">
+        <div class="window-titlebar">
+          <span>Access.exe</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+
+        <div class="window-content access-content">
+          <div id="access-locked">
+            <h2>Access Required</h2>
+            <p>This application requires a valid access phrase.</p>
+
+            <label for="access-input">Access phrase:</label>
+            <div class="access-row">
+              <input id="access-input" type="text" autocomplete="off">
+              <button id="access-button" class="xp-button">Run</button>
+            </div>
+            <p id="access-message"></p>
+          </div>
+
+          <div id="access-loader" class="hidden">
+            <h2>Initializing Browser Shell</h2>
+            <p id="loader-line">Preparing session...</p>
+
+            <div class="progress-shell">
+              <div id="progress-bar" class="progress-bar"></div>
+            </div>
+
+            <ul class="loader-log" id="loader-log"></ul>
+          </div>
+
+          <div id="access-granted" class="hidden">
+            <div class="browser-window">
+              <div class="browser-toolbar">
+                <button class="xp-button tiny-button browser-nav" data-browser-page="home">Home</button>
+                <button class="xp-button tiny-button browser-nav" data-browser-page="flight">Flight</button>
+                <button class="xp-button tiny-button browser-nav" data-browser-page="roskilde">Roskilde</button>
+                <button class="xp-button tiny-button browser-nav" data-browser-page="balkan">Balkan</button>
+                <div id="browser-address" class="address-bar">https://fortia.local/home</div>
+              </div>
+
+              <section class="browser-page active" id="browser-home">
+                <div class="portal-hero">
+                  <div>
+                    <h2>Fortia Internal Portal</h2>
+                    <p>Three indexed proposals were found. None of them are confirmed. All of them are suspiciously detailed.</p>
+                  </div>
+                  <div class="portal-status">SESSION ACTIVE</div>
+                </div>
+
+                <div class="portal-grid">
+                  <button class="portal-card browser-nav" data-browser-page="flight">
+                    <span class="portal-icon">✈</span>
+                    <strong>Route Proposal</strong>
+                    <p>NYC → CPH</p>
+                  </button>
+
+                  <button class="portal-card browser-nav" data-browser-page="roskilde">
+                    <span class="portal-icon">●</span>
+                    <strong>Orange Index</strong>
+                    <p>Roskilde event record</p>
+                  </button>
+
+                  <button class="portal-card browser-nav" data-browser-page="balkan">
+                    <span class="portal-icon">▣</span>
+                    <strong>Road Sequence</strong>
+                    <p>Balkan route file</p>
+                  </button>
+                </div>
+
+                <div id="portal-response" class="travel-response">
+                  No proposal has been marked yet.
+                </div>
+              </section>
+
+              <section class="browser-page flight-page" id="browser-flight">
+                <div class="page-kicker">Route Proposal</div>
+                <h2>NYC → CPH</h2>
+                <p class="page-subtitle">Cached international route. Manual review required before anything becomes real.</p>
+
+                <div class="flight-search-box">
+                  <div>
+                    <label>From</label>
+                    <strong>New York City</strong>
+                    <span>NYC / all airports</span>
+                  </div>
+                  <div>
+                    <label>To</label>
+                    <strong>Copenhagen</strong>
+                    <span>CPH / Kastrup</span>
+                  </div>
+                  <div>
+                    <label>Window</label>
+                    <strong>Flexible</strong>
+                    <span>date unresolved</span>
+                  </div>
+                  <div>
+                    <label>Status</label>
+                    <strong>Indexed</strong>
+                    <span>not confirmed</span>
+                  </div>
+                </div>
+
+                <div class="flight-details">
+                  <div>
+                    <h3>Route Notes</h3>
+                    <p>Return direction detected. Long-haul energy present. Airport coffee probability high.</p>
+                  </div>
+                  <div>
+                    <h3>System Flags</h3>
+                    <ul>
+                      <li>passport check: pending</li>
+                      <li>calendar check: unresolved</li>
+                      <li>emotional logistics: moderate</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <button class="xp-button interest-button" data-interest="flight">Mark route as interesting</button>
+              </section>
+
+              <section class="browser-page roskilde-page" id="browser-roskilde">
+                <div class="page-kicker">Orange Index</div>
+                <h2>Roskilde Event Record</h2>
+                <p class="page-subtitle">A field-based audio/weather/crowd scenario has been detected.</p>
+
+                <div class="festival-banner">
+                  <div class="festival-dot"></div>
+                  <div>
+                    <strong>Roskilde Interest Protocol</strong>
+                    <span>Not an invite. Not not an invite. Status intentionally unclear.</span>
+                  </div>
+                </div>
+
+                <div class="festival-columns">
+                  <div>
+                    <h3>Requirements</h3>
+                    <label><input type="checkbox"> Can tolerate grass-based logistics</label>
+                    <label><input type="checkbox"> Accepts weather uncertainty</label>
+                    <label><input type="checkbox"> Understands that sleep may be theoretical</label>
+                  </div>
+
+                  <div>
+                    <h3>Detected Values</h3>
+                    <p>Sound level: significant</p>
+                    <p>Orange probability: high</p>
+                    <p>Planning confidence: unstable</p>
+                  </div>
+                </div>
+
+                <button class="xp-button interest-button" data-interest="roskilde">Mark event as interesting</button>
+              </section>
+
+              <section class="browser-page balkan-page" id="browser-balkan">
+                <div class="page-kicker">Road Sequence</div>
+                <h2>Balkan Roadtrip</h2>
+                <p class="page-subtitle">Unconfirmed route file with high story potential.</p>
+
+                <div class="roadtrip-map">
+                  <div class="map-node active">Start</div>
+                  <div class="map-line"></div>
+                  <div class="map-node">Coast</div>
+                  <div class="map-line"></div>
+                  <div class="map-node">Mountains</div>
+                  <div class="map-line"></div>
+                  <div class="map-node">Border</div>
+                  <div class="map-line"></div>
+                  <div class="map-node mystery-node">?</div>
+                </div>
+
+                <div class="roadtrip-grid">
+                  <div>
+                    <h3>Possible Contents</h3>
+                    <ul>
+                      <li>long roads</li>
+                      <li>cheap coffee</li>
+                      <li>strange parking</li>
+                      <li>border stamps, maybe</li>
+                      <li>stories that sound made up later</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3>Risk Assessment</h3>
+                    <p>Navigation: optimistic</p>
+                    <p>Snack dependency: elevated</p>
+                    <p>Likelihood of memorable chaos: high</p>
+                  </div>
+                </div>
+
+                <button class="xp-button interest-button" data-interest="balkan">Mark roadtrip as interesting</button>
+              </section>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- GOSSIP LOCKED APP -->
+      <article id="gossip-window" class="window">
+        <div class="window-titlebar">
+          <span>Gossip.exe</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+
+        <div class="window-content gossip-content">
+          <h2>Access Denied</h2>
+          <p>You do not have sufficient privileges to view this content.</p>
+          <p class="gossip-warning">Nice try.</p>
+          <button id="gossip-button" class="xp-button">Request access</button>
+          <p id="gossip-message"></p>
+        </div>
+      </article>
+
+      <!-- MUSIC PLAYER -->
+      <article id="music-window" class="window music-window">
+        <div class="window-titlebar">
+          <span>Fortia Media Player</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+
+        <div class="media-player">
+          <div class="media-sidebar">
+            <div class="media-disc"></div>
+            <p>Now Playing</p>
+          </div>
+
+          <div class="media-main">
+            <h2>Playlist Detected</h2>
+            <p class="media-subtitle">A playlist has been attached to this operating system.</p>
+
+            <div class="track-list">
+              <div class="track-row active-track">
+                <span>01</span>
+                <strong>Opening Scene</strong>
+                <em>03:12</em>
+              </div>
+              <div class="track-row">
+                <span>02</span>
+                <strong>Deleted File Energy</strong>
+                <em>04:08</em>
+              </div>
+              <div class="track-row">
+                <span>03</span>
+                <strong>Route Loading</strong>
+                <em>02:59</em>
+              </div>
+            </div>
+
+            <div class="spotify-box">
+              <p>Replace the iframe src below with your own Spotify playlist embed link.</p>
+
+              <iframe
+                class="spotify-embed"
+                src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
+                width="100%"
+                height="152"
+                frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- MSN MESSENGER -->
+      <article id="msn-window" class="window msn-window">
+        <div class="window-titlebar">
+          <span>MSN Messenger</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+
+        <div class="msn-shell">
+          <div class="msn-header">
+            <div class="msn-avatar">?</div>
+            <div>
+              <strong>Unknown Contact</strong>
+              <p>Online - clearly knows too much</p>
+            </div>
+          </div>
+
+          <div id="msn-messages" class="msn-messages">
+            <div class="msn-message them">hey</div>
+            <div class="msn-message them">my computer is cleaner now</div>
+            <div class="msn-message them">but the good stuff is probably still in the bin</div>
+          </div>
+
+          <div class="msn-choices">
+            <button class="xp-button msn-choice" data-msn="where">Where should I start?</button>
+            <button class="xp-button msn-choice" data-msn="access">What opens Access.exe?</button>
+            <button class="xp-button msn-choice" data-msn="routes">What are the routes?</button>
+            <button id="nudge-button" class="xp-button">Nudge</button>
+          </div>
+
+          <div class="msn-input-row">
+            <input type="text" value="Message disabled in template mode" readonly>
+            <button class="xp-button">Send</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- SYSTEM -->
+      <article id="system-window" class="window">
+        <div class="window-titlebar">
+          <span>System</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="window-content">
+          <h2>System Information</h2>
+          <ul>
+            <li>User: Name</li>
+            <li>System: Fortia OS</li>
+            <li>Version: 0.7</li>
+            <li>Status: Online</li>
+            <li>Shell: XP-inspired</li>
+            <li>Installed modules: My Computer, Help, Travel Browser, Media Player, MSN Messenger</li>
+            <li>Security mode: selectively annoying</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- SIGNAL -->
+      <article id="signal-window" class="window">
+        <div class="window-titlebar">
+          <span>Signal</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="window-content">
+          <h2>Signal</h2>
+          <p>Incoming signal:</p>
+          <blockquote id="signal-text">Click the button below.</blockquote>
+          <button id="signal-button" class="xp-button">Generate signal</button>
+        </div>
+      </article>
+
+      <!-- SECRET DEBUG WINDOW -->
+      <article id="debug-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>debug_notes.txt - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>DEBUG MODE ENABLED</p>
+          <p>You found the keyboard easter egg.</p>
+          <p>System note: the access phrase is still boring on purpose.</p>
+          <p>Routes indexed: NYC→CPH, Roskilde, Balkan Roadtrip.</p>
+        </div>
+      </article>
+
+      <!-- START MENU -->
+      <div id="start-menu" class="start-menu">
+        <div class="start-menu-header">
+          <div class="start-menu-avatar">N</div>
+          <span>Name</span>
+        </div>
+
+        <div class="start-menu-body">
+          <button class="start-menu-item" data-window="computer-window">
+            <span class="mini-icon computer-mini"></span>
+            My Computer
+          </button>
+
+          <button class="start-menu-item" data-window="program-window">
+            <span class="mini-icon exe-mini"></span>
+            Access.exe
+          </button>
+
+          <button class="start-menu-item" data-window="help-window">
+            <span class="mini-icon help-mini"></span>
+            Help and Support
+          </button>
+
+          <button class="start-menu-item" data-window="music-window">
+            <span class="mini-icon music-mini"></span>
+            Music
+          </button>
+
+          <button class="start-menu-item" data-window="msn-window">
+            <span class="mini-icon msn-mini"></span>
+            MSN Messenger
+          </button>
+
+          <button class="start-menu-item" data-window="gossip-window">
+            <span class="mini-icon gossip-mini"></span>
+            Gossip.exe
+          </button>
+
+          <button class="start-menu-item" data-window="recycle-window">
+            <span class="mini-icon recycle-mini"></span>
+            Recycle Bin
+          </button>
+
+          <button class="start-menu-item" data-window="signal-window">
+            <span class="mini-icon signal-mini"></span>
+            Signal
+          </button>
+
+          <button class="start-menu-item" data-window="system-window">
+            <span class="mini-icon system-mini"></span>
+            System
+          </button>
+        </div>
+
+        <div class="start-menu-footer">
+          <button id="logoff-button">Log Off</button>
+          <button id="desktop-shutdown-button">Shut Down</button>
+        </div>
+      </div>
+
+      <div id="selection-box"></div>
+
+      <!-- TASKBAR -->
+      <footer class="taskbar">
+        <button id="start-button">
+          <span class="start-dot"></span>
+          start
+        </button>
+
+        <div class="taskbar-spacer"></div>
+        <div id="clock"></div>
+      </footer>
+    </section>
+
+  </main>
+
+  <script src="script.js?v=7"></script>
+</body>
+</html>
