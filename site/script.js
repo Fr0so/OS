@@ -20,6 +20,8 @@ const logoffButton = document.getElementById("logoff-button");
 const desktopShutdownButton = document.getElementById("desktop-shutdown-button");
 
 const accessInput = document.getElementById("access-input");
+const routeIdInput = document.getElementById("route-id-input");
+const archiveKeyInput = document.getElementById("archive-key-input");
 const accessButton = document.getElementById("access-button");
 const accessMessage = document.getElementById("access-message");
 const accessLocked = document.getElementById("access-locked");
@@ -39,7 +41,7 @@ const signals = [
   "Deleted files may contain active truth.",
   "Help and Support is more helpful than it looks.",
   "One route returns. One field glows orange. One road crosses borders.",
-  "Access.exe is waiting.",
+  "TravelPortal.exe is waiting.",
   "Gossip.exe has refused to comment.",
   "My Computer is cleaner now. That does not mean it is safer.",
   "Future Plans (F:) was indexed at an unusual time.",
@@ -219,8 +221,10 @@ function closeStartMenu() {
 
 function runAccessProgram() {
   const enteredPhrase = accessInput.value.trim().toLowerCase();
+  const enteredRoute = routeIdInput.value.trim().toLowerCase();
+  const enteredArchiveKey = archiveKeyInput.value.trim().toLowerCase();
 
-  if (enteredPhrase === ACCESS_PHRASE) {
+  if (enteredPhrase === ACCESS_PHRASE && enteredRoute === "cph-2606" && enteredArchiveKey === "orange-border") {
     accessMessage.textContent = "";
     accessLocked.classList.add("hidden");
 
@@ -231,7 +235,7 @@ function runAccessProgram() {
 
     startAccessLoader();
   } else {
-    accessMessage.textContent = "Access denied.";
+    accessMessage.textContent = "Field not recognized.";
     accessInput.value = "";
     accessInput.focus();
 
@@ -257,14 +261,16 @@ function startAccessLoader() {
   progressBar.style.width = "0%";
 
   const steps = [
-    { percent: 12, text: "Checking access phrase...", log: "Access phrase accepted." },
-    { percent: 24, text: "Initializing browser shell...", log: "Browser shell loaded." },
-    { percent: 39, text: "Scanning route cache...", log: "Found route: NYC → CPH." },
-    { percent: 52, text: "Reading local index...", log: "Event index detected." },
-    { percent: 68, text: "Resolving saved records...", log: "Road sequence file found." },
-    { percent: 83, text: "Checking Summer 2026 references...", log: "Reference volume indexed." },
+    { percent: 8, text: "Checking access phrase...", log: "Checking access phrase..." },
+    { percent: 16, text: "Verifying route identifier...", log: "Verifying route identifier..." },
+    { percent: 24, text: "Reading archive key...", log: "Reading archive key..." },
+    { percent: 38, text: "Initializing browser shell...", log: "Initializing browser shell..." },
+    { percent: 50, text: "Scanning route cache...", log: "Scanning route cache..." },
+    { percent: 62, text: "Reading local index...", log: "Reading local index..." },
+    { percent: 74, text: "Resolving saved records...", log: "Resolving saved records..." },
+    { percent: 86, text: "Checking Summer 2026 references...", log: "Checking Summer 2026 references..." },
     { percent: 97, text: "Connection stalled at 97%. Retrying...", log: "Retrying..." },
-    { percent: 100, text: "Opening internal portal...", log: "Session active." }
+    { percent: 100, text: "Opening local portal...", log: "Opening local portal..." }
   ];
 
   let stepIndex = 0;
