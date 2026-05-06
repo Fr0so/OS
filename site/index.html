@@ -350,6 +350,7 @@
         </div>
 
         <div class="window-toolbar">
+          <span>These files have been deleted from their original locations.<br>Some items may still be recoverable.</span>
           <button>Restore</button>
           <button>Empty Recycle Bin</button>
         </div>
@@ -365,14 +366,24 @@
             <span>old_key_fragment.txt</span>
           </button>
 
-          <button class="file-item" data-window="restored-signal-window">
+          <button class="file-item" data-window="access-phrase-window">
             <span class="file-icon txt-icon deleted"></span>
-            <span>restored_signal.txt</span>
+            <span>access_phrase.tmp</span>
           </button>
 
-          <button class="file-item" data-window="corrupt-window">
+          <button class="file-item" data-window="corrupted-booking-window">
             <span class="file-icon broken-icon"></span>
-            <span>corrupted_memory.dat</span>
+            <span>corrupted_booking_cache.dat</span>
+          </button>
+
+          <button class="file-item" data-window="unsent-message-window">
+            <span class="file-icon txt-icon deleted"></span>
+            <span>unsent_message.eml</span>
+          </button>
+
+          <button class="file-item" data-window="previous-session-window">
+            <span class="file-icon txt-icon deleted"></span>
+            <span>previous_session.log</span>
           </button>
         </div>
       </article>
@@ -575,10 +586,8 @@
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
-          <p>This file was deleted, but not forgotten.</p>
-          <p>Recovery hint:</p>
-          <p><strong>Ignore the numbers: o1p2e3n4</strong></p>
-          <p>Help topic suggestion: Noise removal.</p>
+          <p>Do not store access phrases in plain text.</p>
+          <p>Do not store access phrases in deleted files either.</p>
         </div>
       </article>
 
@@ -589,97 +598,77 @@
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
-          <p>Old access note:</p>
-          <p>Access phrase was not long.</p>
-          <p>It was not dramatic.</p>
-          <p>It was what you do to a door.</p>
+          <p>o1p2e3n4</p>
         </div>
       </article>
 
-      <article id="restored-signal-window" class="window text-window">
+      <article id="access-phrase-window" class="window text-window">
         <div class="window-titlebar">
-          <span>restored_signal.txt - Notepad</span>
+          <span>access_phrase.tmp - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
-          <p>Restored signal:</p>
-          <p>One route returns.</p>
-          <p>One field glows orange.</p>
-          <p>One road crosses borders.</p>
+          <p>Noise detected.</p>
+          <p>Text recovery recommended.</p>
         </div>
       </article>
 
-      <article id="corrupt-window" class="window text-window">
+      <article id="corrupted-booking-window" class="window text-window">
         <div class="window-titlebar">
-          <span>corrupted_memory.dat</span>
+          <span>corrupted_booking_cache.dat - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
-        <div class="window-content">
-          <h2>Cannot open file</h2>
-          <p>The selected file appears to be damaged or encoded.</p>
-          <p>Error code: F0R-T1A</p>
-          <button class="xp-button" data-window="help-window">Search Help</button>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>BOOKING CACHE PARTIAL</p><p></p><p>NYC -> CPH</p><p>STATUS: NOT ISSUED</p><p>FIELD REQUIRED: ROUTE ID</p><p>SOURCE: SUMMER 2026</p>
         </div>
       </article>
+
+      <article id="unsent-message-window" class="window text-window"><div class="window-titlebar"><span>unsent_message.eml - Notepad</span><button class="window-close" aria-label="Close">×</button></div><div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div><div class="notepad-content"><p>To: unknown</p><p>Subject: summer</p><p></p><p>The route field was copied to the mounted volume.</p><p>The key is not a single word.</p></div></article>
+      <article id="previous-session-window" class="window text-window"><div class="window-titlebar"><span>previous_session.log - Notepad</span><button class="window-close" aria-label="Close">×</button></div><div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div><div class="notepad-content"><p>Previous session closed unexpectedly.</p><p></p><p>Opened:</p><p>- My Computer</p><p>- Summer 2026</p><p>- TravelPortal.exe</p><p></p><p>Last unresolved fields:</p><p>access phrase</p><p>route identifier</p><p>archive key</p></div></article>
 
       <!-- HELP AND SUPPORT -->
       <article id="help-window" class="window help-window">
         <div class="window-titlebar">
-          <span>Help and Support Center</span>
+          <span>Help and Support</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
 
         <div class="help-shell">
           <div class="help-header">
-            <h2>Help and Support Center</h2>
-            <p>Search, decode, recover, and pretend this was documented properly.</p>
+            <h2>Help and Support</h2>
+            <p>Select a recovery tool.</p>
           </div>
 
           <div class="help-body">
             <aside class="help-topics">
-              <button class="help-topic active" data-help-topic="decode">Decode Wizard</button>
-              <button class="help-topic" data-help-topic="hints">Hint Center</button>
-              <button class="help-topic" data-help-topic="recovery">File Recovery</button>
+              <button class="help-topic active" data-help-topic="decode">Remove numerical noise</button>
+              <button class="help-topic" data-help-topic="recovery">Recover damaged file</button>
+              <button class="help-topic" data-help-topic="hints">Common access issues</button>
             </aside>
 
             <section class="help-panel active" id="help-decode">
-              <h3>Decode Wizard</h3>
-              <p>Paste suspicious text below. The system supports a very limited number of conveniently useful recoveries.</p>
+              <h3>Remove numerical noise</h3>
 
               <textarea id="decode-input" spellcheck="false" placeholder="Paste encoded text here..."></textarea>
 
               <div class="decode-buttons">
-                <button id="decode-caesar" class="xp-button">Caesar -3</button>
                 <button id="decode-noise" class="xp-button">Remove numbers</button>
-                <button id="decode-clear" class="xp-button">Clear</button>
               </div>
 
               <div id="decode-output" class="decode-output">Decoded output will appear here.</div>
             </section>
 
             <section class="help-panel" id="help-hints">
-              <h3>Hint Center</h3>
-              <ul class="hint-list">
-                <li>Some deleted files contain active information.</li>
-                <li>If text contains random numbers, try removing them.</li>
-                <li>If text looks like nonsense, try shifting letters backwards.</li>
-                <li>TravelPortal.exe loads more information after the access phrase is accepted.</li>
-                <li>Not every interesting file grants access. Some are just there to annoy you.</li>
-              </ul>
+              <h3>Common access issues</h3>
+              <p>TravelPortal.exe requires three fields.</p><p>Deleted files may contain recoverable fragments.</p><p>Mounted volumes may contain current records.</p><p>Some archive keys are assembled from separate records.</p>
             </section>
 
             <section class="help-panel" id="help-recovery">
-              <h3>File Recovery</h3>
-              <p>Recycle Bin is not only for trash. It may contain:</p>
-              <ul>
-                <li>fragments</li>
-                <li>old keys</li>
-                <li>accidentally useful notes</li>
-                <li>things someone clearly tried to hide badly</li>
-              </ul>
-
-              <button class="xp-button" data-window="recycle-window">Open Recycle Bin</button>
+              <h3>Recover damaged file</h3>
+              <div class="decode-buttons"><button id="recover-access-phrase" class="xp-button">access_phrase.tmp</button><button id="recover-booking-cache" class="xp-button">corrupted_booking_cache.dat</button></div>
+              <div id="recovery-output" class="decode-output">Recovered output will appear here.</div>
             </section>
           </div>
         </div>

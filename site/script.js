@@ -183,6 +183,28 @@ function startLoginLoader() {
   run();
 }
 
+function startLoginLoader() {
+  const steps = ["Password accepted.", "Loading personal settings...", "Restoring desktop state...", "Mounting local drives...", "Checking archived sessions...", "Loading Fortia OS..."];
+  const dialogBody = document.querySelector(".dialog-body");
+  dialogBody.innerHTML = '<p id="login-loader-line">Starting...</p><p>Please wait...</p><div class="progress-shell"><div id="login-progress" class="progress-bar"></div></div>';
+  let index = 0;
+  const run = function () {
+    document.getElementById("login-loader-line").textContent = steps[index];
+    document.getElementById("login-progress").style.width = Math.round(((index + 1) / steps.length) * 100) + "%";
+    index += 1;
+    if (index < steps.length) {
+      setTimeout(run, 650);
+    } else {
+      setTimeout(function () {
+        showScreen(desktop);
+        updateClock();
+        openWindow("computer-window");
+      }, 500);
+    }
+  };
+  run();
+}
+
 function logOff() {
   closeStartMenu();
 
@@ -470,43 +492,24 @@ document.querySelectorAll(".help-topic").forEach(function (topic) {
   });
 });
 
-function caesarDecode(text, shift) {
-  return text.replace(/[a-zA-Z]/g, function (char) {
-    const base = char >= "a" && char <= "z" ? 97 : 65;
-    const code = char.charCodeAt(0) - base;
-    const decoded = (code - shift + 26) % 26;
-
-    return String.fromCharCode(decoded + base);
-  });
-}
-
-document.getElementById("decode-caesar").addEventListener("click", function () {
-  const input = document.getElementById("decode-input").value;
-  const output = document.getElementById("decode-output");
-
-  if (!input.trim()) {
-    output.textContent = "No text entered.";
-    return;
-  }
-
-  output.textContent = caesarDecode(input, 3);
-});
-
 document.getElementById("decode-noise").addEventListener("click", function () {
   const input = document.getElementById("decode-input").value;
   const output = document.getElementById("decode-output");
 
   if (!input.trim()) {
-    output.textContent = "No text entered.";
+    output.textContent = "Recovery complete.";
     return;
   }
 
-  output.textContent = input.replace(/[0-9]/g, "");
+  output.textContent = input.replace(/[0-9]/g, "").trim() + "\n\nRecovery complete.";
 });
 
-document.getElementById("decode-clear").addEventListener("click", function () {
-  document.getElementById("decode-input").value = "";
-  document.getElementById("decode-output").textContent = "Decoded output will appear here.";
+document.getElementById("recover-access-phrase").addEventListener("click", function () {
+  document.getElementById("recovery-output").textContent = "Recovered content:\no1p2e3n4\n\nSuggested tool:\nRemove numerical noise\n\nStatus:\nRecovery complete.";
+});
+
+document.getElementById("recover-booking-cache").addEventListener("click", function () {
+  document.getElementById("recovery-output").textContent = "Recovered fields:\nNYC -> CPH\nFIELD REQUIRED: ROUTE ID\nSOURCE: SUMMER 2026\n\nStatus:\nRecovery complete.";
 });
 
 /* BROWSER PORTAL */
