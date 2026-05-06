@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fortia OS1</title>
+  <title>Fortia OS</title>
   <link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
@@ -96,7 +96,7 @@
 
         <button class="desktop-icon" data-window="program-window">
           <span class="icon exe-icon"></span>
-          <span>Access.exe</span>
+          <span>TravelPortal.exe</span>
         </button>
 
         <button class="desktop-icon" data-window="help-window">
@@ -149,7 +149,7 @@
             <h3>System Tasks</h3>
             <button data-window="help-window">View system help</button>
             <button data-window="system-window">View system information</button>
-            <button data-window="program-window">Run Access.exe</button>
+            <button data-window="program-window">Run TravelPortal.exe</button>
 
             <h3>Other Places</h3>
             <button data-window="recycle-window">Recycle Bin</button>
@@ -177,7 +177,7 @@
               <button class="drive-item" data-window="future-window">
                 <span class="drive-icon future-drive"></span>
                 <div>
-                  <strong>Future Plans (F:)</strong>
+                  <strong>Summer 2026 (F:)</strong>
                   <span>Indexed, restricted, partially corrupted</span>
                 </div>
               </button>
@@ -245,7 +245,7 @@
 
           <button class="file-item" data-window="program-window">
             <span class="file-icon exe-file-icon"></span>
-            <span>Access.exe</span>
+            <span>TravelPortal.exe</span>
           </button>
         </div>
       </article>
@@ -289,7 +289,7 @@
       <!-- FUTURE PLANS -->
       <article id="future-window" class="window large-window">
         <div class="window-titlebar">
-          <span>Future Plans (F:)</span>
+          <span>Summer 2026 (F:)</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
 
@@ -395,7 +395,7 @@
         <div class="notepad-content">
           <p>[09:41] User profile loaded.</p>
           <p>[09:42] My Computer indexed.</p>
-          <p>[09:43] Access.exe moved from Documents to root desktop.</p>
+          <p>[09:43] TravelPortal.exe moved from Documents to root desktop.</p>
           <p>[09:44] Travel browser shell installed.</p>
           <p>[09:45] Help database updated: Caesar, noise, fragments.</p>
         </div>
@@ -482,7 +482,7 @@
           <p>Cached route:</p>
           <p>NYC → CPH</p>
           <p>Carrier: unresolved</p>
-          <p>Status: visible in Access.exe after shell initialization</p>
+          <p>Status: visible in TravelPortal.exe after shell initialization</p>
         </div>
       </article>
 
@@ -610,7 +610,7 @@
                 <li>Some deleted files contain active information.</li>
                 <li>If text contains random numbers, try removing them.</li>
                 <li>If text looks like nonsense, try shifting letters backwards.</li>
-                <li>Access.exe loads more information after the access phrase is accepted.</li>
+                <li>TravelPortal.exe loads more information after the access phrase is accepted.</li>
                 <li>Not every interesting file grants access. Some are just there to annoy you.</li>
               </ul>
             </section>
@@ -634,19 +634,22 @@
       <!-- ACCESS.EXE / BROWSER TRAVEL PORTAL -->
       <article id="program-window" class="window travel-window">
         <div class="window-titlebar">
-          <span>Access.exe</span>
+          <span>TravelPortal.exe</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
 
         <div class="window-content access-content">
           <div id="access-locked">
-            <h2>Access Required</h2>
-            <p>This application requires a valid access phrase.</p>
-
-            <label for="access-input">Access phrase:</label>
+            <h2>Local travel portal</h2>
+            <p>Archived session found.<br>Required fields missing.</p>
+            <label for="access-input">Access phrase</label>
+            <div class="access-row"><input id="access-input" type="text" autocomplete="off" placeholder="Enter access phrase"></div>
+            <label for="route-id-input">Route ID</label>
+            <div class="access-row"><input id="route-id-input" type="text" autocomplete="off" placeholder="Enter Route ID"></div>
+            <label for="archive-key-input">Archive key</label>
             <div class="access-row">
-              <input id="access-input" type="text" autocomplete="off">
-              <button id="access-button" class="xp-button">Run</button>
+              <input id="archive-key-input" type="text" autocomplete="off" placeholder="Enter Archive key">
+              <button id="access-button" class="xp-button">Open portal</button>
             </div>
             <p id="access-message"></p>
           </div>
@@ -665,163 +668,75 @@
           <div id="access-granted" class="hidden">
             <div class="browser-window">
               <div class="browser-toolbar">
+                <button class="xp-button tiny-button">Back</button>
+                <button class="xp-button tiny-button">Forward</button>
+                <button class="xp-button tiny-button">Stop</button>
+                <button class="xp-button tiny-button">Refresh</button>
                 <button class="xp-button tiny-button browser-nav" data-browser-page="home">Home</button>
-                <button class="xp-button tiny-button browser-nav" data-browser-page="flight">Flight</button>
-                <button class="xp-button tiny-button browser-nav" data-browser-page="roskilde">Roskilde</button>
-                <button class="xp-button tiny-button browser-nav" data-browser-page="balkan">Balkan</button>
-                <div id="browser-address" class="address-bar">https://fortia.local/home</div>
+                <div id="browser-address" class="address-bar">fortia://travel/archive</div>
               </div>
 
               <section class="browser-page active" id="browser-home">
                 <div class="portal-hero">
                   <div>
-                    <h2>Fortia Internal Portal</h2>
-                    <p>Three indexed proposals were found. None of them are confirmed. All of them are suspiciously detailed.</p>
+                    <h2>Travel Portal Archive</h2>
+                    <p>Recovered travel records: 3<br>Source volume: Summer 2026<br>Manual review required</p>
                   </div>
-                  <div class="portal-status">SESSION ACTIVE</div>
+                  <div class="portal-status">Local intranet<br>Record state: partial</div>
                 </div>
 
                 <div class="portal-grid">
                   <button class="portal-card browser-nav" data-browser-page="flight">
                     <span class="portal-icon">✈</span>
-                    <strong>Route Proposal</strong>
-                    <p>NYC → CPH</p>
+                    <strong>Flight Record</strong>
+                    <p>Route proposal</p>
                   </button>
 
                   <button class="portal-card browser-nav" data-browser-page="roskilde">
                     <span class="portal-icon">●</span>
-                    <strong>Orange Index</strong>
-                    <p>Roskilde event record</p>
+                    <strong>Orange Record</strong>
+                    <p>Event index</p>
                   </button>
 
                   <button class="portal-card browser-nav" data-browser-page="balkan">
                     <span class="portal-icon">▣</span>
                     <strong>Road Sequence</strong>
-                    <p>Balkan route file</p>
+                    <p>Road route</p>
                   </button>
                 </div>
 
                 <div id="portal-response" class="travel-response">
-                  No proposal has been marked yet.
+                  Manual review required.
                 </div>
               </section>
 
               <section class="browser-page flight-page" id="browser-flight">
-                <div class="page-kicker">Route Proposal</div>
-                <h2>NYC → CPH</h2>
-                <p class="page-subtitle">Cached international route. Manual review required before anything becomes real.</p>
-
-                <div class="flight-search-box">
-                  <div>
-                    <label>From</label>
-                    <strong>New York City</strong>
-                    <span>NYC / all airports</span>
-                  </div>
-                  <div>
-                    <label>To</label>
-                    <strong>Copenhagen</strong>
-                    <span>CPH / Kastrup</span>
-                  </div>
-                  <div>
-                    <label>Window</label>
-                    <strong>Flexible</strong>
-                    <span>date unresolved</span>
-                  </div>
-                  <div>
-                    <label>Status</label>
-                    <strong>Indexed</strong>
-                    <span>not confirmed</span>
-                  </div>
-                </div>
-
-                <div class="flight-details">
-                  <div>
-                    <h3>Route Notes</h3>
-                    <p>Return direction detected. Long-haul energy present. Airport coffee probability high.</p>
-                  </div>
-                  <div>
-                    <h3>System Flags</h3>
-                    <ul>
-                      <li>passport check: pending</li>
-                      <li>calendar check: unresolved</li>
-                      <li>emotional logistics: moderate</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <button class="xp-button interest-button" data-interest="flight">Mark route as interesting</button>
+                <div class="page-kicker">Flight Record</div>
+                <p>Origin: NYC<br>Destination: CPH<br>Route ID: CPH-2606<br>Record type: Route proposal<br>Status: Indexed<br>Ticket status: Not issued<br>Confirmation: Not confirmed<br>Review: Manual</p>
+                <h3>Cached details:</h3>
+                <ul><li>Passenger field unavailable</li><li>Date field unresolved</li><li>Return field pending</li><li>Booking source unavailable</li><li>Local review required before issue</li></ul>
+                <p>This record is stored as a proposal only.<br>No booking has been confirmed.</p>
+                <button class="xp-button review-button" data-review="flight">Mark for review</button>
               </section>
 
               <section class="browser-page roskilde-page" id="browser-roskilde">
-                <div class="page-kicker">Orange Index</div>
-                <h2>Roskilde Event Record</h2>
-                <p class="page-subtitle">A field-based audio/weather/crowd scenario has been detected.</p>
-
-                <div class="festival-banner">
-                  <div class="festival-dot"></div>
-                  <div>
-                    <strong>Roskilde Interest Protocol</strong>
-                    <span>Not an invite. Not not an invite. Status intentionally unclear.</span>
-                  </div>
-                </div>
-
-                <div class="festival-columns">
-                  <div>
-                    <h3>Requirements</h3>
-                    <label><input type="checkbox"> Can tolerate grass-based logistics</label>
-                    <label><input type="checkbox"> Accepts weather uncertainty</label>
-                    <label><input type="checkbox"> Understands that sleep may be theoretical</label>
-                  </div>
-
-                  <div>
-                    <h3>Detected Values</h3>
-                    <p>Sound level: significant</p>
-                    <p>Orange probability: high</p>
-                    <p>Planning confidence: unstable</p>
-                  </div>
-                </div>
-
-                <button class="xp-button interest-button" data-interest="roskilde">Mark event as interesting</button>
+                <div class="page-kicker">Orange Record</div>
+                <p>Index name: ORANGE<br>Record type: Event index<br>Location: Roskilde<br>Season: Summer 2026<br>Status: Indexed<br>Confirmation: Not confirmed<br>Review: Manual</p>
+                <h3>Field data:</h3>
+                <ul><li>Crowd density: Unknown</li><li>Weather reliability: Low</li><li>Sound level: High</li><li>Sleep estimate: Incomplete</li><li>Camp data: Not attached</li><li>Schedule source: Pending</li></ul>
+                <p>Notes:<br>Orange-stage reference found in archived preferences.<br>No final selection has been made.</p>
+                <button class="xp-button review-button" data-review="roskilde">Mark for review</button>
               </section>
 
               <section class="browser-page balkan-page" id="browser-balkan">
                 <div class="page-kicker">Road Sequence</div>
-                <h2>Balkan Roadtrip</h2>
-                <p class="page-subtitle">Unconfirmed route file with high story potential.</p>
-
-                <div class="roadtrip-map">
-                  <div class="map-node active">Start</div>
-                  <div class="map-line"></div>
-                  <div class="map-node">Coast</div>
-                  <div class="map-line"></div>
-                  <div class="map-node">Mountains</div>
-                  <div class="map-line"></div>
-                  <div class="map-node">Border</div>
-                  <div class="map-line"></div>
-                  <div class="map-node mystery-node">?</div>
-                </div>
-
-                <div class="roadtrip-grid">
-                  <div>
-                    <h3>Possible Contents</h3>
-                    <ul>
-                      <li>long roads</li>
-                      <li>cheap coffee</li>
-                      <li>strange parking</li>
-                      <li>border stamps, maybe</li>
-                      <li>stories that sound made up later</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3>Risk Assessment</h3>
-                    <p>Navigation: optimistic</p>
-                    <p>Snack dependency: elevated</p>
-                    <p>Likelihood of memorable chaos: high</p>
-                  </div>
-                </div>
-
-                <button class="xp-button interest-button" data-interest="balkan">Mark roadtrip as interesting</button>
+                <p>Sequence key: BORDER<br>Record type: Road route<br>Region: Balkan<br>Season: Summer 2026<br>Status: Indexed<br>Confirmation: Not confirmed<br>Review: Manual</p>
+                <h3>Recovered sequence:</h3>
+                <p>01 coast<br>02 mountains<br>03 border<br>04 unknown stop<br>05 local food<br>06 return pending</p>
+                <h3>Route data:</h3>
+                <ul><li>Vehicle field: unresolved</li><li>Date field: incomplete</li><li>Border data: not verified</li><li>Navigation confidence: partial</li><li>Offline maps: recommended</li><li>Final route: not confirmed</li></ul>
+                <p>Notes:<br>Route appears to be a saved proposal.<br>Some fields require manual planning.</p>
+                <button class="xp-button review-button" data-review="balkan">Mark for review</button>
               </section>
             </div>
           </div>
@@ -838,7 +753,7 @@
         <div class="window-content gossip-content">
           <h2>Access Denied</h2>
           <p>You do not have sufficient privileges to view this content.</p>
-          <p class="gossip-warning">Nice try.</p>
+          <p class="gossip-warning">User permissions insufficient.</p>
           <button id="gossip-button" class="xp-button">Request access</button>
           <p id="gossip-message"></p>
         </div>
@@ -908,7 +823,7 @@
             <div class="msn-avatar">?</div>
             <div>
               <strong>Unknown Contact</strong>
-              <p>Online - clearly knows too much</p>
+              <p>Status: Offline</p>
             </div>
           </div>
 
@@ -920,7 +835,7 @@
 
           <div class="msn-choices">
             <button class="xp-button msn-choice" data-msn="where">Where should I start?</button>
-            <button class="xp-button msn-choice" data-msn="access">What opens Access.exe?</button>
+            <button class="xp-button msn-choice" data-msn="access">What opens TravelPortal.exe?</button>
             <button class="xp-button msn-choice" data-msn="routes">What are the routes?</button>
             <button id="nudge-button" class="xp-button">Nudge</button>
           </div>
@@ -996,7 +911,7 @@
 
           <button class="start-menu-item" data-window="program-window">
             <span class="mini-icon exe-mini"></span>
-            Access.exe
+            TravelPortal.exe
           </button>
 
           <button class="start-menu-item" data-window="help-window">
