@@ -668,163 +668,75 @@
           <div id="access-granted" class="hidden">
             <div class="browser-window">
               <div class="browser-toolbar">
+                <button class="xp-button tiny-button">Back</button>
+                <button class="xp-button tiny-button">Forward</button>
+                <button class="xp-button tiny-button">Stop</button>
+                <button class="xp-button tiny-button">Refresh</button>
                 <button class="xp-button tiny-button browser-nav" data-browser-page="home">Home</button>
-                <button class="xp-button tiny-button browser-nav" data-browser-page="flight">Flight</button>
-                <button class="xp-button tiny-button browser-nav" data-browser-page="roskilde">Roskilde</button>
-                <button class="xp-button tiny-button browser-nav" data-browser-page="balkan">Balkan</button>
-                <div id="browser-address" class="address-bar">https://fortia.local/home</div>
+                <div id="browser-address" class="address-bar">fortia://travel/archive</div>
               </div>
 
               <section class="browser-page active" id="browser-home">
                 <div class="portal-hero">
                   <div>
-                    <h2>Fortia Internal Portal</h2>
-                    <p>Three indexed proposals were found. None of them are confirmed. All of them are suspiciously detailed.</p>
+                    <h2>Travel Portal Archive</h2>
+                    <p>Recovered travel records: 3<br>Source volume: Summer 2026<br>Manual review required</p>
                   </div>
-                  <div class="portal-status">SESSION ACTIVE</div>
+                  <div class="portal-status">Local intranet<br>Record state: partial</div>
                 </div>
 
                 <div class="portal-grid">
                   <button class="portal-card browser-nav" data-browser-page="flight">
                     <span class="portal-icon">✈</span>
-                    <strong>Route Proposal</strong>
-                    <p>NYC → CPH</p>
+                    <strong>Flight Record</strong>
+                    <p>Route proposal</p>
                   </button>
 
                   <button class="portal-card browser-nav" data-browser-page="roskilde">
                     <span class="portal-icon">●</span>
-                    <strong>Orange Index</strong>
-                    <p>Roskilde event record</p>
+                    <strong>Orange Record</strong>
+                    <p>Event index</p>
                   </button>
 
                   <button class="portal-card browser-nav" data-browser-page="balkan">
                     <span class="portal-icon">▣</span>
                     <strong>Road Sequence</strong>
-                    <p>Balkan route file</p>
+                    <p>Road route</p>
                   </button>
                 </div>
 
                 <div id="portal-response" class="travel-response">
-                  No proposal has been marked yet.
+                  Manual review required.
                 </div>
               </section>
 
               <section class="browser-page flight-page" id="browser-flight">
-                <div class="page-kicker">Route Proposal</div>
-                <h2>NYC → CPH</h2>
-                <p class="page-subtitle">Cached international route. Manual review required before anything becomes real.</p>
-
-                <div class="flight-search-box">
-                  <div>
-                    <label>From</label>
-                    <strong>New York City</strong>
-                    <span>NYC / all airports</span>
-                  </div>
-                  <div>
-                    <label>To</label>
-                    <strong>Copenhagen</strong>
-                    <span>CPH / Kastrup</span>
-                  </div>
-                  <div>
-                    <label>Window</label>
-                    <strong>Flexible</strong>
-                    <span>date unresolved</span>
-                  </div>
-                  <div>
-                    <label>Status</label>
-                    <strong>Indexed</strong>
-                    <span>not confirmed</span>
-                  </div>
-                </div>
-
-                <div class="flight-details">
-                  <div>
-                    <h3>Route Notes</h3>
-                    <p>Return direction detected. Long-haul energy present. Airport coffee probability high.</p>
-                  </div>
-                  <div>
-                    <h3>System Flags</h3>
-                    <ul>
-                      <li>passport check: pending</li>
-                      <li>calendar check: unresolved</li>
-                      <li>emotional logistics: moderate</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <button class="xp-button interest-button" data-interest="flight">Mark route as interesting</button>
+                <div class="page-kicker">Flight Record</div>
+                <p>Origin: NYC<br>Destination: CPH<br>Route ID: CPH-2606<br>Record type: Route proposal<br>Status: Indexed<br>Ticket status: Not issued<br>Confirmation: Not confirmed<br>Review: Manual</p>
+                <h3>Cached details:</h3>
+                <ul><li>Passenger field unavailable</li><li>Date field unresolved</li><li>Return field pending</li><li>Booking source unavailable</li><li>Local review required before issue</li></ul>
+                <p>This record is stored as a proposal only.<br>No booking has been confirmed.</p>
+                <button class="xp-button review-button" data-review="flight">Mark for review</button>
               </section>
 
               <section class="browser-page roskilde-page" id="browser-roskilde">
-                <div class="page-kicker">Orange Index</div>
-                <h2>Roskilde Event Record</h2>
-                <p class="page-subtitle">A field-based audio/weather/crowd scenario has been detected.</p>
-
-                <div class="festival-banner">
-                  <div class="festival-dot"></div>
-                  <div>
-                    <strong>Orange Record</strong>
-                    <span>Status: Indexed. Confirmation: not confirmed.</span>
-                  </div>
-                </div>
-
-                <div class="festival-columns">
-                  <div>
-                    <h3>Requirements</h3>
-                    <label><input type="checkbox"> Can tolerate grass-based logistics</label>
-                    <label><input type="checkbox"> Accepts weather uncertainty</label>
-                    <label><input type="checkbox"> Understands that sleep may be theoretical</label>
-                  </div>
-
-                  <div>
-                    <h3>Detected Values</h3>
-                    <p>Sound level: significant</p>
-                    <p>Orange probability: high</p>
-                    <p>Planning confidence: unstable</p>
-                  </div>
-                </div>
-
-                <button class="xp-button interest-button" data-interest="roskilde">Mark event as interesting</button>
+                <div class="page-kicker">Orange Record</div>
+                <p>Index name: ORANGE<br>Record type: Event index<br>Location: Roskilde<br>Season: Summer 2026<br>Status: Indexed<br>Confirmation: Not confirmed<br>Review: Manual</p>
+                <h3>Field data:</h3>
+                <ul><li>Crowd density: Unknown</li><li>Weather reliability: Low</li><li>Sound level: High</li><li>Sleep estimate: Incomplete</li><li>Camp data: Not attached</li><li>Schedule source: Pending</li></ul>
+                <p>Notes:<br>Orange-stage reference found in archived preferences.<br>No final selection has been made.</p>
+                <button class="xp-button review-button" data-review="roskilde">Mark for review</button>
               </section>
 
               <section class="browser-page balkan-page" id="browser-balkan">
                 <div class="page-kicker">Road Sequence</div>
-                <h2>Balkan Roadtrip</h2>
-                <p class="page-subtitle">Unconfirmed route file with high story potential.</p>
-
-                <div class="roadtrip-map">
-                  <div class="map-node active">Start</div>
-                  <div class="map-line"></div>
-                  <div class="map-node">Coast</div>
-                  <div class="map-line"></div>
-                  <div class="map-node">Mountains</div>
-                  <div class="map-line"></div>
-                  <div class="map-node">Border</div>
-                  <div class="map-line"></div>
-                  <div class="map-node mystery-node">?</div>
-                </div>
-
-                <div class="roadtrip-grid">
-                  <div>
-                    <h3>Possible Contents</h3>
-                    <ul>
-                      <li>long roads</li>
-                      <li>cheap coffee</li>
-                      <li>strange parking</li>
-                      <li>border stamps, maybe</li>
-                      <li>stories that sound made up later</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3>Risk Assessment</h3>
-                    <p>Navigation: optimistic</p>
-                    <p>Snack dependency: elevated</p>
-                    <p>Likelihood of memorable chaos: high</p>
-                  </div>
-                </div>
-
-                <button class="xp-button interest-button" data-interest="balkan">Mark roadtrip as interesting</button>
+                <p>Sequence key: BORDER<br>Record type: Road route<br>Region: Balkan<br>Season: Summer 2026<br>Status: Indexed<br>Confirmation: Not confirmed<br>Review: Manual</p>
+                <h3>Recovered sequence:</h3>
+                <p>01 coast<br>02 mountains<br>03 border<br>04 unknown stop<br>05 local food<br>06 return pending</p>
+                <h3>Route data:</h3>
+                <ul><li>Vehicle field: unresolved</li><li>Date field: incomplete</li><li>Border data: not verified</li><li>Navigation confidence: partial</li><li>Offline maps: recommended</li><li>Final route: not confirmed</li></ul>
+                <p>Notes:<br>Route appears to be a saved proposal.<br>Some fields require manual planning.</p>
+                <button class="xp-button review-button" data-review="balkan">Mark for review</button>
               </section>
             </div>
           </div>

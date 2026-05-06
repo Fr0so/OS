@@ -139,6 +139,28 @@ function startLoginLoader() {
   run();
 }
 
+function startLoginLoader() {
+  const steps = ["Password accepted.", "Loading personal settings...", "Restoring desktop state...", "Mounting local drives...", "Checking archived sessions...", "Loading Fortia OS..."];
+  const dialogBody = document.querySelector(".dialog-body");
+  dialogBody.innerHTML = '<p id="login-loader-line">Starting...</p><p>Please wait...</p><div class="progress-shell"><div id="login-progress" class="progress-bar"></div></div>';
+  let index = 0;
+  const run = function () {
+    document.getElementById("login-loader-line").textContent = steps[index];
+    document.getElementById("login-progress").style.width = Math.round(((index + 1) / steps.length) * 100) + "%";
+    index += 1;
+    if (index < steps.length) {
+      setTimeout(run, 650);
+    } else {
+      setTimeout(function () {
+        showScreen(desktop);
+        updateClock();
+        openWindow("computer-window");
+      }, 500);
+    }
+  };
+  run();
+}
+
 function logOff() {
   closeStartMenu();
 
@@ -476,22 +498,19 @@ document.querySelectorAll(".browser-nav").forEach(function (button) {
     });
 
     document.getElementById("browser-" + page).classList.add("active");
-    document.getElementById("browser-address").textContent = "https://fortia.local/" + page;
+    document.getElementById("browser-address").textContent = "fortia://travel/archive/" + page;
   });
 });
 
-document.querySelectorAll(".interest-button").forEach(function (button) {
+const reviewState = { flight: false, roskilde: false, balkan: false };
+document.querySelectorAll(".review-button").forEach(function (button) {
   button.addEventListener("click", function () {
-    const interest = button.dataset.interest;
+    const interest = button.dataset.review;
     const response = document.getElementById("portal-response");
-
-    const responses = {
-      flight: "Route marked as interesting: NYC → CPH. Manual confirmation remains unresolved.",
-      roskilde: "Orange Index marked as interesting. Weather uncertainty acknowledged.",
-      balkan: "Road sequence marked as interesting. Border-crossing optimism increased."
-    };
-
-    response.textContent = responses[interest];
+    reviewState[interest] = true;
+    response.textContent = "Record marked for review.";
+    button.disabled = true;
+    button.textContent = "Marked for review";
 
     response.animate(
       [
