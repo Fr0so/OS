@@ -20,6 +20,8 @@ const logoffButton = document.getElementById("logoff-button");
 const desktopShutdownButton = document.getElementById("desktop-shutdown-button");
 
 const accessInput = document.getElementById("access-input");
+const routeIdInput = document.getElementById("route-id-input");
+const archiveKeyInput = document.getElementById("archive-key-input");
 const accessButton = document.getElementById("access-button");
 const accessMessage = document.getElementById("access-message");
 const accessLocked = document.getElementById("access-locked");
@@ -39,7 +41,7 @@ const signals = [
   "Deleted files may contain active truth.",
   "Help and Support is more helpful than it looks.",
   "One route returns. One field glows orange. One road crosses borders.",
-  "Access.exe is waiting.",
+  "TravelPortal.exe is waiting.",
   "Gossip.exe has refused to comment.",
   "My Computer is cleaner now. That does not mean it is safer.",
   "Future Plans (F:) was indexed at an unusual time.",
@@ -49,6 +51,7 @@ const signals = [
 
 let highestZIndex = 10;
 let accessHasLoaded = false;
+let loginAttempts = 0;
 let clockClicks = 0;
 let startClicks = 0;
 let gossipClicks = 0;
@@ -90,14 +93,10 @@ function logIn() {
 
   if (enteredPassword === PASSWORD) {
     loginMessage.textContent = "";
-    showScreen(desktop);
-    updateClock();
-
-    setTimeout(function () {
-      openWindow("computer-window");
-    }, 500);
+    startLoginLoader();
   } else {
-    loginMessage.textContent = "The system could not log you on. Make sure your password is correct.";
+    loginAttempts += 1;
+    loginMessage.textContent = loginAttempts >= 3 ? "Wrong password.\nHint: R....." : "Wrong password.";
     passwordInput.value = "";
     passwordInput.focus();
 
@@ -116,6 +115,28 @@ function logIn() {
       }
     );
   }
+}
+
+function startLoginLoader() {
+  const steps = ["Password accepted.", "Loading personal settings...", "Restoring desktop state...", "Mounting local drives...", "Checking archived sessions...", "Loading Fortia OS..."];
+  const dialogBody = document.querySelector(".dialog-body");
+  dialogBody.innerHTML = '<p id="login-loader-line">Starting...</p><p>Please wait...</p><div class="progress-shell"><div id="login-progress" class="progress-bar"></div></div>';
+  let index = 0;
+  const run = function () {
+    document.getElementById("login-loader-line").textContent = steps[index];
+    document.getElementById("login-progress").style.width = Math.round(((index + 1) / steps.length) * 100) + "%";
+    index += 1;
+    if (index < steps.length) {
+      setTimeout(run, 650);
+    } else {
+      setTimeout(function () {
+        showScreen(desktop);
+        updateClock();
+        openWindow("computer-window");
+      }, 500);
+    }
+  };
+  run();
 }
 
 function logOff() {
@@ -200,8 +221,10 @@ function closeStartMenu() {
 
 function runAccessProgram() {
   const enteredPhrase = accessInput.value.trim().toLowerCase();
+  const enteredRoute = routeIdInput.value.trim().toLowerCase();
+  const enteredArchiveKey = archiveKeyInput.value.trim().toLowerCase();
 
-  if (enteredPhrase === ACCESS_PHRASE) {
+  if (enteredPhrase === ACCESS_PHRASE && enteredRoute === "cph-2606" && enteredArchiveKey === "orange-border") {
     accessMessage.textContent = "";
     accessLocked.classList.add("hidden");
 
@@ -212,7 +235,7 @@ function runAccessProgram() {
 
     startAccessLoader();
   } else {
-    accessMessage.textContent = "Access denied. Required phrase not recognized.";
+    accessMessage.textContent = "Field not recognized.";
     accessInput.value = "";
     accessInput.focus();
 
@@ -238,14 +261,16 @@ function startAccessLoader() {
   progressBar.style.width = "0%";
 
   const steps = [
-    { percent: 12, text: "Checking access phrase...", log: "Access phrase accepted." },
-    { percent: 24, text: "Initializing browser shell...", log: "Browser shell loaded." },
-    { percent: 39, text: "Scanning route cache...", log: "Found route: NYC → CPH." },
-    { percent: 52, text: "Reading orange index...", log: "Roskilde event record detected." },
-    { percent: 68, text: "Resolving road sequence...", log: "Balkan Roadtrip file recovered." },
-    { percent: 83, text: "Decrypting archived preferences...", log: "Some preferences remain suspicious." },
-    { percent: 97, text: "Almost done...", log: "Progress paused at 97% for dramatic reasons." },
-    { percent: 100, text: "Opening internal portal...", log: "Session active." }
+    { percent: 8, text: "Checking access phrase...", log: "Checking access phrase..." },
+    { percent: 16, text: "Verifying route identifier...", log: "Verifying route identifier..." },
+    { percent: 24, text: "Reading archive key...", log: "Reading archive key..." },
+    { percent: 38, text: "Initializing browser shell...", log: "Initializing browser shell..." },
+    { percent: 50, text: "Scanning route cache...", log: "Scanning route cache..." },
+    { percent: 62, text: "Reading local index...", log: "Reading local index..." },
+    { percent: 74, text: "Resolving saved records...", log: "Resolving saved records..." },
+    { percent: 86, text: "Checking Summer 2026 references...", log: "Checking Summer 2026 references..." },
+    { percent: 97, text: "Connection stalled at 97%. Retrying...", log: "Retrying..." },
+    { percent: 100, text: "Opening local portal...", log: "Opening local portal..." }
   ];
 
   let stepIndex = 0;
@@ -401,43 +426,24 @@ document.querySelectorAll(".help-topic").forEach(function (topic) {
   });
 });
 
-function caesarDecode(text, shift) {
-  return text.replace(/[a-zA-Z]/g, function (char) {
-    const base = char >= "a" && char <= "z" ? 97 : 65;
-    const code = char.charCodeAt(0) - base;
-    const decoded = (code - shift + 26) % 26;
-
-    return String.fromCharCode(decoded + base);
-  });
-}
-
-document.getElementById("decode-caesar").addEventListener("click", function () {
-  const input = document.getElementById("decode-input").value;
-  const output = document.getElementById("decode-output");
-
-  if (!input.trim()) {
-    output.textContent = "No text entered.";
-    return;
-  }
-
-  output.textContent = caesarDecode(input, 3);
-});
-
 document.getElementById("decode-noise").addEventListener("click", function () {
   const input = document.getElementById("decode-input").value;
   const output = document.getElementById("decode-output");
 
   if (!input.trim()) {
-    output.textContent = "No text entered.";
+    output.textContent = "Recovery complete.";
     return;
   }
 
-  output.textContent = input.replace(/[0-9]/g, "");
+  output.textContent = input.replace(/[0-9]/g, "").trim() + "\n\nRecovery complete.";
 });
 
-document.getElementById("decode-clear").addEventListener("click", function () {
-  document.getElementById("decode-input").value = "";
-  document.getElementById("decode-output").textContent = "Decoded output will appear here.";
+document.getElementById("recover-access-phrase").addEventListener("click", function () {
+  document.getElementById("recovery-output").textContent = "Recovered content:\no1p2e3n4\n\nSuggested tool:\nRemove numerical noise\n\nStatus:\nRecovery complete.";
+});
+
+document.getElementById("recover-booking-cache").addEventListener("click", function () {
+  document.getElementById("recovery-output").textContent = "Recovered fields:\nNYC -> CPH\nFIELD REQUIRED: ROUTE ID\nSOURCE: SUMMER 2026\n\nStatus:\nRecovery complete.";
 });
 
 /* BROWSER PORTAL */
@@ -451,22 +457,19 @@ document.querySelectorAll(".browser-nav").forEach(function (button) {
     });
 
     document.getElementById("browser-" + page).classList.add("active");
-    document.getElementById("browser-address").textContent = "https://fortia.local/" + page;
+    document.getElementById("browser-address").textContent = "fortia://travel/archive/" + page;
   });
 });
 
-document.querySelectorAll(".interest-button").forEach(function (button) {
+const reviewState = { flight: false, roskilde: false, balkan: false };
+document.querySelectorAll(".review-button").forEach(function (button) {
   button.addEventListener("click", function () {
-    const interest = button.dataset.interest;
+    const interest = button.dataset.review;
     const response = document.getElementById("portal-response");
-
-    const responses = {
-      flight: "Route marked as interesting: NYC → CPH. Manual confirmation remains unresolved.",
-      roskilde: "Orange Index marked as interesting. Weather uncertainty acknowledged.",
-      balkan: "Road sequence marked as interesting. Border-crossing optimism increased."
-    };
-
-    response.textContent = responses[interest];
+    reviewState[interest] = true;
+    response.textContent = "Record marked for review.";
+    button.disabled = true;
+    button.textContent = "Marked for review";
 
     response.animate(
       [
