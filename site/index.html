@@ -178,7 +178,7 @@
                 <span class="drive-icon future-drive"></span>
                 <div>
                   <strong>Summer 2026 (F:)</strong>
-                  <span>Indexed, restricted, partially corrupted</span>
+                  <span>Type: Mounted volume<br>Status: Indexed<br>Last modified: Unknown</span>
                 </div>
               </button>
             </div>
@@ -302,22 +302,27 @@
         <div class="window-content explorer-content">
           <button class="file-item" data-window="flight-cache-window">
             <span class="file-icon travel-file-icon"></span>
-            <span>flight_cache.tmp</span>
+            <span>route_notes.txt</span>
           </button>
 
           <button class="file-item" data-window="festival-cache-window">
             <span class="file-icon festival-file-icon"></span>
-            <span>orange_index.dat</span>
+            <span>orange_index.ref</span>
           </button>
 
           <button class="file-item" data-window="balkan-cache-window">
             <span class="file-icon map-file-icon"></span>
-            <span>balkan_route.tmp</span>
+            <span>road_sequence.txt</span>
           </button>
 
-          <button class="file-item" data-window="restricted-window">
+          <button class="file-item" data-window="booking-fields-window">
             <span class="file-icon locked-file-icon"></span>
-            <span>admin_only</span>
+            <span>booking_fields.tmp</span>
+          </button>
+
+          <button class="file-item" data-window="saved-preferences-window">
+            <span class="file-icon txt-icon"></span>
+            <span>saved_preferences.ini</span>
           </button>
         </div>
       </article>
@@ -474,43 +479,92 @@
 
       <article id="flight-cache-window" class="window text-window">
         <div class="window-titlebar">
-          <span>flight_cache.tmp - Notepad</span>
+          <span>route_notes.txt - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
-          <p>Cached route:</p>
-          <p>NYC → CPH</p>
-          <p>Carrier: unresolved</p>
-          <p>Status: visible in TravelPortal.exe after shell initialization</p>
+          <p>Recovered route note</p>
+          <p></p>
+          <p>Origin: NYC</p>
+          <p>Destination: CPH</p>
+          <p>Route ID: CPH-2606</p>
+          <p>Status: not issued</p>
         </div>
       </article>
 
       <article id="festival-cache-window" class="window text-window">
         <div class="window-titlebar">
-          <span>orange_index.dat - Notepad</span>
+          <span>orange_index.ref - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
-          <p>ORANGE INDEX</p>
-          <p>crowd_density=unknown</p>
-          <p>weather=unreliable</p>
-          <p>sound_level=significant</p>
-          <p>interest_mode=enabled</p>
+          <p>Event index reference</p>
+          <p></p>
+          <p>Index name: ORANGE</p>
+          <p>Location: Roskilde</p>
+          <p>Field status: incomplete</p>
+          <p>Weather source: unreliable</p>
         </div>
       </article>
 
       <article id="balkan-cache-window" class="window text-window">
         <div class="window-titlebar">
-          <span>balkan_route.tmp - Notepad</span>
+          <span>road_sequence.txt - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
-          <p>Road sequence:</p>
-          <p>coast → mountains → border → unknown street food → better story</p>
-          <p>Classification: Balkan Roadtrip</p>
+          <p>Recovered road sequence</p>
+          <p></p>
+          <p>Sequence key: BORDER</p>
+          <p>Route shape:</p>
+          <p>coast</p>
+          <p>mountains</p>
+          <p>border</p>
+          <p>unknown stop</p>
+          <p>return pending</p>
+        </div>
+      </article>
+
+      <article id="booking-fields-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>booking_fields.tmp - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>Temporary booking fields</p>
+          <p></p>
+          <p>TRAVEL_PORTAL requires:</p>
+          <p>- Access phrase</p>
+          <p>- Route ID</p>
+          <p>- Archive key</p>
+          <p></p>
+          <p>Source volume: Summer 2026</p>
+          <p></p>
+          <p>Archive key format:</p>
+          <p>[Index name]-[Sequence key]</p>
+        </div>
+      </article>
+
+      <article id="saved-preferences-window" class="window text-window">
+        <div class="window-titlebar">
+          <span>saved_preferences.ini - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>[records]</p>
+          <p>flight=enabled</p>
+          <p>orange=enabled</p>
+          <p>road=enabled</p>
+          <p></p>
+          <p>[portal]</p>
+          <p>archive_key_format=index-sequence</p>
+          <p>manual_review=true</p>
+          <p>automatic_confirmation=false</p>
         </div>
       </article>
 
