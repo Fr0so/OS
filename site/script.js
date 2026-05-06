@@ -49,6 +49,7 @@ const signals = [
 
 let highestZIndex = 10;
 let accessHasLoaded = false;
+let loginAttempts = 0;
 let clockClicks = 0;
 let startClicks = 0;
 let gossipClicks = 0;
@@ -90,14 +91,10 @@ function logIn() {
 
   if (enteredPassword === PASSWORD) {
     loginMessage.textContent = "";
-    showScreen(desktop);
-    updateClock();
-
-    setTimeout(function () {
-      openWindow("computer-window");
-    }, 500);
+    startLoginLoader();
   } else {
-    loginMessage.textContent = "The system could not log you on. Make sure your password is correct.";
+    loginAttempts += 1;
+    loginMessage.textContent = loginAttempts >= 3 ? "Wrong password.\nHint: R....." : "Wrong password.";
     passwordInput.value = "";
     passwordInput.focus();
 
@@ -116,6 +113,28 @@ function logIn() {
       }
     );
   }
+}
+
+function startLoginLoader() {
+  const steps = ["Password accepted.", "Loading personal settings...", "Restoring desktop state...", "Mounting local drives...", "Checking archived sessions...", "Loading Fortia OS..."];
+  const dialogBody = document.querySelector(".dialog-body");
+  dialogBody.innerHTML = '<p id="login-loader-line">Starting...</p><p>Please wait...</p><div class="progress-shell"><div id="login-progress" class="progress-bar"></div></div>';
+  let index = 0;
+  const run = function () {
+    document.getElementById("login-loader-line").textContent = steps[index];
+    document.getElementById("login-progress").style.width = Math.round(((index + 1) / steps.length) * 100) + "%";
+    index += 1;
+    if (index < steps.length) {
+      setTimeout(run, 650);
+    } else {
+      setTimeout(function () {
+        showScreen(desktop);
+        updateClock();
+        openWindow("computer-window");
+      }, 500);
+    }
+  };
+  run();
 }
 
 function logOff() {
@@ -212,7 +231,7 @@ function runAccessProgram() {
 
     startAccessLoader();
   } else {
-    accessMessage.textContent = "Access denied. Required phrase not recognized.";
+    accessMessage.textContent = "Access denied.";
     accessInput.value = "";
     accessInput.focus();
 
@@ -241,10 +260,10 @@ function startAccessLoader() {
     { percent: 12, text: "Checking access phrase...", log: "Access phrase accepted." },
     { percent: 24, text: "Initializing browser shell...", log: "Browser shell loaded." },
     { percent: 39, text: "Scanning route cache...", log: "Found route: NYC → CPH." },
-    { percent: 52, text: "Reading orange index...", log: "Roskilde event record detected." },
-    { percent: 68, text: "Resolving road sequence...", log: "Balkan Roadtrip file recovered." },
-    { percent: 83, text: "Decrypting archived preferences...", log: "Some preferences remain suspicious." },
-    { percent: 97, text: "Almost done...", log: "Progress paused at 97% for dramatic reasons." },
+    { percent: 52, text: "Reading local index...", log: "Event index detected." },
+    { percent: 68, text: "Resolving saved records...", log: "Road sequence file found." },
+    { percent: 83, text: "Checking Summer 2026 references...", log: "Reference volume indexed." },
+    { percent: 97, text: "Connection stalled at 97%. Retrying...", log: "Retrying..." },
     { percent: 100, text: "Opening internal portal...", log: "Session active." }
   ];
 
