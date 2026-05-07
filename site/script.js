@@ -1,5 +1,6 @@
 const PASSWORD = "Rigsby";
-const ACCESS_PHRASE = "open";
+const TRAVEL_USERNAME = "name";
+const TRAVEL_PASSWORD = "letmein";
 
 const welcomeScreen = document.getElementById("welcome-screen");
 const passwordScreen = document.getElementById("password-screen");
@@ -25,9 +26,8 @@ const computerRootView = document.getElementById("computer-root-view");
 const computerLocalDiskView = document.getElementById("computer-localdisk-view");
 const computerSummerView = document.getElementById("computer-summer-view");
 
-const accessInput = document.getElementById("access-input");
-const routeIdInput = document.getElementById("route-id-input");
-const archiveKeyInput = document.getElementById("archive-key-input");
+const travelUsernameInput = document.getElementById("travel-username-input");
+const travelPasswordInput = document.getElementById("travel-password-input");
 const accessButton = document.getElementById("access-button");
 const accessMessage = document.getElementById("access-message");
 const accessLocked = document.getElementById("access-locked");
@@ -275,12 +275,32 @@ function closeStartMenu() {
   startMenu.classList.remove("open");
 }
 
-function runAccessProgram() {
-  const enteredPhrase = accessInput.value.trim().toLowerCase();
-  const enteredRoute = routeIdInput.value.trim().toLowerCase();
-  const enteredArchiveKey = archiveKeyInput.value.trim().toLowerCase();
+function shakeElement(element) {
+  if (!element) {
+    return;
+  }
 
-  if (enteredPhrase === ACCESS_PHRASE && enteredRoute === "cph-2606" && enteredArchiveKey === "orange-border") {
+  element.animate(
+    [
+      { transform: "translateX(0)" },
+      { transform: "translateX(-8px)" },
+      { transform: "translateX(8px)" },
+      { transform: "translateX(-5px)" },
+      { transform: "translateX(5px)" },
+      { transform: "translateX(0)" }
+    ],
+    {
+      duration: 220,
+      iterations: 1
+    }
+  );
+}
+
+function runAccessProgram() {
+  const enteredUsername = travelUsernameInput.value.trim().toLowerCase();
+  const enteredPassword = travelPasswordInput.value.trim().toLowerCase();
+
+  if (enteredUsername === TRAVEL_USERNAME && enteredPassword === TRAVEL_PASSWORD) {
     accessMessage.textContent = "";
     accessLocked.classList.add("hidden");
 
@@ -291,22 +311,10 @@ function runAccessProgram() {
 
     startAccessLoader();
   } else {
-    accessMessage.textContent = "Field not recognized.";
-    accessInput.value = "";
-    accessInput.focus();
-
-    document.getElementById("program-window").animate(
-      [
-        { transform: "translateX(0)" },
-        { transform: "translateX(-6px)" },
-        { transform: "translateX(6px)" },
-        { transform: "translateX(0)" }
-      ],
-      {
-        duration: 160,
-        iterations: 1
-      }
-    );
+    accessMessage.textContent = "Authentication failed.";
+    travelPasswordInput.value = "";
+    travelPasswordInput.focus();
+    shakeElement(document.getElementById("program-window"));
   }
 }
 
@@ -317,16 +325,15 @@ function startAccessLoader() {
   progressBar.style.width = "0%";
 
   const steps = [
-    { percent: 8, text: "Checking access phrase...", log: "Checking access phrase..." },
-    { percent: 16, text: "Verifying route identifier...", log: "Verifying route identifier..." },
-    { percent: 24, text: "Reading archive key...", log: "Reading archive key..." },
-    { percent: 38, text: "Initializing browser shell...", log: "Initializing browser shell..." },
-    { percent: 50, text: "Scanning route cache...", log: "Scanning route cache..." },
-    { percent: 62, text: "Reading local index...", log: "Reading local index..." },
-    { percent: 74, text: "Resolving saved records...", log: "Resolving saved records..." },
-    { percent: 86, text: "Checking Summer 2026 references...", log: "Checking Summer 2026 references..." },
-    { percent: 97, text: "Connection stalled at 97%. Retrying...", log: "Retrying..." },
-    { percent: 100, text: "Opening local portal...", log: "Opening local portal..." }
+    { percent: 8, text: "Reading profile cache...", log: "profile.cache" },
+    { percent: 18, text: "Resolving local gateway...", log: "gateway.local" },
+    { percent: 31, text: "Checking offline credentials...", log: "auth.offline" },
+    { percent: 45, text: "Mounting travel records...", log: "records.mount" },
+    { percent: 59, text: "Opening booking shell...", log: "booking.shell" },
+    { percent: 73, text: "Restoring cached pages...", log: "pages.cache" },
+    { percent: 88, text: "Waiting for server response...", log: "server: no response" },
+    { percent: 97, text: "Continuing offline...", log: "fallback: local" },
+    { percent: 100, text: "Gateway ready.", log: "ready" }
   ];
 
   let stepIndex = 0;
@@ -361,6 +368,7 @@ function startAccessLoader() {
 function restoreRecycleBin() {
   if (passwdRestored) {
     recycleStatus.textContent = "No deleted items selected.";
+    shakeElement(document.getElementById("recycle-window"));
     return;
   }
 
@@ -384,6 +392,7 @@ function restoreRecycleBin() {
 
 function emptyRecycleBin() {
   recycleStatus.textContent = "Cannot empty Recycle Bin: permission denied.";
+  shakeElement(document.getElementById("recycle-window"));
 }
 
 /* EVENT HELPERS */
@@ -492,7 +501,7 @@ document.addEventListener("click", function () {
 
 accessButton.addEventListener("click", runAccessProgram);
 
-[accessInput, routeIdInput, archiveKeyInput].forEach(function (input) {
+[travelUsernameInput, travelPasswordInput].forEach(function (input) {
   input.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
       runAccessProgram();
@@ -502,6 +511,18 @@ accessButton.addEventListener("click", runAccessProgram);
 
 restoreRecycleButton.addEventListener("click", restoreRecycleBin);
 emptyRecycleButton.addEventListener("click", emptyRecycleBin);
+
+if (passwdFile) {
+  passwdFile.addEventListener("click", function () {
+    recycleStatus.textContent = "This item is locked.";
+    shakeElement(document.getElementById("recycle-window"));
+  });
+
+  passwdFile.addEventListener("dblclick", function () {
+    recycleStatus.textContent = "This item is locked.";
+    shakeElement(document.getElementById("recycle-window"));
+  });
+}
 
 setInterval(updateClock, 1000);
 
@@ -520,41 +541,42 @@ document.querySelectorAll(".help-topic").forEach(function (topic) {
     });
 
     topic.classList.add("active");
-    document.getElementById("help-" + topicName).classList.add("active");
+    const panel = document.getElementById("help-" + topicName);
+
+    if (panel) {
+      panel.classList.add("active");
+    }
   });
 });
 
-document.getElementById("decode-noise").addEventListener("click", function () {
-  const input = document.getElementById("decode-input").value;
-  const output = document.getElementById("decode-output");
+const decodeNoiseButton = document.getElementById("decode-noise");
+if (decodeNoiseButton) {
+  decodeNoiseButton.addEventListener("click", function () {
+    const input = document.getElementById("decode-input").value;
+    const output = document.getElementById("decode-output");
 
-  if (!input.trim()) {
-    output.textContent = "Recovery complete.";
-    return;
-  }
+    if (!input.trim()) {
+      output.textContent = "Recovery complete.";
+      return;
+    }
 
-  output.textContent = input.replace(/[0-9]/g, "").trim() + "\n\nRecovery complete.";
-});
-
-document.querySelectorAll(".computer-drive-nav").forEach(function (button) {
-  button.addEventListener("click", function () {
-    switchComputerView(button.dataset.computerView);
+    output.textContent = input.replace(/[0-9]/g, "").trim() + "\n\nRecovery complete.";
   });
-});
+}
 
-computerBackButton.addEventListener("click", function () {
-  if (currentComputerView !== "root") {
-    switchComputerView("root");
-  }
-});
+const recoverAccessPhraseButton = document.getElementById("recover-access-phrase");
+if (recoverAccessPhraseButton) {
+  recoverAccessPhraseButton.addEventListener("click", function () {
+    document.getElementById("recovery-output").textContent = "Recovery note:\npasswd.txt is locked while deleted.\nRestore it from Recycle Bin before reading.\n\nStatus:\nRecovery complete.";
+  });
+}
 
-document.getElementById("recover-access-phrase").addEventListener("click", function () {
-  document.getElementById("recovery-output").textContent = "Recovery note:\npasswd.txt is locked while deleted.\nRestore it from Recycle Bin before reading.\n\nStatus:\nRecovery complete.";
-});
-
-document.getElementById("recover-booking-cache").addEventListener("click", function () {
-  document.getElementById("recovery-output").textContent = "Recovered fields:\nBudget cache damaged.\nReadable references: SUMMER, route_cost, festival_cost, road_cost.\n\nStatus:\nRecovery partial.";
-});
+const recoverBookingCacheButton = document.getElementById("recover-booking-cache");
+if (recoverBookingCacheButton) {
+  recoverBookingCacheButton.addEventListener("click", function () {
+    document.getElementById("recovery-output").textContent = "Recovered fields:\nbudget.txt is damaged.\nReadable values: none.\n\nStatus:\nPartial recovery only.";
+  });
+}
 
 /* BROWSER PORTAL */
 
