@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fortia OS</title>
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
   <main id="app">
@@ -22,7 +22,6 @@
               <div class="brand-main">Fortia<span>OS</span></div>
             </div>
           </div>
-
           <p class="begin-text">To begin, click your user name</p>
         </div>
 
@@ -67,7 +66,6 @@
 
           <div class="dialog-bottom">
             <span class="language-box">EN</span>
-
             <div class="dialog-buttons">
               <button id="login-button">OK</button>
               <button id="cancel-button">Cancel</button>
@@ -114,16 +112,6 @@
           <span>MSN</span>
         </button>
 
-        <button class="desktop-icon" data-window="gossip-window">
-          <span class="icon gossip-icon"></span>
-          <span>Gossip.exe</span>
-        </button>
-
-        <button class="desktop-icon" data-window="signal-window">
-          <span class="icon globe-icon"></span>
-          <span>Signal</span>
-        </button>
-
         <button class="desktop-icon" data-window="system-window">
           <span class="icon system-icon"></span>
           <span>System</span>
@@ -131,14 +119,14 @@
       </div>
 
       <!-- MY COMPUTER -->
-      <article id="computer-window" class="window large-window">
+      <article id="computer-window" class="window large-window" data-default-left="135" data-default-top="70">
         <div class="window-titlebar">
-          <span>My Computer</span>
+          <span id="computer-title">My Computer</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
 
         <div class="window-toolbar">
-          <button id="computer-back-button">Back</button>
+          <button id="computer-back-button" disabled>Back</button>
         </div>
 
         <div class="computer-layout">
@@ -166,7 +154,7 @@
           <div class="computer-content hidden" id="computer-localdisk-view">
             <h2>Local Disk (C:)</h2>
             <div class="window-content explorer-content">
-              <button class="file-item" data-window="empty-folder-window"><span class="folder-mini big-mini"></span><span>All apps</span></button>
+              <button class="file-item" data-window="all-apps-window"><span class="folder-mini big-mini"></span><span>All apps</span></button>
               <button class="file-item" data-window="recycle-window"><span class="icon recycle-icon"></span><span>Recycle Bin</span></button>
               <button class="file-item" data-window="help-window"><span class="help-mini big-mini"></span><span>Help and Support</span></button>
               <button class="file-item" data-window="music-window"><span class="icon music-icon"></span><span>Music</span></button>
@@ -180,8 +168,8 @@
             <h2>Summer 2026 (F:)</h2>
             <div class="window-content explorer-content">
               <button class="file-item" data-window="program-window"><span class="file-icon exe-file-icon"></span><span>TravelPortal.exe</span></button>
-              <button class="file-item" data-window="flight-cache-window"><span class="file-icon txt-icon"></span><span>route notes.txt</span></button>
-              <button class="file-item" data-window="festival-cache-window"><span class="file-icon txt-icon"></span><span>Roskilde wheather forecast.tmp</span></button>
+              <button class="file-item" data-window="route-notes-window"><span class="file-icon txt-icon"></span><span>route notes.txt</span></button>
+              <button class="file-item" data-window="weather-window"><span class="file-icon txt-icon"></span><span>Roskilde wheather forecast.tmp</span></button>
               <button class="file-item" data-window="booking-username-window"><span class="file-icon txt-icon"></span><span>Booking username.txt</span></button>
               <button class="file-item" data-window="budget-window"><span class="file-icon broken-icon"></span><span>budget.txt</span></button>
             </div>
@@ -189,283 +177,86 @@
         </div>
       </article>
 
-      <!-- LOCAL DISK -->
-      <article id="localdisk-window" class="window large-window">
+      <!-- ALL APPS FOLDER -->
+      <article id="all-apps-window" class="window large-window" data-default-left="185" data-default-top="95">
         <div class="window-titlebar">
-          <span>Local Disk (C:)</span>
+          <span>All apps</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
-
         <div class="window-toolbar">
-          <button>Back</button>
-          <button>Search</button>
-          <button>Folders</button>
+          <button class="window-close-soft">Back</button>
         </div>
-
         <div class="window-content explorer-content">
-          <button class="file-item" data-window="welcome-note-window">
-            <span class="file-icon txt-icon"></span>
-            <span>welcome_note.txt</span>
-          </button>
-
-          <button class="file-item" data-window="system-log-window">
-            <span class="file-icon txt-icon"></span>
-            <span>system_log.txt</span>
-          </button>
-
-          <button class="file-item" data-window="route-fragment-window">
-            <span class="file-icon txt-icon"></span>
-            <span>route_fragment.txt</span>
-          </button>
-
-          <button class="file-item" data-window="program-window">
-            <span class="file-icon exe-file-icon"></span>
-            <span>TravelPortal.exe</span>
-          </button>
+          <button class="file-item" data-window="program-window"><span class="file-icon exe-file-icon"></span><span>TravelPortal.exe</span></button>
+          <button class="file-item" data-window="help-window"><span class="help-mini big-mini"></span><span>Help and Support</span></button>
+          <button class="file-item" data-window="music-window"><span class="icon music-icon"></span><span>Music</span></button>
+          <button class="file-item" data-window="msn-window"><span class="icon msn-icon"></span><span>MSN</span></button>
+          <button class="file-item" data-window="system-window"><span class="icon system-icon"></span><span>System</span></button>
         </div>
       </article>
 
-      <!-- SHARED FILES -->
-      <article id="shared-window" class="window large-window">
+      <!-- RESTRICTED / GENERIC LOCKED FILE DIALOG -->
+      <article id="locked-file-window" class="window" data-default-left="390" data-default-top="160">
         <div class="window-titlebar">
-          <span>Shared Files</span>
+          <span>passwd.txt</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
-
-        <div class="window-toolbar">
-          <button>Back</button>
-          <button>Search</button>
-          <button>Folders</button>
-        </div>
-
-        <div class="window-content explorer-content">
-          <button class="file-item" data-window="archive-note-window">
-            <span class="file-icon txt-icon"></span>
-            <span>archive_note.txt</span>
-          </button>
-
-          <button class="file-item" data-window="weekend-log-window">
-            <span class="file-icon txt-icon"></span>
-            <span>weekend.log</span>
-          </button>
-
-          <button class="file-item" data-window="playlist-note-window">
-            <span class="file-icon music-file-icon"></span>
-            <span>playlist.url</span>
-          </button>
-
-          <button class="file-item" data-window="old-chat-window">
-            <span class="file-icon msn-file-icon"></span>
-            <span>old_chat.log</span>
-          </button>
-        </div>
-      </article>
-
-      <!-- FUTURE PLANS -->
-      <article id="future-window" class="window large-window">
-        <div class="window-titlebar">
-          <span>Summer 2026 (F:)</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-
-        <div class="window-toolbar">
-          <button>Back</button>
-          <button>Search</button>
-          <button>Folders</button>
-        </div>
-
-        <div class="window-content explorer-content">
-          <button class="file-item" data-window="flight-cache-window">
-            <span class="file-icon travel-file-icon"></span>
-            <span>route_notes.txt</span>
-          </button>
-
-          <button class="file-item" data-window="festival-cache-window">
-            <span class="file-icon festival-file-icon"></span>
-            <span>orange_index.ref</span>
-          </button>
-
-          <button class="file-item" data-window="balkan-cache-window">
-            <span class="file-icon map-file-icon"></span>
-            <span>road_sequence.txt</span>
-          </button>
-
-          <button class="file-item" data-window="booking-fields-window">
-            <span class="file-icon locked-file-icon"></span>
-            <span>booking_fields.tmp</span>
-          </button>
-
-          <button class="file-item" data-window="saved-preferences-window">
-            <span class="file-icon txt-icon"></span>
-            <span>saved_preferences.ini</span>
-          </button>
-        </div>
-      </article>
-
-      <!-- RESTRICTED -->
-      <article id="restricted-window" class="window">
-        <div class="window-titlebar">
-          <span>Restricted</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-
         <div class="window-content restricted-content">
-          <h2>Folder Access Denied</h2>
-          <p>You do not have permission to access this folder.</p>
-          <p>Reason: <strong>curiosity level too high</strong></p>
-          <button class="xp-button" data-window="help-window">Open Help and Support</button>
+          <h2>Access Denied</h2>
+          <p>This file is locked.</p>
+          <p>Restore the item before opening it.</p>
         </div>
       </article>
 
       <!-- RECYCLE BIN -->
-      <article id="recycle-window" class="window large-window">
+      <article id="recycle-window" class="window large-window" data-default-left="205" data-default-top="95">
         <div class="window-titlebar">
           <span>Recycle Bin</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
 
         <div class="window-toolbar">
-          <span>These files have been deleted from their original locations.<br>Some items may still be recoverable.</span>
-          <button>Restore</button>
-          <button>Empty Recycle Bin</button>
+          <button id="restore-recycle-button">Restore</button>
+          <button id="empty-recycle-button">Empty Recycle Bin</button>
+          <span id="recycle-status" class="toolbar-status"></span>
         </div>
 
-        <div class="window-content explorer-content">
-          <button class="file-item" data-window="deleted-note-window">
-            <span class="file-icon txt-icon deleted"></span>
-            <span>deleted_note.txt</span>
+        <div class="window-content explorer-content" id="recycle-files">
+          <button id="passwd-file" class="file-item locked-trash-file" data-window="locked-file-window">
+            <span class="file-icon locked-file-icon"></span>
+            <span>passwd.txt</span>
           </button>
+        </div>
+      </article>
 
-          <button class="file-item" data-window="old-key-window">
-            <span class="file-icon txt-icon deleted"></span>
-            <span>old_key_fragment.txt</span>
-          </button>
-
-          <button class="file-item" data-window="access-phrase-window">
-            <span class="file-icon txt-icon deleted"></span>
-            <span>access_phrase.tmp</span>
-          </button>
-
-          <button class="file-item" data-window="corrupted-booking-window">
-            <span class="file-icon broken-icon"></span>
-            <span>corrupted_booking_cache.dat</span>
-          </button>
-
-          <button class="file-item" data-window="unsent-message-window">
-            <span class="file-icon txt-icon deleted"></span>
-            <span>unsent_message.eml</span>
-          </button>
-
-          <button class="file-item" data-window="previous-session-window">
-            <span class="file-icon txt-icon deleted"></span>
-            <span>previous_session.log</span>
-          </button>
+      <!-- RESTORED PASSWD -->
+      <article id="passwd-window" class="window text-window" data-default-left="250" data-default-top="95">
+        <div class="window-titlebar">
+          <span>passwd.txt - Notepad</span>
+          <button class="window-close" aria-label="Close">×</button>
+        </div>
+        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+        <div class="notepad-content">
+          <p>passwords:</p>
+          <p>Rigsby</p>
+          <p>orange-border</p>
+          <p>open</p>
+          <p>cph-2606</p>
+          <p>summer2026</p>
+          <p>border-orange</p>
+          <p>fortia.local</p>
+          <p>roskilde</p>
+          <p>admin</p>
+          <p>password123</p>
+          <p>letmein</p>
+          <p>nyc-cph</p>
         </div>
       </article>
 
       <!-- NOTEPAD WINDOWS -->
-      <article id="welcome-note-window" class="window text-window">
+      <article id="route-notes-window" class="window text-window" data-default-left="250" data-default-top="95">
         <div class="window-titlebar">
-          <span>welcome_note.txt - Notepad</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content">
-          <p>Welcome to Fortia OS.</p>
-          <p>This machine contains indexed files, archived logs, and several items that have not been classified correctly.</p>
-          <p>If something looks unreadable, open Help and Support.</p>
-        </div>
-      </article>
-
-      <article id="system-log-window" class="window text-window">
-        <div class="window-titlebar">
-          <span>system_log.txt - Notepad</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content">
-          <p>[09:41] User profile loaded.</p>
-          <p>[09:42] My Computer indexed.</p>
-          <p>[09:43] TravelPortal.exe moved from Documents to root desktop.</p>
-          <p>[09:44] Travel browser shell installed.</p>
-          <p>[09:45] Help database updated: Caesar, noise, fragments.</p>
-        </div>
-      </article>
-
-      <article id="route-fragment-window" class="window text-window">
-        <div class="window-titlebar">
-          <span>route_fragment.txt - Notepad</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content">
-          <p>Recovered route fragment:</p>
-          <p><strong>QEB NRFZH YOLTK CLU GRJMP LSBO QEB IXWV ALD</strong></p>
-          <p>Help topic suggestion: Caesar recovery.</p>
-          <p>Status: readable, but not directly.</p>
-        </div>
-      </article>
-
-      <article id="archive-note-window" class="window text-window">
-        <div class="window-titlebar">
-          <span>archive_note.txt - Notepad</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content">
-          <p>Archived note:</p>
-          <p>Normal files are rarely the most useful files.</p>
-          <p>Deleted files are sometimes less deleted than expected.</p>
-          <p>One access word is short. One destination is not.</p>
-        </div>
-      </article>
-
-      <article id="weekend-log-window" class="window text-window">
-        <div class="window-titlebar">
-          <span>weekend.log - Notepad</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content">
-          <p>Log file:</p>
-          <p>F: Route proposal found.</p>
-          <p>R: Event index found.</p>
-          <p>B: Road sequence found.</p>
-          <p>Pattern note: three pages, three possible directions.</p>
-        </div>
-      </article>
-
-      <article id="playlist-note-window" class="window text-window">
-        <div class="window-titlebar">
-          <span>playlist.url - Notepad</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content">
-          <p>[InternetShortcut]</p>
-          <p>URL=fortia://media/playlist</p>
-          <p>Comment=This playlist may or may not be part of the operating system's mood.</p>
-          <p>Open Media Player for playback.</p>
-        </div>
-      </article>
-
-      <article id="old-chat-window" class="window text-window">
-        <div class="window-titlebar">
-          <span>old_chat.log - Notepad</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content">
-          <p>Unknown Contact: don't put the answer in a normal file</p>
-          <p>Unknown Contact: put the boring hint in Help</p>
-          <p>Unknown Contact: put the actual hint in the bin</p>
-          <p>Unknown Contact: nobody checks the bin first</p>
-        </div>
-      </article>
-
-      <article id="flight-cache-window" class="window text-window">
-        <div class="window-titlebar">
-          <span>route_notes.txt - Notepad</span>
+          <span>route notes.txt - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
@@ -479,7 +270,7 @@
         </div>
       </article>
 
-      <article id="festival-cache-window" class="window text-window">
+      <article id="weather-window" class="window text-window" data-default-left="250" data-default-top="95">
         <div class="window-titlebar">
           <span>Roskilde wheather forecast.tmp - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
@@ -499,7 +290,7 @@
         </div>
       </article>
 
-      <article id="booking-username-window" class="window text-window">
+      <article id="booking-username-window" class="window text-window" data-default-left="250" data-default-top="95">
         <div class="window-titlebar">
           <span>Booking username.txt - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
@@ -516,91 +307,39 @@
         </div>
       </article>
 
-      <article id="budget-window" class="window text-window">
+      <article id="budget-window" class="window text-window" data-default-left="250" data-default-top="95">
         <div class="window-titlebar">
           <span>budget.txt - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content">
+        <div class="notepad-content corrupted-text">
           <p>##BUDGET_CACHE_ERROR##</p>
-          <p>øøø//x92--[unreadable]</p>
-          <p>4F 2A ?? ?? SUMMER</p>
-          <p>kr_???.??</p>
+          <p>øøø//x92--[unreadable] ß∂ƒ©˙∆˚¬…æ</p>
+          <p>4F 2A ?? ?? SUMMER :: 00xC0FFEE</p>
+          <p>kr_???.?? //// ¤¤¤ //// ^^^^</p>
           <p>line_item_03 corrupted</p>
-          <p>¤¤¤ ### ### ###</p>
+          <p>▒▒▒░░░▒▒▒ 011010 ?? 2F 7A</p>
           <p>route_cost = [data missing]</p>
           <p>festival_cost = [data missing]</p>
           <p>road_cost = [data missing]</p>
-          <p>EOF_NOT_FOUND</p>
+          <p>budget_total = NaN</p>
+          <p>EOF_NOT_FOUND EOF_NOT_FOUND EOF_NOT_FOUND</p>
         </div>
       </article>
 
-      <article id="empty-folder-window" class="window text-window">
+      <article id="empty-folder-window" class="window text-window" data-default-left="250" data-default-top="95">
         <div class="window-titlebar">
-          <span>Folder - Explorer</span>
+          <span>Empty folder - Explorer</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
-        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
           <p>This folder is empty.</p>
         </div>
       </article>
 
-      <article id="deleted-note-window" class="window text-window">
-        <div class="window-titlebar">
-          <span>deleted_note.txt - Notepad</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content">
-          <p>Do not store access phrases in plain text.</p>
-          <p>Do not store access phrases in deleted files either.</p>
-        </div>
-      </article>
-
-      <article id="old-key-window" class="window text-window">
-        <div class="window-titlebar">
-          <span>old_key_fragment.txt - Notepad</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content">
-          <p>o1p2e3n4</p>
-        </div>
-      </article>
-
-      <article id="access-phrase-window" class="window text-window">
-        <div class="window-titlebar">
-          <span>access_phrase.tmp - Notepad</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content">
-          <p>Noise detected.</p>
-          <p>Text recovery recommended.</p>
-        </div>
-      </article>
-
-      <article id="corrupted-booking-window" class="window text-window">
-        <div class="window-titlebar">
-          <span>corrupted_booking_cache.dat - Notepad</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content">
-          <p>BOOKING CACHE PARTIAL</p><p></p><p>NYC -> CPH</p><p>STATUS: NOT ISSUED</p><p>FIELD REQUIRED: ROUTE ID</p><p>SOURCE: SUMMER 2026</p>
-        </div>
-      </article>
-
-      <article id="unsent-message-window" class="window text-window"><div class="window-titlebar"><span>unsent_message.eml - Notepad</span><button class="window-close" aria-label="Close">×</button></div><div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div><div class="notepad-content"><p>To: unknown</p><p>Subject: summer</p><p></p><p>The route field was copied to the mounted volume.</p><p>The key is not a single word.</p></div></article>
-      <article id="previous-session-window" class="window text-window"><div class="window-titlebar"><span>previous_session.log - Notepad</span><button class="window-close" aria-label="Close">×</button></div><div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div><div class="notepad-content"><p>Previous session closed unexpectedly.</p><p></p><p>Opened:</p><p>- My Computer</p><p>- Summer 2026</p><p>- TravelPortal.exe</p><p></p><p>Last unresolved fields:</p><p>access phrase</p><p>route identifier</p><p>archive key</p></div></article>
-
-      <article id="unsent-message-window" class="window text-window"><div class="window-titlebar"><span>unsent_message.eml - Notepad</span><button class="window-close" aria-label="Close">×</button></div><div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div><div class="notepad-content"><p>To: unknown</p><p>Subject: summer</p><p></p><p>The route field was copied to the mounted volume.</p><p>The key is not a single word.</p></div></article>
-      <article id="previous-session-window" class="window text-window"><div class="window-titlebar"><span>previous_session.log - Notepad</span><button class="window-close" aria-label="Close">×</button></div><div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div><div class="notepad-content"><p>Previous session closed unexpectedly.</p><p></p><p>Opened:</p><p>- My Computer</p><p>- Summer 2026</p><p>- TravelPortal.exe</p><p></p><p>Last unresolved fields:</p><p>access phrase</p><p>route identifier</p><p>archive key</p></div></article>
-
       <!-- HELP AND SUPPORT -->
-      <article id="help-window" class="window help-window">
+      <article id="help-window" class="window help-window" data-default-left="300" data-default-top="75">
         <div class="window-titlebar">
           <span>Help and Support</span>
           <button class="window-close" aria-label="Close">×</button>
@@ -621,32 +360,35 @@
 
             <section class="help-panel active" id="help-decode">
               <h3>Remove numerical noise</h3>
-
               <textarea id="decode-input" spellcheck="false" placeholder="Paste encoded text here..."></textarea>
-
               <div class="decode-buttons">
                 <button id="decode-noise" class="xp-button">Remove numbers</button>
               </div>
-
               <div id="decode-output" class="decode-output">Decoded output will appear here.</div>
             </section>
 
             <section class="help-panel" id="help-hints">
               <h3>Common access issues</h3>
-              <p>TravelPortal.exe requires three fields.</p><p>Deleted files may contain recoverable fragments.</p><p>Mounted volumes may contain current records.</p><p>Some archive keys are assembled from separate records.</p>
+              <p>TravelPortal.exe requires three fields.</p>
+              <p>Mounted volumes may contain current records.</p>
+              <p>Restored files can behave differently from deleted files.</p>
+              <p>Some archive keys are assembled from separate records.</p>
             </section>
 
             <section class="help-panel" id="help-recovery">
               <h3>Recover damaged file</h3>
-              <div class="decode-buttons"><button id="recover-access-phrase" class="xp-button">access_phrase.tmp</button><button id="recover-booking-cache" class="xp-button">corrupted_booking_cache.dat</button></div>
+              <div class="decode-buttons">
+                <button id="recover-access-phrase" class="xp-button">passwd.txt</button>
+                <button id="recover-booking-cache" class="xp-button">budget.txt</button>
+              </div>
               <div id="recovery-output" class="decode-output">Recovered output will appear here.</div>
             </section>
           </div>
         </div>
       </article>
 
-      <!-- ACCESS.EXE / BROWSER TRAVEL PORTAL -->
-      <article id="program-window" class="window travel-window">
+      <!-- TRAVEL PORTAL -->
+      <article id="program-window" class="window travel-window" data-default-left="245" data-default-top="60">
         <div class="window-titlebar">
           <span>TravelPortal.exe</span>
           <button class="window-close" aria-label="Close">×</button>
@@ -671,11 +413,9 @@
           <div id="access-loader" class="hidden">
             <h2>Initializing Browser Shell</h2>
             <p id="loader-line">Preparing session...</p>
-
             <div class="progress-shell">
               <div id="progress-bar" class="progress-bar"></div>
             </div>
-
             <ul class="loader-log" id="loader-log"></ul>
           </div>
 
@@ -719,9 +459,7 @@
                   </button>
                 </div>
 
-                <div id="portal-response" class="travel-response">
-                  Manual review required.
-                </div>
+                <div id="portal-response" class="travel-response">Manual review required.</div>
               </section>
 
               <section class="browser-page flight-page" id="browser-flight">
@@ -757,24 +495,8 @@
         </div>
       </article>
 
-      <!-- GOSSIP LOCKED APP -->
-      <article id="gossip-window" class="window">
-        <div class="window-titlebar">
-          <span>Gossip.exe</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-
-        <div class="window-content gossip-content">
-          <h2>Access Denied</h2>
-          <p>You do not have sufficient privileges to view this content.</p>
-          <p class="gossip-warning">User permissions insufficient.</p>
-          <button id="gossip-button" class="xp-button">Request access</button>
-          <p id="gossip-message"></p>
-        </div>
-      </article>
-
       <!-- MUSIC PLAYER -->
-      <article id="music-window" class="window music-window">
+      <article id="music-window" class="window music-window" data-default-left="320" data-default-top="90">
         <div class="window-titlebar">
           <span>Fortia Media Player</span>
           <button class="window-close" aria-label="Close">×</button>
@@ -790,32 +512,12 @@
             <h2>Playlist Detected</h2>
             <p class="media-subtitle">A playlist has been attached to this operating system.</p>
 
-            <div class="track-list">
-              <div class="track-row active-track">
-                <span>01</span>
-                <strong>Opening Scene</strong>
-                <em>03:12</em>
-              </div>
-              <div class="track-row">
-                <span>02</span>
-                <strong>Deleted File Energy</strong>
-                <em>04:08</em>
-              </div>
-              <div class="track-row">
-                <span>03</span>
-                <strong>Route Loading</strong>
-                <em>02:59</em>
-              </div>
-            </div>
-
             <div class="spotify-box">
-              <p>Replace the iframe src below with your own Spotify playlist embed link.</p>
-
               <iframe
                 class="spotify-embed"
-                src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
+                src="https://open.spotify.com/embed/playlist/2snaSJkyxjre2Eg6riJFY2"
                 width="100%"
-                height="152"
+                height="352"
                 frameborder="0"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy">
@@ -826,7 +528,7 @@
       </article>
 
       <!-- MSN MESSENGER -->
-      <article id="msn-window" class="window msn-window">
+      <article id="msn-window" class="window msn-window" data-default-left="470" data-default-top="110">
         <div class="window-titlebar">
           <span>MSN Messenger</span>
           <button class="window-close" aria-label="Close">×</button>
@@ -841,18 +543,7 @@
             </div>
           </div>
 
-          <div id="msn-messages" class="msn-messages">
-            <div class="msn-message them">hey</div>
-            <div class="msn-message them">my computer is cleaner now</div>
-            <div class="msn-message them">but the good stuff is probably still in the bin</div>
-          </div>
-
-          <div class="msn-choices">
-            <button class="xp-button msn-choice" data-msn="where">Where should I start?</button>
-            <button class="xp-button msn-choice" data-msn="access">What opens TravelPortal.exe?</button>
-            <button class="xp-button msn-choice" data-msn="routes">What are the routes?</button>
-            <button id="nudge-button" class="xp-button">Nudge</button>
-          </div>
+          <div id="msn-messages" class="msn-messages"></div>
 
           <div class="msn-input-row">
             <input type="text" value="Message disabled in template mode" readonly>
@@ -862,7 +553,7 @@
       </article>
 
       <!-- SYSTEM -->
-      <article id="system-window" class="window">
+      <article id="system-window" class="window" data-default-left="390" data-default-top="160">
         <div class="window-titlebar">
           <span>System</span>
           <button class="window-close" aria-label="Close">×</button>
@@ -872,31 +563,20 @@
           <ul>
             <li>User: Name</li>
             <li>System: Fortia OS</li>
-            <li>Version: 0.7</li>
+            <li>Version: 0.8</li>
             <li>Status: Online</li>
-            <li>Shell: XP-inspired</li>
-            <li>Installed modules: My Computer, Help, Travel Browser, Media Player, MSN Messenger</li>
-            <li>Security mode: selectively annoying</li>
+            <li>Shell: XP-inspired local desktop</li>
+            <li>Display mode: adaptive viewport</li>
+            <li>Mounted volumes: Local Disk (C:), Summer 2026 (F:)</li>
+            <li>Installed modules: My Computer, Recycle Bin, Help and Support, TravelPortal.exe, Media Player, MSN Messenger</li>
+            <li>Removed modules: Gossip.exe, Signal</li>
+            <li>Security mode: archival</li>
           </ul>
         </div>
       </article>
 
-      <!-- SIGNAL -->
-      <article id="signal-window" class="window">
-        <div class="window-titlebar">
-          <span>Signal</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="window-content">
-          <h2>Signal</h2>
-          <p>Incoming signal:</p>
-          <blockquote id="signal-text">Click the button below.</blockquote>
-          <button id="signal-button" class="xp-button">Generate signal</button>
-        </div>
-      </article>
-
       <!-- SECRET DEBUG WINDOW -->
-      <article id="debug-window" class="window text-window">
+      <article id="debug-window" class="window text-window" data-default-left="250" data-default-top="95">
         <div class="window-titlebar">
           <span>debug_notes.txt - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
@@ -905,7 +585,6 @@
         <div class="notepad-content">
           <p>DEBUG MODE ENABLED</p>
           <p>You found the keyboard easter egg.</p>
-          <p>System note: the access phrase is still boring on purpose.</p>
           <p>Routes indexed: NYC→CPH, Roskilde, Balkan Roadtrip.</p>
         </div>
       </article>
@@ -918,50 +597,13 @@
         </div>
 
         <div class="start-menu-body">
-          <button class="start-menu-item" data-window="computer-window">
-            <span class="mini-icon computer-mini"></span>
-            My Computer
-          </button>
-
-          <button class="start-menu-item" data-window="program-window">
-            <span class="mini-icon exe-mini"></span>
-            TravelPortal.exe
-          </button>
-
-          <button class="start-menu-item" data-window="help-window">
-            <span class="mini-icon help-mini"></span>
-            Help and Support
-          </button>
-
-          <button class="start-menu-item" data-window="music-window">
-            <span class="mini-icon music-mini"></span>
-            Music
-          </button>
-
-          <button class="start-menu-item" data-window="msn-window">
-            <span class="mini-icon msn-mini"></span>
-            MSN Messenger
-          </button>
-
-          <button class="start-menu-item" data-window="gossip-window">
-            <span class="mini-icon gossip-mini"></span>
-            Gossip.exe
-          </button>
-
-          <button class="start-menu-item" data-window="recycle-window">
-            <span class="mini-icon recycle-mini"></span>
-            Recycle Bin
-          </button>
-
-          <button class="start-menu-item" data-window="signal-window">
-            <span class="mini-icon signal-mini"></span>
-            Signal
-          </button>
-
-          <button class="start-menu-item" data-window="system-window">
-            <span class="mini-icon system-mini"></span>
-            System
-          </button>
+          <button class="start-menu-item" data-window="computer-window"><span class="mini-icon computer-mini"></span>My Computer</button>
+          <button class="start-menu-item" data-window="program-window"><span class="mini-icon exe-mini"></span>TravelPortal.exe</button>
+          <button class="start-menu-item" data-window="help-window"><span class="mini-icon help-mini"></span>Help and Support</button>
+          <button class="start-menu-item" data-window="music-window"><span class="mini-icon music-mini"></span>Music</button>
+          <button class="start-menu-item" data-window="msn-window"><span class="mini-icon msn-mini"></span>MSN Messenger</button>
+          <button class="start-menu-item" data-window="recycle-window"><span class="mini-icon recycle-mini"></span>Recycle Bin</button>
+          <button class="start-menu-item" data-window="system-window"><span class="mini-icon system-mini"></span>System</button>
         </div>
 
         <div class="start-menu-footer">
@@ -983,9 +625,8 @@
         <div id="clock"></div>
       </footer>
     </section>
-
   </main>
 
-  <script src="script.js?v=7"></script>
+  <script src="script.js?v=8"></script>
 </body>
 </html>
