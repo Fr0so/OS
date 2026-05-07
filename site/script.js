@@ -40,36 +40,31 @@ const progressBar = document.getElementById("progress-bar");
 const restoreRecycleButton = document.getElementById("restore-recycle-button");
 const emptyRecycleButton = document.getElementById("empty-recycle-button");
 const recycleStatus = document.getElementById("recycle-status");
-const recycleFiles = document.getElementById("recycle-files");
 const passwdFile = document.getElementById("passwd-file");
 
+const browserAddress = document.getElementById("browser-address");
+const browserBackButton = document.getElementById("browser-back-button");
+const browserHomeButton = document.getElementById("browser-home-button");
+const portalResponse = document.getElementById("portal-response");
+
 let highestZIndex = 10;
-let accessHasLoaded = false;
 let loginAttempts = 0;
 let clockClicks = 0;
 let startClicks = 0;
 let currentComputerView = "root";
 let passwdRestored = false;
+let accessHasLoaded = false;
+let currentBrowserPage = "home";
+let browserHistory = ["home"];
 let konamiIndex = 0;
 
 const konamiCode = [
-  "ArrowUp",
-  "ArrowUp",
-  "ArrowDown",
-  "ArrowDown",
-  "ArrowLeft",
-  "ArrowRight",
-  "ArrowLeft",
-  "ArrowRight",
-  "b",
-  "a"
+  "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
+  "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"
 ];
 
 function showScreen(screen) {
-  document.querySelectorAll(".screen").forEach(function (element) {
-    element.classList.remove("active");
-  });
-
+  document.querySelectorAll(".screen").forEach((element) => element.classList.remove("active"));
   screen.classList.add("active");
 }
 
@@ -77,39 +72,21 @@ function openPasswordDialog() {
   showScreen(passwordScreen);
   loginMessage.textContent = "";
   passwordInput.value = "";
-
-  setTimeout(function () {
-    passwordInput.focus();
-  }, 50);
+  setTimeout(() => passwordInput.focus(), 50);
 }
 
 function logIn() {
-  const enteredPassword = passwordInput.value;
-
-  if (enteredPassword === PASSWORD) {
+  if (passwordInput.value === PASSWORD) {
     loginMessage.textContent = "";
     startLoginLoader();
-  } else {
-    loginAttempts += 1;
-    loginMessage.textContent = loginAttempts >= 3 ? "Wrong password.\nHint: R....." : "Wrong password.";
-    passwordInput.value = "";
-    passwordInput.focus();
-
-    const dialogWindow = document.querySelector(".dialog-window");
-
-    dialogWindow.animate(
-      [
-        { transform: "translate(-50%, -50%) translateX(0)" },
-        { transform: "translate(-50%, -50%) translateX(-8px)" },
-        { transform: "translate(-50%, -50%) translateX(8px)" },
-        { transform: "translate(-50%, -50%) translateX(0)" }
-      ],
-      {
-        duration: 180,
-        iterations: 1
-      }
-    );
+    return;
   }
+
+  loginAttempts += 1;
+  loginMessage.textContent = loginAttempts >= 3 ? "Wrong password.\nHint: R....." : "Wrong password.";
+  passwordInput.value = "";
+  passwordInput.focus();
+  shakeElement(document.querySelector(".dialog-window"), true);
 }
 
 function startLoginLoader() {
@@ -124,35 +101,29 @@ function startLoginLoader() {
 
   const dialogBody = document.querySelector(".dialog-body");
   dialogBody.innerHTML = '<p id="login-loader-line">Starting...</p><p>Please wait...</p><div class="progress-shell"><div id="login-progress" class="progress-bar"></div></div>';
-
   let index = 0;
 
-  const run = function () {
+  function run() {
     document.getElementById("login-loader-line").textContent = steps[index];
     document.getElementById("login-progress").style.width = Math.round(((index + 1) / steps.length) * 100) + "%";
     index += 1;
-
     if (index < steps.length) {
       setTimeout(run, 650);
     } else {
-      setTimeout(function () {
+      setTimeout(() => {
         showScreen(desktop);
         updateClock();
         openWindow("computer-window");
-      }, 500);
+      }, 450);
     }
-  };
+  }
 
   run();
 }
 
 function logOff() {
   closeStartMenu();
-
-  document.querySelectorAll(".window").forEach(function (windowElement) {
-    windowElement.classList.remove("open");
-  });
-
+  document.querySelectorAll(".window").forEach((windowElement) => windowElement.classList.remove("open"));
   showScreen(welcomeScreen);
 }
 
@@ -163,20 +134,13 @@ function shutDown() {
 
 function updateClock() {
   const now = new Date();
-
-  const time = now.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-
-  clock.textContent = time;
+  clock.textContent = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
 function clampWindowToViewport(windowElement) {
   const taskbarHeight = 38;
   const margin = 12;
   const rect = windowElement.getBoundingClientRect();
-
   const maxLeft = Math.max(margin, window.innerWidth - rect.width - margin);
   const maxTop = Math.max(margin, window.innerHeight - rect.height - taskbarHeight - margin);
 
@@ -194,66 +158,32 @@ function placeWindow(windowElement) {
   if (!windowElement.style.left) {
     windowElement.style.left = (windowElement.dataset.defaultLeft || "120") + "px";
   }
-
   if (!windowElement.style.top) {
     windowElement.style.top = (windowElement.dataset.defaultTop || "80") + "px";
   }
-
-  requestAnimationFrame(function () {
-    clampWindowToViewport(windowElement);
-  });
+  requestAnimationFrame(() => clampWindowToViewport(windowElement));
 }
 
 function openWindow(windowId) {
   const windowElement = document.getElementById(windowId);
-
-  if (!windowElement) {
-    return;
-  }
+  if (!windowElement) return;
 
   highestZIndex += 1;
   windowElement.classList.add("open");
   windowElement.style.zIndex = highestZIndex;
   placeWindow(windowElement);
-
   closeStartMenu();
 
-  const input = windowElement.querySelector("input:not([readonly])");
-
-  if (input) {
-    setTimeout(function () {
-      input.focus();
-    }, 50);
-  }
-
   if (windowId === "computer-window") {
-    switchComputerView("root");
+    switchComputerView(currentComputerView || "root");
   }
-}
 
-function switchComputerView(view) {
-  currentComputerView = view;
-
-  computerRootView.classList.toggle("hidden", view !== "root");
-  computerLocalDiskView.classList.toggle("hidden", view !== "localdisk");
-  computerSummerView.classList.toggle("hidden", view !== "summer");
-
-  computerBackButton.disabled = view === "root";
-
-  if (view === "root") {
-    computerTitle.textContent = "My Computer";
-  } else if (view === "localdisk") {
-    computerTitle.textContent = "Local Disk (C:) - My Computer";
-  } else if (view === "summer") {
-    computerTitle.textContent = "Summer 2026 (F:) - My Computer";
-  }
+  const input = windowElement.querySelector("input:not([readonly])");
+  if (input) setTimeout(() => input.focus(), 50);
 }
 
 function closeWindowElement(windowElement) {
-  if (!windowElement) {
-    return;
-  }
-
+  if (!windowElement) return;
   windowElement.classList.remove("open");
 }
 
@@ -261,13 +191,25 @@ function closeWindow(button) {
   closeWindowElement(button.closest(".window"));
 }
 
+function switchComputerView(view) {
+  currentComputerView = view;
+  computerRootView.classList.toggle("hidden", view !== "root");
+  computerLocalDiskView.classList.toggle("hidden", view !== "localdisk");
+  computerSummerView.classList.toggle("hidden", view !== "summer");
+  computerBackButton.disabled = view === "root";
+
+  if (view === "root") {
+    computerTitle.textContent = "My Computer";
+  } else if (view === "localdisk") {
+    computerTitle.textContent = "Local Disk (C:) - My Computer";
+  } else {
+    computerTitle.textContent = "Summer 2026 (F:) - My Computer";
+  }
+}
+
 function toggleStartMenu() {
   startClicks += 1;
-
-  if (startClicks === 6) {
-    alert("Start button has no further comments.");
-  }
-
+  if (startClicks === 6) alert("Start button has no further comments.");
   startMenu.classList.toggle("open");
 }
 
@@ -275,24 +217,19 @@ function closeStartMenu() {
   startMenu.classList.remove("open");
 }
 
-function shakeElement(element) {
-  if (!element) {
-    return;
-  }
-
+function shakeElement(element, keepTransform = false) {
+  if (!element) return;
+  const baseTransform = keepTransform ? getComputedStyle(element).transform : "none";
   element.animate(
     [
-      { transform: "translateX(0)" },
-      { transform: "translateX(-8px)" },
-      { transform: "translateX(8px)" },
-      { transform: "translateX(-5px)" },
-      { transform: "translateX(5px)" },
-      { transform: "translateX(0)" }
+      { transform: baseTransform === "none" ? "translateX(0)" : baseTransform + " translateX(0)" },
+      { transform: baseTransform === "none" ? "translateX(-8px)" : baseTransform + " translateX(-8px)" },
+      { transform: baseTransform === "none" ? "translateX(8px)" : baseTransform + " translateX(8px)" },
+      { transform: baseTransform === "none" ? "translateX(-5px)" : baseTransform + " translateX(-5px)" },
+      { transform: baseTransform === "none" ? "translateX(5px)" : baseTransform + " translateX(5px)" },
+      { transform: baseTransform === "none" ? "translateX(0)" : baseTransform + " translateX(0)" }
     ],
-    {
-      duration: 220,
-      iterations: 1
-    }
+    { duration: 220, iterations: 1 }
   );
 }
 
@@ -305,6 +242,7 @@ function runAccessProgram() {
     accessLocked.classList.add("hidden");
 
     if (accessHasLoaded) {
+      accessLoader.classList.add("hidden");
       accessGranted.classList.remove("hidden");
       return;
     }
@@ -325,44 +263,37 @@ function startAccessLoader() {
   progressBar.style.width = "0%";
 
   const steps = [
-    { percent: 8, text: "Reading profile cache...", log: "profile.cache" },
-    { percent: 18, text: "Resolving local gateway...", log: "gateway.local" },
-    { percent: 31, text: "Checking offline credentials...", log: "auth.offline" },
-    { percent: 45, text: "Mounting travel records...", log: "records.mount" },
-    { percent: 59, text: "Opening booking shell...", log: "booking.shell" },
-    { percent: 73, text: "Restoring cached pages...", log: "pages.cache" },
-    { percent: 88, text: "Waiting for server response...", log: "server: no response" },
-    { percent: 97, text: "Continuing offline...", log: "fallback: local" },
-    { percent: 100, text: "Gateway ready.", log: "ready" }
+    { percent: 12, text: "Loading profile...", log: "profile" },
+    { percent: 27, text: "Opening booking shell...", log: "booking shell" },
+    { percent: 42, text: "Reading fare tables...", log: "fare tables" },
+    { percent: 61, text: "Collecting travel options...", log: "travel options" },
+    { percent: 79, text: "Opening festival allocation...", log: "festival allocation" },
+    { percent: 100, text: "Portal ready.", log: "ready" }
   ];
 
   let stepIndex = 0;
-
   function runStep() {
     const step = steps[stepIndex];
-
     progressBar.style.width = step.percent + "%";
     loaderLine.textContent = step.text;
-
     const logItem = document.createElement("li");
     logItem.textContent = step.log;
     loaderLog.appendChild(logItem);
-
     stepIndex += 1;
 
     if (stepIndex < steps.length) {
-      const delay = step.percent === 97 ? 900 : 430;
-      setTimeout(runStep, delay);
+      setTimeout(runStep, 420);
     } else {
-      setTimeout(function () {
+      setTimeout(() => {
         accessHasLoaded = true;
         accessLoader.classList.add("hidden");
         accessGranted.classList.remove("hidden");
-      }, 500);
+        navigateBrowser("home", false);
+      }, 350);
     }
   }
 
-  setTimeout(runStep, 250);
+  setTimeout(runStep, 220);
 }
 
 function restoreRecycleBin() {
@@ -373,10 +304,7 @@ function restoreRecycleBin() {
   }
 
   passwdRestored = true;
-
-  if (passwdFile) {
-    passwdFile.remove();
-  }
+  passwdFile.remove();
 
   const restoredFile = document.createElement("button");
   restoredFile.className = "file-item";
@@ -395,7 +323,48 @@ function emptyRecycleBin() {
   shakeElement(document.getElementById("recycle-window"));
 }
 
-/* EVENT HELPERS */
+function navigateBrowser(page, addToHistory = true) {
+  const target = document.getElementById("browser-" + page);
+  if (!target) return;
+
+  document.querySelectorAll(".browser-page").forEach((browserPage) => browserPage.classList.remove("active"));
+  document.querySelectorAll(".portal-tab, .browser-nav").forEach((button) => {
+    if (button.dataset.browserPage) {
+      button.classList.toggle("active", button.dataset.browserPage === page && button.classList.contains("portal-tab"));
+    }
+  });
+
+  target.classList.add("active");
+  currentBrowserPage = page;
+  browserAddress.textContent = page === "home" ? "travelportal://home" : "travelportal://" + page;
+
+  if (addToHistory) {
+    if (browserHistory[browserHistory.length - 1] !== page) {
+      browserHistory.push(page);
+    }
+  }
+
+  browserBackButton.disabled = browserHistory.length <= 1;
+}
+
+function browserGoBack() {
+  if (browserHistory.length <= 1) return;
+  browserHistory.pop();
+  const previousPage = browserHistory[browserHistory.length - 1] || "home";
+  navigateBrowser(previousPage, false);
+}
+
+function setPortalResponse(message) {
+  portalResponse.textContent = message;
+  portalResponse.animate(
+    [
+      { transform: "scale(1)", backgroundColor: "#fffbe6" },
+      { transform: "scale(1.015)", backgroundColor: "#e8f2ff" },
+      { transform: "scale(1)", backgroundColor: "#fffbe6" }
+    ],
+    { duration: 320, iterations: 1 }
+  );
+}
 
 function bindWindowOpener(element) {
   element.addEventListener("click", function (event) {
@@ -404,18 +373,12 @@ function bindWindowOpener(element) {
     const isStartMenuItem = element.classList.contains("start-menu-item");
 
     if (isDesktopIcon) {
-      document.querySelectorAll(".desktop-icon").forEach(function (otherIcon) {
-        otherIcon.classList.remove("selected");
-      });
-
+      document.querySelectorAll(".desktop-icon").forEach((otherIcon) => otherIcon.classList.remove("selected"));
       element.classList.add("selected");
     }
 
     if (isFileItem) {
-      document.querySelectorAll(".file-item").forEach(function (otherFile) {
-        otherFile.classList.remove("selected");
-      });
-
+      document.querySelectorAll(".file-item").forEach((otherFile) => otherFile.classList.remove("selected"));
       element.classList.add("selected");
       return;
     }
@@ -425,87 +388,59 @@ function bindWindowOpener(element) {
     }
 
     const windowId = element.dataset.window;
-
-    if (windowId && !isFileItem) {
-      openWindow(windowId);
-    }
+    if (windowId && !isFileItem) openWindow(windowId);
   });
 }
 
 function bindFileDoubleClick(file) {
   file.addEventListener("dblclick", function () {
     const windowId = file.dataset.window;
-    openWindow(windowId);
+    if (windowId) openWindow(windowId);
   });
 }
 
 /* BASIC EVENTS */
-
 userTile.addEventListener("click", openPasswordDialog);
-
 loginButton.addEventListener("click", logIn);
-
-passwordInput.addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
-    logIn();
-  }
-});
-
-cancelButton.addEventListener("click", function () {
-  showScreen(welcomeScreen);
-});
-
+passwordInput.addEventListener("keydown", (event) => { if (event.key === "Enter") logIn(); });
+cancelButton.addEventListener("click", () => showScreen(welcomeScreen));
 shutdownButton.addEventListener("click", shutDown);
-
-optionsButton.addEventListener("click", function () {
-  alert("There are no additional options. Yet.");
-});
-
-startButton.addEventListener("click", function (event) {
-  event.stopPropagation();
-  toggleStartMenu();
-});
-
-startMenu.addEventListener("click", function (event) {
-  event.stopPropagation();
-});
-
+optionsButton.addEventListener("click", () => alert("There are no additional options. Yet."));
+startButton.addEventListener("click", (event) => { event.stopPropagation(); toggleStartMenu(); });
+startMenu.addEventListener("click", (event) => event.stopPropagation());
 logoffButton.addEventListener("click", logOff);
 desktopShutdownButton.addEventListener("click", shutDown);
 
 document.querySelectorAll("[data-window]").forEach(bindWindowOpener);
 document.querySelectorAll(".file-item").forEach(bindFileDoubleClick);
 
-document.querySelectorAll(".window-close").forEach(function (button) {
-  button.addEventListener("click", function () {
-    closeWindow(button);
+document.querySelectorAll(".computer-drive-nav").forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    switchComputerView(button.dataset.computerView);
   });
+  button.addEventListener("dblclick", () => switchComputerView(button.dataset.computerView));
 });
 
-document.querySelectorAll(".window-close-soft").forEach(function (button) {
-  button.addEventListener("click", function () {
-    closeWindowElement(button.closest(".window"));
-  });
+computerBackButton.addEventListener("click", () => {
+  if (currentComputerView !== "root") switchComputerView("root");
 });
 
-document.querySelectorAll(".window").forEach(function (windowElement) {
-  windowElement.addEventListener("mousedown", function () {
+document.querySelectorAll(".window-close").forEach((button) => button.addEventListener("click", () => closeWindow(button)));
+document.querySelectorAll(".window-close-soft").forEach((button) => button.addEventListener("click", () => closeWindowElement(button.closest(".window"))));
+document.querySelectorAll(".window").forEach((windowElement) => {
+  windowElement.addEventListener("mousedown", () => {
     highestZIndex += 1;
     windowElement.style.zIndex = highestZIndex;
   });
 });
 
-document.addEventListener("click", function () {
-  closeStartMenu();
-});
+document.addEventListener("click", closeStartMenu);
 
 accessButton.addEventListener("click", runAccessProgram);
-
-[travelUsernameInput, travelPasswordInput].forEach(function (input) {
-  input.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      runAccessProgram();
-    }
+[travelUsernameInput, travelPasswordInput].forEach((input) => {
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") runAccessProgram();
   });
 });
 
@@ -513,118 +448,35 @@ restoreRecycleButton.addEventListener("click", restoreRecycleBin);
 emptyRecycleButton.addEventListener("click", emptyRecycleBin);
 
 if (passwdFile) {
-  passwdFile.addEventListener("click", function () {
+  const lockNudge = () => {
     recycleStatus.textContent = "This item is locked.";
     shakeElement(document.getElementById("recycle-window"));
-  });
-
-  passwdFile.addEventListener("dblclick", function () {
-    recycleStatus.textContent = "This item is locked.";
-    shakeElement(document.getElementById("recycle-window"));
-  });
+  };
+  passwdFile.addEventListener("click", lockNudge);
+  passwdFile.addEventListener("dblclick", lockNudge);
 }
+
+browserBackButton.addEventListener("click", browserGoBack);
+browserHomeButton.addEventListener("click", () => navigateBrowser("home"));
+
+document.querySelectorAll(".browser-nav").forEach((button) => {
+  button.addEventListener("click", () => navigateBrowser(button.dataset.browserPage));
+});
+
+document.querySelectorAll(".travel-select-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".travel-select-button").forEach((item) => item.classList.remove("selected-travel-option"));
+    button.classList.add("selected-travel-option");
+    setPortalResponse(button.dataset.selectMessage || "Selection saved.");
+  });
+});
 
 setInterval(updateClock, 1000);
 
-/* HELP APP */
-
-document.querySelectorAll(".help-topic").forEach(function (topic) {
-  topic.addEventListener("click", function () {
-    const topicName = topic.dataset.helpTopic;
-
-    document.querySelectorAll(".help-topic").forEach(function (otherTopic) {
-      otherTopic.classList.remove("active");
-    });
-
-    document.querySelectorAll(".help-panel").forEach(function (panel) {
-      panel.classList.remove("active");
-    });
-
-    topic.classList.add("active");
-    const panel = document.getElementById("help-" + topicName);
-
-    if (panel) {
-      panel.classList.add("active");
-    }
-  });
-});
-
-const decodeNoiseButton = document.getElementById("decode-noise");
-if (decodeNoiseButton) {
-  decodeNoiseButton.addEventListener("click", function () {
-    const input = document.getElementById("decode-input").value;
-    const output = document.getElementById("decode-output");
-
-    if (!input.trim()) {
-      output.textContent = "Recovery complete.";
-      return;
-    }
-
-    output.textContent = input.replace(/[0-9]/g, "").trim() + "\n\nRecovery complete.";
-  });
-}
-
-const recoverAccessPhraseButton = document.getElementById("recover-access-phrase");
-if (recoverAccessPhraseButton) {
-  recoverAccessPhraseButton.addEventListener("click", function () {
-    document.getElementById("recovery-output").textContent = "Recovery note:\npasswd.txt is locked while deleted.\nRestore it from Recycle Bin before reading.\n\nStatus:\nRecovery complete.";
-  });
-}
-
-const recoverBookingCacheButton = document.getElementById("recover-booking-cache");
-if (recoverBookingCacheButton) {
-  recoverBookingCacheButton.addEventListener("click", function () {
-    document.getElementById("recovery-output").textContent = "Recovered fields:\nbudget.txt is damaged.\nReadable values: none.\n\nStatus:\nPartial recovery only.";
-  });
-}
-
-/* BROWSER PORTAL */
-
-document.querySelectorAll(".browser-nav").forEach(function (button) {
-  button.addEventListener("click", function () {
-    const page = button.dataset.browserPage;
-
-    document.querySelectorAll(".browser-page").forEach(function (browserPage) {
-      browserPage.classList.remove("active");
-    });
-
-    document.getElementById("browser-" + page).classList.add("active");
-    document.getElementById("browser-address").textContent = page === "home" ? "fortia://travel/archive" : "fortia://travel/archive/" + page;
-  });
-});
-
-const reviewState = { flight: false, roskilde: false, balkan: false };
-
-document.querySelectorAll(".review-button").forEach(function (button) {
-  button.addEventListener("click", function () {
-    const interest = button.dataset.review;
-    const response = document.getElementById("portal-response");
-
-    reviewState[interest] = true;
-    response.textContent = "Record marked for review.";
-    button.disabled = true;
-    button.textContent = "Marked for review";
-
-    response.animate(
-      [
-        { transform: "scale(1)", backgroundColor: "#fffbe6" },
-        { transform: "scale(1.02)", backgroundColor: "#e8ffe2" },
-        { transform: "scale(1)", backgroundColor: "#fffbe6" }
-      ],
-      {
-        duration: 420,
-        iterations: 1
-      }
-    );
-  });
-});
-
 /* CLOCK EASTER EGG */
-
-clock.addEventListener("click", function (event) {
+clock.addEventListener("click", (event) => {
   event.stopPropagation();
   clockClicks += 1;
-
   if (clockClicks === 1) {
     alert("Current time is not useful for this investigation.");
   } else if (clockClicks === 3) {
@@ -635,14 +487,11 @@ clock.addEventListener("click", function (event) {
 });
 
 /* KONAMI EASTER EGG */
-
-document.addEventListener("keydown", function (event) {
+document.addEventListener("keydown", (event) => {
   const expectedKey = konamiCode[konamiIndex];
   const pressedKey = event.key.length === 1 ? event.key.toLowerCase() : event.key;
-
   if (pressedKey === expectedKey) {
     konamiIndex += 1;
-
     if (konamiIndex === konamiCode.length) {
       konamiIndex = 0;
       openWindow("debug-window");
@@ -653,28 +502,20 @@ document.addEventListener("keydown", function (event) {
 });
 
 /* WINDOW DRAGGING */
-
 let draggedWindow = null;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
 
-document.querySelectorAll(".window-titlebar").forEach(function (titlebar) {
-  titlebar.addEventListener("mousedown", function (event) {
-    if (event.target.classList.contains("window-close")) {
-      return;
-    }
-
+document.querySelectorAll(".window-titlebar").forEach((titlebar) => {
+  titlebar.addEventListener("mousedown", (event) => {
+    if (event.target.classList.contains("window-close")) return;
     draggedWindow = titlebar.closest(".window");
-
-    if (!draggedWindow) {
-      return;
-    }
+    if (!draggedWindow) return;
 
     highestZIndex += 1;
     draggedWindow.style.zIndex = highestZIndex;
 
     const rect = draggedWindow.getBoundingClientRect();
-
     dragOffsetX = event.clientX - rect.left;
     dragOffsetY = event.clientY - rect.top;
 
@@ -683,15 +524,11 @@ document.querySelectorAll(".window-titlebar").forEach(function (titlebar) {
   });
 });
 
-document.addEventListener("mousemove", function (event) {
-  if (!draggedWindow) {
-    return;
-  }
-
+document.addEventListener("mousemove", (event) => {
+  if (!draggedWindow) return;
   const taskbarHeight = 38;
   const maxLeft = Math.max(0, window.innerWidth - draggedWindow.offsetWidth);
   const maxTop = Math.max(0, window.innerHeight - draggedWindow.offsetHeight - taskbarHeight);
-
   let nextLeft = event.clientX - dragOffsetX;
   let nextTop = event.clientY - dragOffsetY;
 
@@ -702,34 +539,29 @@ document.addEventListener("mousemove", function (event) {
   draggedWindow.style.top = nextTop + "px";
 });
 
-document.addEventListener("mouseup", function () {
+document.addEventListener("mouseup", () => {
   if (draggedWindow) {
     draggedWindow = null;
     document.body.style.cursor = "";
   }
 });
 
-window.addEventListener("resize", function () {
+window.addEventListener("resize", () => {
   document.querySelectorAll(".window.open").forEach(clampWindowToViewport);
 });
 
 /* DESKTOP SELECTION BOX */
-
 const selectionBox = document.getElementById("selection-box");
-
 let isSelecting = false;
 let selectionStartX = 0;
 let selectionStartY = 0;
 
-desktop.addEventListener("mousedown", function (event) {
+desktop.addEventListener("mousedown", (event) => {
   const clickedWindow = event.target.closest(".window");
   const clickedIcon = event.target.closest(".desktop-icon");
   const clickedTaskbar = event.target.closest(".taskbar");
   const clickedStartMenu = event.target.closest(".start-menu");
-
-  if (clickedWindow || clickedIcon || clickedTaskbar || clickedStartMenu) {
-    return;
-  }
+  if (clickedWindow || clickedIcon || clickedTaskbar || clickedStartMenu) return;
 
   isSelecting = true;
   selectionStartX = event.clientX;
@@ -741,21 +573,14 @@ desktop.addEventListener("mousedown", function (event) {
   selectionBox.style.height = "0px";
   selectionBox.style.display = "block";
 
-  document.querySelectorAll(".desktop-icon").forEach(function (icon) {
-    icon.classList.remove("selected");
-  });
-
+  document.querySelectorAll(".desktop-icon").forEach((icon) => icon.classList.remove("selected"));
   closeStartMenu();
 });
 
-document.addEventListener("mousemove", function (event) {
-  if (!isSelecting) {
-    return;
-  }
-
+document.addEventListener("mousemove", (event) => {
+  if (!isSelecting) return;
   const currentX = event.clientX;
   const currentY = event.clientY;
-
   const left = Math.min(selectionStartX, currentX);
   const top = Math.min(selectionStartY, currentY);
   const width = Math.abs(currentX - selectionStartX);
@@ -767,29 +592,23 @@ document.addEventListener("mousemove", function (event) {
   selectionBox.style.height = height + "px";
 
   const selectionRect = selectionBox.getBoundingClientRect();
-
-  document.querySelectorAll(".desktop-icon").forEach(function (icon) {
+  document.querySelectorAll(".desktop-icon").forEach((icon) => {
     const iconRect = icon.getBoundingClientRect();
-
     const overlaps =
       selectionRect.left < iconRect.right &&
       selectionRect.right > iconRect.left &&
       selectionRect.top < iconRect.bottom &&
       selectionRect.bottom > iconRect.top;
 
-    if (overlaps) {
-      icon.classList.add("selected");
-    } else {
-      icon.classList.remove("selected");
-    }
+    icon.classList.toggle("selected", overlaps);
   });
 });
 
-document.addEventListener("mouseup", function () {
-  if (!isSelecting) {
-    return;
-  }
-
+document.addEventListener("mouseup", () => {
+  if (!isSelecting) return;
   isSelecting = false;
   selectionBox.style.display = "none";
 });
+
+updateClock();
+navigateBrowser("home", false);
