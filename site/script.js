@@ -18,6 +18,8 @@ const startButton = document.getElementById("start-button");
 const startMenu = document.getElementById("start-menu");
 const logoffButton = document.getElementById("logoff-button");
 const desktopShutdownButton = document.getElementById("desktop-shutdown-button");
+
+const computerTitle = document.getElementById("computer-title");
 const computerBackButton = document.getElementById("computer-back-button");
 const computerRootView = document.getElementById("computer-root-view");
 const computerLocalDiskView = document.getElementById("computer-localdisk-view");
@@ -35,31 +37,19 @@ const loaderLine = document.getElementById("loader-line");
 const loaderLog = document.getElementById("loader-log");
 const progressBar = document.getElementById("progress-bar");
 
-const signals = [
-  "The system remembers things you have not done yet.",
-  "Archive integrity: questionable.",
-  "A window was opened somewhere else.",
-  "Fortia OS is operating within acceptable nostalgia limits.",
-  "Signal received. Sender unknown.",
-  "Nothing is missing. Something is hidden.",
-  "Deleted files may contain active truth.",
-  "Help and Support is more helpful than it looks.",
-  "One route returns. One field glows orange. One road crosses borders.",
-  "TravelPortal.exe is waiting.",
-  "Gossip.exe has refused to comment.",
-  "My Computer is cleaner now. That does not mean it is safer.",
-  "Future Plans (F:) was indexed at an unusual time.",
-  "If a clue looks broken, it may only be badly dressed.",
-  "Current confidence level: weirdly promising."
-];
+const restoreRecycleButton = document.getElementById("restore-recycle-button");
+const emptyRecycleButton = document.getElementById("empty-recycle-button");
+const recycleStatus = document.getElementById("recycle-status");
+const recycleFiles = document.getElementById("recycle-files");
+const passwdFile = document.getElementById("passwd-file");
 
 let highestZIndex = 10;
 let accessHasLoaded = false;
 let loginAttempts = 0;
 let clockClicks = 0;
 let startClicks = 0;
-let gossipClicks = 0;
 let currentComputerView = "root";
+let passwdRestored = false;
 let konamiIndex = 0;
 
 const konamiCode = [
@@ -123,102 +113,25 @@ function logIn() {
 }
 
 function startLoginLoader() {
-  const steps = ["Password accepted.", "Loading personal settings...", "Restoring desktop state...", "Mounting local drives...", "Checking archived sessions...", "Loading Fortia OS..."];
-  const dialogBody = document.querySelector(".dialog-body");
-  dialogBody.innerHTML = '<p id="login-loader-line">Starting...</p><p>Please wait...</p><div class="progress-shell"><div id="login-progress" class="progress-bar"></div></div>';
-  let index = 0;
-  const run = function () {
-    document.getElementById("login-loader-line").textContent = steps[index];
-    document.getElementById("login-progress").style.width = Math.round(((index + 1) / steps.length) * 100) + "%";
-    index += 1;
-    if (index < steps.length) {
-      setTimeout(run, 650);
-    } else {
-      setTimeout(function () {
-        showScreen(desktop);
-        updateClock();
-        openWindow("computer-window");
-      }, 500);
-    }
-  };
-  run();
-}
+  const steps = [
+    "Password accepted.",
+    "Loading personal settings...",
+    "Restoring desktop state...",
+    "Mounting local drives...",
+    "Checking archived sessions...",
+    "Loading Fortia OS..."
+  ];
 
-function startLoginLoader() {
-  const steps = ["Password accepted.", "Loading personal settings...", "Restoring desktop state...", "Mounting local drives...", "Checking archived sessions...", "Loading Fortia OS..."];
   const dialogBody = document.querySelector(".dialog-body");
   dialogBody.innerHTML = '<p id="login-loader-line">Starting...</p><p>Please wait...</p><div class="progress-shell"><div id="login-progress" class="progress-bar"></div></div>';
-  let index = 0;
-  const run = function () {
-    document.getElementById("login-loader-line").textContent = steps[index];
-    document.getElementById("login-progress").style.width = Math.round(((index + 1) / steps.length) * 100) + "%";
-    index += 1;
-    if (index < steps.length) {
-      setTimeout(run, 650);
-    } else {
-      setTimeout(function () {
-        showScreen(desktop);
-        updateClock();
-        openWindow("computer-window");
-      }, 500);
-    }
-  };
-  run();
-}
 
-function startLoginLoader() {
-  const steps = ["Password accepted.", "Loading personal settings...", "Restoring desktop state...", "Mounting local drives...", "Checking archived sessions...", "Loading Fortia OS..."];
-  const dialogBody = document.querySelector(".dialog-body");
-  dialogBody.innerHTML = '<p id="login-loader-line">Starting...</p><p>Please wait...</p><div class="progress-shell"><div id="login-progress" class="progress-bar"></div></div>';
   let index = 0;
-  const run = function () {
-    document.getElementById("login-loader-line").textContent = steps[index];
-    document.getElementById("login-progress").style.width = Math.round(((index + 1) / steps.length) * 100) + "%";
-    index += 1;
-    if (index < steps.length) {
-      setTimeout(run, 650);
-    } else {
-      setTimeout(function () {
-        showScreen(desktop);
-        updateClock();
-        openWindow("computer-window");
-      }, 500);
-    }
-  };
-  run();
-}
 
-function startLoginLoader() {
-  const steps = ["Password accepted.", "Loading personal settings...", "Restoring desktop state...", "Mounting local drives...", "Checking archived sessions...", "Loading Fortia OS..."];
-  const dialogBody = document.querySelector(".dialog-body");
-  dialogBody.innerHTML = '<p id="login-loader-line">Starting...</p><p>Please wait...</p><div class="progress-shell"><div id="login-progress" class="progress-bar"></div></div>';
-  let index = 0;
   const run = function () {
     document.getElementById("login-loader-line").textContent = steps[index];
     document.getElementById("login-progress").style.width = Math.round(((index + 1) / steps.length) * 100) + "%";
     index += 1;
-    if (index < steps.length) {
-      setTimeout(run, 650);
-    } else {
-      setTimeout(function () {
-        showScreen(desktop);
-        updateClock();
-        openWindow("computer-window");
-      }, 500);
-    }
-  };
-  run();
-}
 
-function startLoginLoader() {
-  const steps = ["Password accepted.", "Loading personal settings...", "Restoring desktop state...", "Mounting local drives...", "Checking archived sessions...", "Loading Fortia OS..."];
-  const dialogBody = document.querySelector(".dialog-body");
-  dialogBody.innerHTML = '<p id="login-loader-line">Starting...</p><p>Please wait...</p><div class="progress-shell"><div id="login-progress" class="progress-bar"></div></div>';
-  let index = 0;
-  const run = function () {
-    document.getElementById("login-loader-line").textContent = steps[index];
-    document.getElementById("login-progress").style.width = Math.round(((index + 1) / steps.length) * 100) + "%";
-    index += 1;
     if (index < steps.length) {
       setTimeout(run, 650);
     } else {
@@ -229,6 +142,7 @@ function startLoginLoader() {
       }, 500);
     }
   };
+
   run();
 }
 
@@ -239,7 +153,6 @@ function logOff() {
     windowElement.classList.remove("open");
   });
 
-  passwordInput.value = "";
   showScreen(welcomeScreen);
 }
 
@@ -259,6 +172,38 @@ function updateClock() {
   clock.textContent = time;
 }
 
+function clampWindowToViewport(windowElement) {
+  const taskbarHeight = 38;
+  const margin = 12;
+  const rect = windowElement.getBoundingClientRect();
+
+  const maxLeft = Math.max(margin, window.innerWidth - rect.width - margin);
+  const maxTop = Math.max(margin, window.innerHeight - rect.height - taskbarHeight - margin);
+
+  let left = parseInt(windowElement.style.left || windowElement.dataset.defaultLeft || "120", 10);
+  let top = parseInt(windowElement.style.top || windowElement.dataset.defaultTop || "80", 10);
+
+  left = Math.max(margin, Math.min(left, maxLeft));
+  top = Math.max(margin, Math.min(top, maxTop));
+
+  windowElement.style.left = left + "px";
+  windowElement.style.top = top + "px";
+}
+
+function placeWindow(windowElement) {
+  if (!windowElement.style.left) {
+    windowElement.style.left = (windowElement.dataset.defaultLeft || "120") + "px";
+  }
+
+  if (!windowElement.style.top) {
+    windowElement.style.top = (windowElement.dataset.defaultTop || "80") + "px";
+  }
+
+  requestAnimationFrame(function () {
+    clampWindowToViewport(windowElement);
+  });
+}
+
 function openWindow(windowId) {
   const windowElement = document.getElementById(windowId);
 
@@ -269,6 +214,7 @@ function openWindow(windowId) {
   highestZIndex += 1;
   windowElement.classList.add("open");
   windowElement.style.zIndex = highestZIndex;
+  placeWindow(windowElement);
 
   closeStartMenu();
 
@@ -287,15 +233,23 @@ function openWindow(windowId) {
 
 function switchComputerView(view) {
   currentComputerView = view;
+
   computerRootView.classList.toggle("hidden", view !== "root");
   computerLocalDiskView.classList.toggle("hidden", view !== "localdisk");
   computerSummerView.classList.toggle("hidden", view !== "summer");
+
   computerBackButton.disabled = view === "root";
+
+  if (view === "root") {
+    computerTitle.textContent = "My Computer";
+  } else if (view === "localdisk") {
+    computerTitle.textContent = "Local Disk (C:) - My Computer";
+  } else if (view === "summer") {
+    computerTitle.textContent = "Summer 2026 (F:) - My Computer";
+  }
 }
 
-function closeWindow(button) {
-  const windowElement = button.closest(".window");
-
+function closeWindowElement(windowElement) {
   if (!windowElement) {
     return;
   }
@@ -303,11 +257,8 @@ function closeWindow(button) {
   windowElement.classList.remove("open");
 }
 
-function generateSignal() {
-  const signalText = document.getElementById("signal-text");
-  const randomIndex = Math.floor(Math.random() * signals.length);
-
-  signalText.textContent = signals[randomIndex];
+function closeWindow(button) {
+  closeWindowElement(button.closest(".window"));
 }
 
 function toggleStartMenu() {
@@ -407,6 +358,78 @@ function startAccessLoader() {
   setTimeout(runStep, 250);
 }
 
+function restoreRecycleBin() {
+  if (passwdRestored) {
+    recycleStatus.textContent = "No deleted items selected.";
+    return;
+  }
+
+  passwdRestored = true;
+
+  if (passwdFile) {
+    passwdFile.remove();
+  }
+
+  const restoredFile = document.createElement("button");
+  restoredFile.className = "file-item";
+  restoredFile.dataset.window = "passwd-window";
+  restoredFile.innerHTML = '<span class="file-icon txt-icon"></span><span>passwd.txt</span>';
+
+  computerLocalDiskView.querySelector(".explorer-content").appendChild(restoredFile);
+  bindWindowOpener(restoredFile);
+  bindFileDoubleClick(restoredFile);
+
+  recycleStatus.textContent = "Restored passwd.txt to Local Disk (C:).";
+}
+
+function emptyRecycleBin() {
+  recycleStatus.textContent = "Cannot empty Recycle Bin: permission denied.";
+}
+
+/* EVENT HELPERS */
+
+function bindWindowOpener(element) {
+  element.addEventListener("click", function (event) {
+    const isDesktopIcon = element.classList.contains("desktop-icon");
+    const isFileItem = element.classList.contains("file-item");
+    const isStartMenuItem = element.classList.contains("start-menu-item");
+
+    if (isDesktopIcon) {
+      document.querySelectorAll(".desktop-icon").forEach(function (otherIcon) {
+        otherIcon.classList.remove("selected");
+      });
+
+      element.classList.add("selected");
+    }
+
+    if (isFileItem) {
+      document.querySelectorAll(".file-item").forEach(function (otherFile) {
+        otherFile.classList.remove("selected");
+      });
+
+      element.classList.add("selected");
+      return;
+    }
+
+    if (!isStartMenuItem && element.tagName.toLowerCase() === "button" && !isDesktopIcon) {
+      event.stopPropagation();
+    }
+
+    const windowId = element.dataset.window;
+
+    if (windowId && !isFileItem) {
+      openWindow(windowId);
+    }
+  });
+}
+
+function bindFileDoubleClick(file) {
+  file.addEventListener("dblclick", function () {
+    const windowId = file.dataset.window;
+    openWindow(windowId);
+  });
+}
+
 /* BASIC EVENTS */
 
 userTile.addEventListener("click", openPasswordDialog);
@@ -441,51 +464,18 @@ startMenu.addEventListener("click", function (event) {
 logoffButton.addEventListener("click", logOff);
 desktopShutdownButton.addEventListener("click", shutDown);
 
-document.querySelectorAll("[data-window]").forEach(function (element) {
-  element.addEventListener("click", function (event) {
-    const isDesktopIcon = element.classList.contains("desktop-icon");
-    const isFileItem = element.classList.contains("file-item");
-    const isStartMenuItem = element.classList.contains("start-menu-item");
-
-    if (isDesktopIcon) {
-      document.querySelectorAll(".desktop-icon").forEach(function (otherIcon) {
-        otherIcon.classList.remove("selected");
-      });
-
-      element.classList.add("selected");
-    }
-
-    if (isFileItem) {
-      document.querySelectorAll(".file-item").forEach(function (otherFile) {
-        otherFile.classList.remove("selected");
-      });
-
-      element.classList.add("selected");
-      return;
-    }
-
-    if (!isStartMenuItem && element.tagName.toLowerCase() === "button" && !isDesktopIcon) {
-      event.stopPropagation();
-    }
-
-    const windowId = element.dataset.window;
-
-    if (windowId && !isFileItem) {
-      openWindow(windowId);
-    }
-  });
-});
-
-document.querySelectorAll(".file-item").forEach(function (file) {
-  file.addEventListener("dblclick", function () {
-    const windowId = file.dataset.window;
-    openWindow(windowId);
-  });
-});
+document.querySelectorAll("[data-window]").forEach(bindWindowOpener);
+document.querySelectorAll(".file-item").forEach(bindFileDoubleClick);
 
 document.querySelectorAll(".window-close").forEach(function (button) {
   button.addEventListener("click", function () {
     closeWindow(button);
+  });
+});
+
+document.querySelectorAll(".window-close-soft").forEach(function (button) {
+  button.addEventListener("click", function () {
+    closeWindowElement(button.closest(".window"));
   });
 });
 
@@ -502,13 +492,16 @@ document.addEventListener("click", function () {
 
 accessButton.addEventListener("click", runAccessProgram);
 
-accessInput.addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
-    runAccessProgram();
-  }
+[accessInput, routeIdInput, archiveKeyInput].forEach(function (input) {
+  input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      runAccessProgram();
+    }
+  });
 });
 
-document.getElementById("signal-button").addEventListener("click", generateSignal);
+restoreRecycleButton.addEventListener("click", restoreRecycleBin);
+emptyRecycleButton.addEventListener("click", emptyRecycleBin);
 
 setInterval(updateClock, 1000);
 
@@ -556,11 +549,11 @@ computerBackButton.addEventListener("click", function () {
 });
 
 document.getElementById("recover-access-phrase").addEventListener("click", function () {
-  document.getElementById("recovery-output").textContent = "Recovered content:\no1p2e3n4\n\nSuggested tool:\nRemove numerical noise\n\nStatus:\nRecovery complete.";
+  document.getElementById("recovery-output").textContent = "Recovery note:\npasswd.txt is locked while deleted.\nRestore it from Recycle Bin before reading.\n\nStatus:\nRecovery complete.";
 });
 
 document.getElementById("recover-booking-cache").addEventListener("click", function () {
-  document.getElementById("recovery-output").textContent = "Recovered fields:\nNYC -> CPH\nFIELD REQUIRED: ROUTE ID\nSOURCE: SUMMER 2026\n\nStatus:\nRecovery complete.";
+  document.getElementById("recovery-output").textContent = "Recovered fields:\nBudget cache damaged.\nReadable references: SUMMER, route_cost, festival_cost, road_cost.\n\nStatus:\nRecovery partial.";
 });
 
 /* BROWSER PORTAL */
@@ -574,15 +567,17 @@ document.querySelectorAll(".browser-nav").forEach(function (button) {
     });
 
     document.getElementById("browser-" + page).classList.add("active");
-    document.getElementById("browser-address").textContent = "fortia://travel/archive/" + page;
+    document.getElementById("browser-address").textContent = page === "home" ? "fortia://travel/archive" : "fortia://travel/archive/" + page;
   });
 });
 
 const reviewState = { flight: false, roskilde: false, balkan: false };
+
 document.querySelectorAll(".review-button").forEach(function (button) {
   button.addEventListener("click", function () {
     const interest = button.dataset.review;
     const response = document.getElementById("portal-response");
+
     reviewState[interest] = true;
     response.textContent = "Record marked for review.";
     button.disabled = true;
@@ -600,93 +595,6 @@ document.querySelectorAll(".review-button").forEach(function (button) {
       }
     );
   });
-});
-
-/* MSN */
-
-const msnReplies = {
-  where: [
-    "my computer first.",
-    "then help if something looks weird.",
-    "then the bin. always the bin."
-  ],
-  access: [
-    "it's not a big dramatic password.",
-    "one deleted note says it with numbers in the way.",
-    "help can remove the noise."
-  ],
-  routes: [
-    "three things were indexed.",
-    "one returns from nyc.",
-    "one is orange.",
-    "one crosses borders."
-  ]
-};
-
-document.querySelectorAll(".msn-choice").forEach(function (button) {
-  button.addEventListener("click", function () {
-    const key = button.dataset.msn;
-    const messages = document.getElementById("msn-messages");
-
-    const userMessage = document.createElement("div");
-    userMessage.className = "msn-message me";
-    userMessage.textContent = button.textContent;
-    messages.appendChild(userMessage);
-
-    button.disabled = true;
-
-    let delay = 450;
-
-    msnReplies[key].forEach(function (reply) {
-      setTimeout(function () {
-        const replyMessage = document.createElement("div");
-        replyMessage.className = "msn-message them";
-        replyMessage.textContent = reply;
-        messages.appendChild(replyMessage);
-        messages.scrollTop = messages.scrollHeight;
-      }, delay);
-
-      delay += 650;
-    });
-
-    messages.scrollTop = messages.scrollHeight;
-  });
-});
-
-document.getElementById("nudge-button").addEventListener("click", function () {
-  const msnWindow = document.getElementById("msn-window");
-
-  msnWindow.animate(
-    [
-      { transform: "translateX(0)" },
-      { transform: "translateX(-10px)" },
-      { transform: "translateX(10px)" },
-      { transform: "translateX(-6px)" },
-      { transform: "translateX(6px)" },
-      { transform: "translateX(0)" }
-    ],
-    {
-      duration: 300,
-      iterations: 1
-    }
-  );
-});
-
-/* GOSSIP */
-
-document.getElementById("gossip-button").addEventListener("click", function () {
-  gossipClicks += 1;
-
-  const messages = [
-    "Request denied.",
-    "Request denied again.",
-    "Still denied. Curiosity noted.",
-    "This is now becoming a pattern.",
-    "Access denied, but with respect."
-  ];
-
-  const index = Math.min(gossipClicks - 1, messages.length - 1);
-  document.getElementById("gossip-message").textContent = messages[index];
 });
 
 /* CLOCK EASTER EGG */
@@ -759,8 +667,8 @@ document.addEventListener("mousemove", function (event) {
   }
 
   const taskbarHeight = 38;
-  const maxLeft = window.innerWidth - draggedWindow.offsetWidth;
-  const maxTop = window.innerHeight - draggedWindow.offsetHeight - taskbarHeight;
+  const maxLeft = Math.max(0, window.innerWidth - draggedWindow.offsetWidth);
+  const maxTop = Math.max(0, window.innerHeight - draggedWindow.offsetHeight - taskbarHeight);
 
   let nextLeft = event.clientX - dragOffsetX;
   let nextTop = event.clientY - dragOffsetY;
@@ -777,6 +685,10 @@ document.addEventListener("mouseup", function () {
     draggedWindow = null;
     document.body.style.cursor = "";
   }
+});
+
+window.addEventListener("resize", function () {
+  document.querySelectorAll(".window.open").forEach(clampWindowToViewport);
 });
 
 /* DESKTOP SELECTION BOX */
