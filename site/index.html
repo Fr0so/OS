@@ -337,9 +337,9 @@
               </div>
 
               <div class="travel-login-art">
-                <div class="art-window art-window-a"></div>
-                <div class="art-window art-window-b"></div>
-                <div class="art-window art-window-c"></div>
+                <div class="art-window art-window-a"><strong>Flights</strong><span>Route archive</span></div>
+                <div class="art-window art-window-b"><strong>Orange</strong><span>Festival allocation</span></div>
+                <div class="art-window art-window-c"><strong>Roadtrip</strong><span>Drive planner</span></div>
               </div>
 
               <div class="travel-login-form">
@@ -377,13 +377,6 @@
                 <button id="browser-back-button" class="xp-button tiny-button">Back</button>
                 <button id="browser-home-button" class="xp-button tiny-button">Home</button>
                 <div id="browser-address" class="address-bar">travelportal://home</div>
-              </div>
-
-              <div class="portal-tabbar">
-                <button class="portal-tab browser-nav active" data-browser-page="home">Overview</button>
-                <button class="portal-tab browser-nav" data-browser-page="flight">Flights</button>
-                <button class="portal-tab browser-nav" data-browser-page="roskilde">Orange</button>
-                <button class="portal-tab browser-nav" data-browser-page="balkan">Balkan Roadtrip</button>
               </div>
 
               <section class="browser-page active" id="browser-home">
@@ -431,35 +424,99 @@
                 </div>
 
                 <div class="flight-option-grid">
-                  <button class="flight-card travel-select-button" data-select-message="Saved route: NYC → CPH" type="button">
+                  <button class="flight-card flight-route-button" data-flight-id="nyc-cph" type="button">
                     <div class="flight-card-top"><strong>NYC → CPH</strong><span>SK 912</span></div>
                     <div class="flight-meta"><span>JFK</span><span>08:20</span><span>Direct</span><span>21:35</span><span>CPH</span></div>
-                    <div class="flight-footer"><span>7h 15m</span><em>Choose</em></div>
+                    <div class="flight-footer"><span>7h 15m</span><em>View</em></div>
                   </button>
 
-                  <button class="flight-card travel-select-button" data-select-message="Saved route: CPH → NYC" type="button">
+                  <button class="flight-card flight-route-button" data-flight-id="cph-nyc" type="button">
                     <div class="flight-card-top"><strong>CPH → NYC</strong><span>SK 911</span></div>
                     <div class="flight-meta"><span>CPH</span><span>13:40</span><span>Direct</span><span>16:10</span><span>JFK</span></div>
-                    <div class="flight-footer"><span>8h 30m</span><em>Choose</em></div>
+                    <div class="flight-footer"><span>8h 30m</span><em>View</em></div>
                   </button>
 
-                  <button class="flight-card travel-select-button" data-select-message="Saved route: CPH → Tirana" type="button">
+                  <button class="flight-card flight-route-button" data-flight-id="cph-tirana" type="button">
                     <div class="flight-card-top"><strong>CPH → Tirana</strong><span>OU 481</span></div>
                     <div class="flight-meta"><span>CPH</span><span>09:05</span><span>1 stop</span><span>13:55</span><span>TIA</span></div>
-                    <div class="flight-footer"><span>Tirana International Airport</span><em>Choose</em></div>
+                    <div class="flight-footer"><span>4h 50m</span><em>View</em></div>
                   </button>
 
-                  <button class="flight-card travel-select-button" data-select-message="Saved route: Tirana → CPH" type="button">
+                  <button class="flight-card flight-route-button" data-flight-id="tirana-cph" type="button">
                     <div class="flight-card-top"><strong>Tirana → CPH</strong><span>OU 482</span></div>
                     <div class="flight-meta"><span>TIA</span><span>14:40</span><span>1 stop</span><span>19:20</span><span>CPH</span></div>
-                    <div class="flight-footer"><span>Return option</span><em>Choose</em></div>
+                    <div class="flight-footer"><span>4h 40m</span><em>View</em></div>
                   </button>
 
-                  <button class="flight-card travel-select-button" data-select-message="Saved route: CPH → Zurich" type="button">
+                  <button class="flight-card flight-route-button" data-flight-id="cph-zurich" type="button">
                     <div class="flight-card-top"><strong>CPH → Zurich</strong><span>LX 1271</span></div>
                     <div class="flight-meta"><span>CPH</span><span>11:25</span><span>Direct</span><span>13:20</span><span>ZRH</span></div>
-                    <div class="flight-footer"><span>1h 55m</span><em>Choose</em></div>
+                    <div class="flight-footer"><span>1h 55m</span><em>View</em></div>
                   </button>
+                </div>
+              </section>
+
+              <section class="browser-page flight-detail-page" id="browser-flightdetail">
+                <div class="section-head">
+                  <div>
+                    <div class="page-kicker">Selected flight</div>
+                    <h2 id="flight-detail-route">NYC → CPH</h2>
+                  </div>
+                  <div class="section-chip" id="flight-detail-number">SK 912</div>
+                </div>
+
+                <div class="flight-detail-layout">
+                  <div class="flight-detail-card">
+                    <div class="detail-strip">
+                      <div>
+                        <span>Departure</span>
+                        <strong id="flight-detail-departure">JFK · 08:20</strong>
+                      </div>
+                      <div>
+                        <span>Arrival</span>
+                        <strong id="flight-detail-arrival">CPH · 21:35</strong>
+                      </div>
+                      <div>
+                        <span>Trip</span>
+                        <strong id="flight-detail-duration">7h 15m</strong>
+                      </div>
+                    </div>
+
+                    <div class="detail-info-grid">
+                      <div class="detail-info-box">
+                        <span>Fare</span>
+                        <strong id="flight-detail-fare">Classic</strong>
+                      </div>
+                      <div class="detail-info-box">
+                        <span>Cabin</span>
+                        <strong>Economy</strong>
+                      </div>
+                      <div class="detail-info-box">
+                        <span>Baggage</span>
+                        <strong>1 cabin bag</strong>
+                      </div>
+                      <div class="detail-info-box">
+                        <span>Notes</span>
+                        <strong id="flight-detail-note">Local booking file</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flight-seat-card">
+                    <h3>Select seat</h3>
+                    <div id="seat-grid" class="seat-grid">
+                      <button class="seat-button" data-seat="12A" type="button">12A</button>
+                      <button class="seat-button" data-seat="12C" type="button">12C</button>
+                      <button class="seat-button" data-seat="12D" type="button">12D</button>
+                      <button class="seat-button" data-seat="12F" type="button">12F</button>
+                      <button class="seat-button" data-seat="14A" type="button">14A</button>
+                      <button class="seat-button" data-seat="14C" type="button">14C</button>
+                      <button class="seat-button" data-seat="14D" type="button">14D</button>
+                      <button class="seat-button" data-seat="14F" type="button">14F</button>
+                    </div>
+                    <p id="flight-seat-status" class="seat-status">No seat selected.</p>
+                    <button id="save-flight-button" class="xp-button" type="button">Hold this option</button>
+                  </div>
                 </div>
               </section>
 
@@ -472,37 +529,54 @@
                   <div class="section-chip orange-chip">Limited</div>
                 </div>
 
-                <div class="orange-layout">
-                  <div class="orange-pass">
-                    <div class="orange-pass-top">
+                <div class="orange-shell">
+                  <div class="orange-ticket-panel">
+                    <div class="orange-ticket-header">
                       <span class="orange-dot"></span>
                       <div>
                         <strong>ORANGE / ROSKILDE</strong>
-                        <small>Festival allocation page</small>
+                        <small>Partner list route</small>
                       </div>
                     </div>
-                    <p>This section contains an extra allocation route connected to the Orange area. Access appears tied to a partner list rather than the public booking flow.</p>
-                    <ul class="orange-features">
-                      <li>Festival admission request</li>
-                      <li>Orange area registration note</li>
-                      <li>Travel pairing with Copenhagen routes</li>
-                    </ul>
-                    <button class="xp-button travel-select-button" data-select-message="Orange allocation marked for follow-up." type="button">Request allocation</button>
+
+                    <div class="orange-stage-lines">
+                      <span></span><span></span><span></span>
+                    </div>
+
+                    <div class="orange-week-ribbon">
+                      <button class="day-pill orange-day active" type="button" data-orange-day="Mon 29">Mon 29</button>
+                      <button class="day-pill orange-day" type="button" data-orange-day="Tue 30">Tue 30</button>
+                      <button class="day-pill orange-day" type="button" data-orange-day="Wed 01">Wed 01</button>
+                      <button class="day-pill orange-day" type="button" data-orange-day="Thu 02">Thu 02</button>
+                      <button class="day-pill orange-day" type="button" data-orange-day="Fri 03">Fri 03</button>
+                    </div>
                   </div>
 
-                  <div class="orange-sidepanel">
-                    <div class="info-card">
-                      <h3>Status</h3>
-                      <p>Listed in portal</p>
+                  <div class="orange-side-stack">
+                    <div class="orange-module-grid">
+                      <button class="orange-module orange-panel-button active" type="button" data-orange-panel="lineup">
+                        <strong>Lineup view</strong>
+                        <span>See highlighted slots</span>
+                      </button>
+                      <button class="orange-module orange-panel-button" type="button" data-orange-panel="camp">
+                        <strong>Camp list</strong>
+                        <span>Partner allocation notes</span>
+                      </button>
+                      <button class="orange-module orange-panel-button" type="button" data-orange-panel="access">
+                        <strong>Access note</strong>
+                        <span>Orange area handoff</span>
+                      </button>
                     </div>
-                    <div class="info-card">
-                      <h3>Window</h3>
-                      <p>Summer 2026</p>
+
+                    <div id="orange-panel-display" class="orange-panel-display">
+                      <div class="orange-lineup-cards">
+                        <div class="orange-lineup-card"><span>Main slot</span><strong>18:00</strong><small>Warm-up block</small></div>
+                        <div class="orange-lineup-card"><span>Evening</span><strong>20:30</strong><small>Orange headline slot</small></div>
+                        <div class="orange-lineup-card"><span>Late</span><strong>23:45</strong><small>Night set</small></div>
+                      </div>
                     </div>
-                    <div class="info-card">
-                      <h3>Location</h3>
-                      <p>Roskilde Festival</p>
-                    </div>
+
+                    <button id="orange-confirm-button" class="xp-button orange-confirm-button" type="button">Confirm camp allocation</button>
                   </div>
                 </div>
               </section>
@@ -511,55 +585,59 @@
                 <div class="section-head">
                   <div>
                     <div class="page-kicker">Balkan roadtrip</div>
-                    <h2>Route planning</h2>
+                    <h2>Drive planner</h2>
                   </div>
-                  <div class="section-chip">Drive plan</div>
+                  <div class="section-chip">Route board</div>
                 </div>
 
-                <div class="roadtrip-grid-panel">
-                  <div>
-                    <div class="roadtrip-map">
-                      <div class="map-node active">Tirana</div>
+                <div class="roadtrip-shell">
+                  <div class="roadtrip-board">
+                    <div class="roadtrip-map modern-roadtrip-map">
+                      <button class="map-node route-stop-button active" type="button" data-stop="Tirana">Tirana</button>
                       <div class="map-line"></div>
-                      <div class="map-node">Kotor</div>
+                      <button class="map-node route-stop-button" type="button" data-stop="Kotor">Kotor</button>
                       <div class="map-line"></div>
-                      <div class="map-node">Mostar</div>
+                      <button class="map-node route-stop-button" type="button" data-stop="Mostar">Mostar</button>
                       <div class="map-line"></div>
-                      <div class="map-node">Split</div>
+                      <button class="map-node route-stop-button" type="button" data-stop="Split">Split</button>
                       <div class="map-line"></div>
-                      <div class="map-node">Zagreb</div>
+                      <button class="map-node route-stop-button" type="button" data-stop="Zagreb">Zagreb</button>
                     </div>
 
-                    <div class="stop-list">
-                      <div class="stop-card"><strong>Start</strong><span>Tirana</span></div>
-                      <div class="stop-card"><strong>Coast</strong><span>Kotor</span></div>
-                      <div class="stop-card"><strong>Bridge stop</strong><span>Mostar</span></div>
-                      <div class="stop-card"><strong>Final city</strong><span>Split / Zagreb option</span></div>
+                    <div class="roadtrip-postcards">
+                      <button class="postcard-card route-stop-button active" type="button" data-stop="Tirana"><strong>Tirana</strong><span>Start point</span></button>
+                      <button class="postcard-card route-stop-button" type="button" data-stop="Kotor"><strong>Kotor</strong><span>Bay stop</span></button>
+                      <button class="postcard-card route-stop-button" type="button" data-stop="Mostar"><strong>Mostar</strong><span>Bridge stop</span></button>
+                      <button class="postcard-card route-stop-button" type="button" data-stop="Split"><strong>Split</strong><span>Coast leg</span></button>
                     </div>
                   </div>
 
-                  <div>
-                    <h3 class="vehicle-heading">Vehicle options</h3>
-                    <div class="vehicle-list">
-                      <button class="vehicle-card travel-select-button" data-select-message="Vehicle reserved: Volkswagen Golf" type="button">
+                  <div class="roadtrip-sidepanel">
+                    <div class="roadtrip-note-card">
+                      <span>Selected stop</span>
+                      <strong id="roadtrip-stop-title">Tirana</strong>
+                      <p id="roadtrip-stop-copy">Pickup point and first overnight.</p>
+                    </div>
+
+                    <div class="vehicle-list roadtrip-vehicle-list">
+                      <button class="vehicle-card car-option-button" data-car="Volkswagen Golf" type="button">
                         <strong>Volkswagen Golf</strong>
                         <span>Compact • manual</span>
                       </button>
-                      <button class="vehicle-card travel-select-button" data-select-message="Vehicle reserved: Suzuki Jimny" type="button">
+                      <button class="vehicle-card car-option-button" data-car="Suzuki Jimny" type="button">
                         <strong>Suzuki Jimny</strong>
                         <span>Small 4x4 • manual</span>
                       </button>
-                      <button class="vehicle-card travel-select-button" data-select-message="Vehicle reserved: Fiat Panda 4x4" type="button">
+                      <button class="vehicle-card car-option-button" data-car="Fiat Panda 4x4" type="button">
                         <strong>Fiat Panda 4x4</strong>
                         <span>Light utility • manual</span>
                       </button>
                     </div>
-                    <button class="xp-button travel-select-button roadtrip-save" data-select-message="Balkan roadtrip saved to shortlist." type="button">Save route</button>
+
+                    <button id="save-car-button" class="xp-button roadtrip-save" type="button">Reserve vehicle</button>
                   </div>
                 </div>
               </section>
-
-              <div id="portal-response" class="travel-response portal-fixed-response">No selection saved.</div>
             </div>
           </div>
         </div>
@@ -594,8 +672,8 @@
           <div class="msn-header">
             <div class="msn-avatar">?</div>
             <div>
-              <strong>Unknown Contact</strong>
-              <p>Status: Offline</p>
+              <strong id="msn-contact-name">Unknown Contact</strong>
+              <p id="msn-contact-status">Status: Offline</p>
             </div>
           </div>
           <div id="msn-messages" class="msn-messages"></div>
