@@ -286,9 +286,8 @@ button {
 }
 
 .form-row input:focus,
-#access-input:focus,
-#route-id-input:focus,
-#archive-key-input:focus,
+#travel-username-input:focus,
+#travel-password-input:focus,
 textarea:focus {
   outline: 1px solid #316ac5;
 }
@@ -400,6 +399,13 @@ textarea:focus {
   border: 1px dotted rgba(255, 255, 255, 0.85);
   background: rgba(0, 70, 180, 0.35);
   outline: none;
+}
+
+.desktop-recycle-icon {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 3;
 }
 
 /* ICONS */
@@ -902,6 +908,29 @@ textarea:focus {
   display: block;
 }
 
+.empty-help-content {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  min-height: 330px;
+  gap: 10px;
+  color: #555;
+  background: white;
+}
+
+.help-empty-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid #0b55c8;
+  background: linear-gradient(#ffffff, #7bb2ff);
+  color: #003c9f;
+  font-size: 30px;
+  font-weight: bold;
+}
+
 #decode-input {
   width: 100%;
   height: 90px;
@@ -937,6 +966,96 @@ textarea:focus {
   padding: 0;
 }
 
+.travel-login-screen {
+  min-height: 522px;
+  padding: 28px;
+  background:
+    linear-gradient(90deg, rgba(2, 35, 77, 0.88), rgba(2, 35, 77, 0.36)),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.035), rgba(255,255,255,0.035) 1px, transparent 1px, transparent 4px),
+    linear-gradient(135deg, #0d2749, #7d8fa3 52%, #e4dcc7);
+}
+
+.travel-login-panel {
+  width: min(470px, 100%);
+  margin: 20px auto 0;
+  border: 1px solid #7f9db9;
+  background: #f3f0df;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.36);
+}
+
+.travel-login-kicker {
+  padding: 7px 10px;
+  border-bottom: 1px solid #c6c3b5;
+  background: linear-gradient(#ffffff, #ded9c5);
+  color: #354052;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.travel-login-panel h2 {
+  margin: 0;
+  padding: 18px 18px 6px;
+  color: #162846;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+}
+
+.travel-login-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin: 8px 18px 16px;
+  border: 1px solid #c8c1ab;
+  background: #c8c1ab;
+}
+
+.travel-login-grid div {
+  padding: 9px;
+  background: #fffdf3;
+}
+
+.travel-login-grid span,
+.travel-login-grid strong {
+  display: block;
+}
+
+.travel-login-grid span {
+  margin-bottom: 3px;
+  color: #555;
+  font-size: 11px;
+}
+
+.travel-login-grid strong {
+  color: #111;
+  font-size: 12px;
+}
+
+.travel-login-form {
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  gap: 8px 10px;
+  align-items: center;
+  padding: 0 18px 18px;
+}
+
+.travel-login-form label {
+  color: #111;
+  font-size: 12px;
+}
+
+.travel-login-actions {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.travel-login-actions #access-message {
+  margin: 0;
+}
+
 #access-locked,
 #access-loader {
   padding: 18px;
@@ -949,9 +1068,8 @@ textarea:focus {
   margin-bottom: 10px;
 }
 
-#access-input,
-#route-id-input,
-#archive-key-input {
+#travel-username-input,
+#travel-password-input {
   height: 24px;
   border: 1px solid #8aa2bf;
   padding: 2px 6px;
