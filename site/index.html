@@ -87,10 +87,6 @@
           <span>My Computer</span>
         </button>
 
-        <button class="desktop-icon" data-window="recycle-window">
-          <span class="icon recycle-icon"></span>
-          <span>Recycle Bin</span>
-        </button>
 
         <button class="desktop-icon" data-window="program-window">
           <span class="icon exe-icon"></span>
@@ -117,6 +113,11 @@
           <span>System</span>
         </button>
       </div>
+      <button class="desktop-icon desktop-recycle-icon" data-window="recycle-window">
+        <span class="icon recycle-icon"></span>
+        <span>Recycle Bin</span>
+      </button>
+
 
       <!-- MY COMPUTER -->
       <article id="computer-window" class="window large-window" data-default-left="135" data-default-top="70">
@@ -145,7 +146,7 @@
                 <span class="drive-icon future-drive"></span>
                 <div>
                   <strong>Summer 2026 (F:)</strong>
-                  <span>Type: Mounted volume<br>Status: Indexed<br>Last modified: Unknown</span>
+                  <span>Type: USB</span>
                 </div>
               </button>
             </div>
@@ -167,8 +168,7 @@
           <div class="computer-content hidden" id="computer-summer-view">
             <h2>Summer 2026 (F:)</h2>
             <div class="window-content explorer-content">
-              <button class="file-item" data-window="program-window"><span class="file-icon exe-file-icon"></span><span>TravelPortal.exe</span></button>
-              <button class="file-item" data-window="route-notes-window"><span class="file-icon txt-icon"></span><span>route notes.txt</span></button>
+                  <button class="file-item" data-window="route-notes-window"><span class="file-icon txt-icon"></span><span>route notes.txt</span></button>
               <button class="file-item" data-window="weather-window"><span class="file-icon txt-icon"></span><span>Roskilde wheather forecast.tmp</span></button>
               <button class="file-item" data-window="booking-username-window"><span class="file-icon txt-icon"></span><span>Booking username.txt</span></button>
               <button class="file-item" data-window="budget-window"><span class="file-icon broken-icon"></span><span>budget.txt</span></button>
@@ -187,24 +187,10 @@
           <button class="window-close-soft">Back</button>
         </div>
         <div class="window-content explorer-content">
-          <button class="file-item" data-window="program-window"><span class="file-icon exe-file-icon"></span><span>TravelPortal.exe</span></button>
           <button class="file-item" data-window="help-window"><span class="help-mini big-mini"></span><span>Help and Support</span></button>
           <button class="file-item" data-window="music-window"><span class="icon music-icon"></span><span>Music</span></button>
           <button class="file-item" data-window="msn-window"><span class="icon msn-icon"></span><span>MSN</span></button>
           <button class="file-item" data-window="system-window"><span class="icon system-icon"></span><span>System</span></button>
-        </div>
-      </article>
-
-      <!-- RESTRICTED / GENERIC LOCKED FILE DIALOG -->
-      <article id="locked-file-window" class="window" data-default-left="390" data-default-top="160">
-        <div class="window-titlebar">
-          <span>passwd.txt</span>
-          <button class="window-close" aria-label="Close">×</button>
-        </div>
-        <div class="window-content restricted-content">
-          <h2>Access Denied</h2>
-          <p>This file is locked.</p>
-          <p>Restore the item before opening it.</p>
         </div>
       </article>
 
@@ -222,7 +208,7 @@
         </div>
 
         <div class="window-content explorer-content" id="recycle-files">
-          <button id="passwd-file" class="file-item locked-trash-file" data-window="locked-file-window">
+          <button id="passwd-file" class="file-item locked-trash-file" type="button">
             <span class="file-icon locked-file-icon"></span>
             <span>passwd.txt</span>
           </button>
@@ -345,44 +331,15 @@
           <button class="window-close" aria-label="Close">×</button>
         </div>
 
-        <div class="help-shell">
+        <div class="help-shell empty-help-shell">
           <div class="help-header">
             <h2>Help and Support</h2>
-            <p>Select a recovery tool.</p>
+            <p></p>
           </div>
 
-          <div class="help-body">
-            <aside class="help-topics">
-              <button class="help-topic active" data-help-topic="decode">Remove numerical noise</button>
-              <button class="help-topic" data-help-topic="recovery">Recover damaged file</button>
-              <button class="help-topic" data-help-topic="hints">Common access issues</button>
-            </aside>
-
-            <section class="help-panel active" id="help-decode">
-              <h3>Remove numerical noise</h3>
-              <textarea id="decode-input" spellcheck="false" placeholder="Paste encoded text here..."></textarea>
-              <div class="decode-buttons">
-                <button id="decode-noise" class="xp-button">Remove numbers</button>
-              </div>
-              <div id="decode-output" class="decode-output">Decoded output will appear here.</div>
-            </section>
-
-            <section class="help-panel" id="help-hints">
-              <h3>Common access issues</h3>
-              <p>TravelPortal.exe requires three fields.</p>
-              <p>Mounted volumes may contain current records.</p>
-              <p>Restored files can behave differently from deleted files.</p>
-              <p>Some archive keys are assembled from separate records.</p>
-            </section>
-
-            <section class="help-panel" id="help-recovery">
-              <h3>Recover damaged file</h3>
-              <div class="decode-buttons">
-                <button id="recover-access-phrase" class="xp-button">passwd.txt</button>
-                <button id="recover-booking-cache" class="xp-button">budget.txt</button>
-              </div>
-              <div id="recovery-output" class="decode-output">Recovered output will appear here.</div>
-            </section>
+          <div class="empty-help-content">
+            <div class="help-empty-icon">?</div>
+            <p>No help topics are available.</p>
           </div>
         </div>
       </article>
@@ -395,24 +352,43 @@
         </div>
 
         <div class="window-content access-content">
-          <div id="access-locked">
-            <h2>Local travel portal</h2>
-            <p>Archived session found.<br>Required fields missing.</p>
-            <label for="access-input">Access phrase</label>
-            <div class="access-row"><input id="access-input" type="text" autocomplete="off" placeholder="Enter access phrase"></div>
-            <label for="route-id-input">Route ID</label>
-            <div class="access-row"><input id="route-id-input" type="text" autocomplete="off" placeholder="Enter Route ID"></div>
-            <label for="archive-key-input">Archive key</label>
-            <div class="access-row">
-              <input id="archive-key-input" type="text" autocomplete="off" placeholder="Enter Archive key">
-              <button id="access-button" class="xp-button">Open portal</button>
+          <div id="access-locked" class="travel-login-screen">
+            <div class="travel-login-panel">
+              <div class="travel-login-kicker">Fortia Internal Travel Gateway</div>
+              <h2>TravelPortal.exe</h2>
+              <div class="travel-login-grid">
+                <div>
+                  <span>Connection</span>
+                  <strong>Local</strong>
+                </div>
+                <div>
+                  <span>Server</span>
+                  <strong>Unavailable</strong>
+                </div>
+                <div>
+                  <span>Mode</span>
+                  <strong>Offline cache</strong>
+                </div>
+              </div>
+
+              <div class="travel-login-form">
+                <label for="travel-username-input">Username</label>
+                <input id="travel-username-input" type="text" autocomplete="off" placeholder="Username">
+
+                <label for="travel-password-input">Password</label>
+                <input id="travel-password-input" type="password" autocomplete="off" placeholder="Password">
+
+                <div class="travel-login-actions">
+                  <button id="access-button" class="xp-button">Log in</button>
+                  <p id="access-message"></p>
+                </div>
+              </div>
             </div>
-            <p id="access-message"></p>
           </div>
 
           <div id="access-loader" class="hidden">
-            <h2>Initializing Browser Shell</h2>
-            <p id="loader-line">Preparing session...</p>
+            <h2>Opening cached gateway</h2>
+            <p id="loader-line">Resolving local host...</p>
             <div class="progress-shell">
               <div id="progress-bar" class="progress-bar"></div>
             </div>
