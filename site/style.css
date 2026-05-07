@@ -382,3 +382,87 @@ button { user-select: none; }
 }
 
 .portal-fixed-response { margin: 0 20px 20px; }
+
+/* v4 overrides */
+.desktop-icon span:last-child { display: block; width: 100%; text-align: center; line-height: 1.15; }
+.desktop-icon .icon { margin: 0 auto; }
+.desktop-icons { align-content: start; }
+
+.travel-window { width: min(940px, calc(100vw - 34px)); }
+.travel-login-panel { max-width: 560px; }
+.art-window {
+  display: grid; align-content: end; padding: 12px; color: #29435f;
+}
+.art-window strong { position: relative; z-index: 1; font-size: 14px; }
+.art-window span { position: relative; z-index: 1; font-size: 11px; color: #5a6f8a; }
+
+.flight-detail-page { background: linear-gradient(#f8fbff, #ffffff); }
+.flight-detail-layout { display: grid; grid-template-columns: minmax(0,1.4fr) minmax(260px,.8fr); gap: 16px; }
+.flight-detail-card, .flight-seat-card {
+  padding: 18px; border: 1px solid #c6d5e8; background: linear-gradient(#fff, #f3f8ff);
+}
+.detail-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
+.detail-strip div, .detail-info-box { padding: 12px; border: 1px solid #d5e0ee; background: white; }
+.detail-strip span, .detail-info-box span, .roadtrip-note-card span { display: block; color: #617284; font-size: 12px; }
+.detail-strip strong, .detail-info-box strong { display: block; margin-top: 4px; color: #233b58; }
+.detail-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.flight-seat-card h3 { margin: 0 0 14px; color: #233b58; }
+.seat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.seat-button {
+  height: 38px; border: 1px solid #b5c8de; background: white; color: #244264; cursor: pointer;
+}
+.seat-button:hover, .seat-button.active { border-color: #4a78bf; background: #deebff; }
+.seat-status { min-height: 18px; margin: 12px 0 14px; color: #53677f; }
+
+.orange-shell { display: grid; grid-template-columns: minmax(280px, .95fr) minmax(0,1.2fr); gap: 18px; }
+.orange-ticket-panel {
+  padding: 18px; border: 1px solid #f0b76b; background: radial-gradient(circle at top right, rgba(255,145,0,.25), transparent 30%), linear-gradient(#fff8ef, #ffefdc);
+}
+.orange-ticket-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.orange-stage-lines { display: grid; gap: 8px; margin-bottom: 18px; }
+.orange-stage-lines span { display: block; height: 18px; border-radius: 999px; background: linear-gradient(90deg, rgba(255,122,0,.88), rgba(255,180,90,.35)); }
+.orange-week-ribbon { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.day-pill {
+  padding: 10px 6px; border: 1px solid #efb05a; background: white; color: #8d4e12; font-size: 12px; font-weight: bold; cursor: pointer;
+}
+.day-pill.active, .day-pill:hover { background: #ffe0bb; }
+.orange-side-stack { display: grid; gap: 14px; }
+.orange-module-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.orange-module, .postcard-card {
+  padding: 14px; border: 1px solid #efc38e; background: linear-gradient(#fff, #fff6ec); text-align: left; cursor: pointer;
+}
+.orange-module strong, .orange-module span, .postcard-card strong, .postcard-card span { display: block; }
+.orange-module span, .postcard-card span { margin-top: 4px; font-size: 12px; color: #8a6a48; }
+.orange-module.active, .orange-module:hover { background: #ffe6c8; border-color: #df8d2a; }
+.orange-panel-display { min-height: 184px; padding: 16px; border: 1px solid #efc38e; background: #fffdf9; }
+.orange-lineup-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.orange-lineup-card {
+  padding: 14px; border: 1px solid #ffd4a0; background: linear-gradient(#fff9f1, #fff1e0); color: #7a4f1d;
+}
+.orange-lineup-card span, .orange-lineup-card strong, .orange-lineup-card small { display: block; }
+.orange-lineup-card strong { margin: 6px 0; font-size: 22px; }
+.orange-confirm-button { justify-self: start; }
+
+.roadtrip-shell { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(270px,.85fr); gap: 18px; }
+.roadtrip-board { display: grid; gap: 16px; }
+.modern-roadtrip-map {
+  padding: 20px; border: 1px solid #d9cfb2; background: linear-gradient(#fffef9, #fff9ec); border-radius: 6px;
+}
+.route-stop-button { cursor: pointer; }
+.route-stop-button.active, .postcard-card.active, .car-option-button.active { border-color: #5f7c3b; background: #edf6e6; }
+.roadtrip-postcards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.roadtrip-sidepanel { display: grid; gap: 12px; }
+.roadtrip-note-card { padding: 14px; border: 1px solid #cdd7c0; background: white; }
+.roadtrip-note-card strong { display: block; margin: 4px 0 8px; color: #334825; font-size: 22px; }
+.roadtrip-note-card p { margin: 0; color: #5b6952; line-height: 1.5; }
+.roadtrip-vehicle-list .vehicle-card { border-color: #c8d0b8; }
+.roadtrip-vehicle-list .vehicle-card.active { background: #edf6e6; border-color: #698b45; }
+
+.msn-message { max-width: 82%; margin-bottom: 10px; padding: 10px 12px; border-radius: 12px; border: 1px solid #b7d0ef; background: #eef5ff; color: #193356; box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; }
+.msn-message small { display: block; margin-bottom: 4px; color: #56718f; }
+.msn-message.system { margin-left: auto; background: #f0f0f0; border-color: #d3d3d3; color: #444; }
+
+@media (max-width: 860px) {
+  .flight-detail-layout, .orange-shell, .roadtrip-shell, .orange-module-grid, .orange-lineup-cards, .roadtrip-postcards, .detail-strip, .detail-info-grid { grid-template-columns: 1fr; }
+  .orange-week-ribbon { grid-template-columns: repeat(3, 1fr); }
+}
