@@ -687,7 +687,7 @@ textarea:focus {
 
 .computer-layout {
   display: grid;
-  grid-template-columns: 210px 1fr;
+  grid-template-columns: 1fr;
   min-height: 385px;
   background: white;
 }

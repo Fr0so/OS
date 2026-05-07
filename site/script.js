@@ -18,6 +18,10 @@ const startButton = document.getElementById("start-button");
 const startMenu = document.getElementById("start-menu");
 const logoffButton = document.getElementById("logoff-button");
 const desktopShutdownButton = document.getElementById("desktop-shutdown-button");
+const computerBackButton = document.getElementById("computer-back-button");
+const computerRootView = document.getElementById("computer-root-view");
+const computerLocalDiskView = document.getElementById("computer-localdisk-view");
+const computerSummerView = document.getElementById("computer-summer-view");
 
 const accessInput = document.getElementById("access-input");
 const routeIdInput = document.getElementById("route-id-input");
@@ -55,6 +59,7 @@ let loginAttempts = 0;
 let clockClicks = 0;
 let startClicks = 0;
 let gossipClicks = 0;
+let currentComputerView = "root";
 let konamiIndex = 0;
 
 const konamiCode = [
@@ -205,6 +210,28 @@ function startLoginLoader() {
   run();
 }
 
+function startLoginLoader() {
+  const steps = ["Password accepted.", "Loading personal settings...", "Restoring desktop state...", "Mounting local drives...", "Checking archived sessions...", "Loading Fortia OS..."];
+  const dialogBody = document.querySelector(".dialog-body");
+  dialogBody.innerHTML = '<p id="login-loader-line">Starting...</p><p>Please wait...</p><div class="progress-shell"><div id="login-progress" class="progress-bar"></div></div>';
+  let index = 0;
+  const run = function () {
+    document.getElementById("login-loader-line").textContent = steps[index];
+    document.getElementById("login-progress").style.width = Math.round(((index + 1) / steps.length) * 100) + "%";
+    index += 1;
+    if (index < steps.length) {
+      setTimeout(run, 650);
+    } else {
+      setTimeout(function () {
+        showScreen(desktop);
+        updateClock();
+        openWindow("computer-window");
+      }, 500);
+    }
+  };
+  run();
+}
+
 function logOff() {
   closeStartMenu();
 
@@ -252,6 +279,18 @@ function openWindow(windowId) {
       input.focus();
     }, 50);
   }
+
+  if (windowId === "computer-window") {
+    switchComputerView("root");
+  }
+}
+
+function switchComputerView(view) {
+  currentComputerView = view;
+  computerRootView.classList.toggle("hidden", view !== "root");
+  computerLocalDiskView.classList.toggle("hidden", view !== "localdisk");
+  computerSummerView.classList.toggle("hidden", view !== "summer");
+  computerBackButton.disabled = view === "root";
 }
 
 function closeWindow(button) {
@@ -502,6 +541,18 @@ document.getElementById("decode-noise").addEventListener("click", function () {
   }
 
   output.textContent = input.replace(/[0-9]/g, "").trim() + "\n\nRecovery complete.";
+});
+
+document.querySelectorAll(".computer-drive-nav").forEach(function (button) {
+  button.addEventListener("click", function () {
+    switchComputerView(button.dataset.computerView);
+  });
+});
+
+computerBackButton.addEventListener("click", function () {
+  if (currentComputerView !== "root") {
+    switchComputerView("root");
+  }
 });
 
 document.getElementById("recover-access-phrase").addEventListener("click", function () {

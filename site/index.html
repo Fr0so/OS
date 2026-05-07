@@ -138,43 +138,22 @@
         </div>
 
         <div class="window-toolbar">
-          <button>Back</button>
-          <button>Search</button>
-          <button>Folders</button>
-          <button>Views</button>
+          <button id="computer-back-button">Back</button>
         </div>
 
         <div class="computer-layout">
-          <aside class="explorer-sidebar">
-            <h3>System Tasks</h3>
-            <button data-window="help-window">View system help</button>
-            <button data-window="system-window">View system information</button>
-            <button data-window="program-window">Run TravelPortal.exe</button>
-
-            <h3>Other Places</h3>
-            <button data-window="recycle-window">Recycle Bin</button>
-            <button data-window="music-window">Media Library</button>
-            <button data-window="msn-window">MSN Messenger</button>
-
-            <h3>Details</h3>
-            <p>Some files are indexed. Some files are not supposed to be.</p>
-          </aside>
-
-          <div class="computer-content">
+          <div class="computer-content" id="computer-root-view">
             <h2>Files Stored on This Computer</h2>
-
             <div class="drive-section">
-              <h4>Hard Disk Drives</h4>
-
-              <button class="drive-item" data-window="localdisk-window">
+              <button class="drive-item computer-drive-nav" data-computer-view="localdisk">
                 <span class="drive-icon"></span>
                 <div>
                   <strong>Local Disk (C:)</strong>
-                  <span>System files and ordinary-looking fragments</span>
+                  <span>Type: Local drive</span>
                 </div>
               </button>
 
-              <button class="drive-item" data-window="future-window">
+              <button class="drive-item computer-drive-nav" data-computer-view="summer">
                 <span class="drive-icon future-drive"></span>
                 <div>
                   <strong>Summer 2026 (F:)</strong>
@@ -182,33 +161,29 @@
                 </div>
               </button>
             </div>
+          </div>
 
-            <div class="drive-section">
-              <h4>Files Stored on This Computer</h4>
+          <div class="computer-content hidden" id="computer-localdisk-view">
+            <h2>Local Disk (C:)</h2>
+            <div class="window-content explorer-content">
+              <button class="file-item" data-window="empty-folder-window"><span class="folder-mini big-mini"></span><span>All apps</span></button>
+              <button class="file-item" data-window="recycle-window"><span class="icon recycle-icon"></span><span>Recycle Bin</span></button>
+              <button class="file-item" data-window="help-window"><span class="help-mini big-mini"></span><span>Help and Support</span></button>
+              <button class="file-item" data-window="music-window"><span class="icon music-icon"></span><span>Music</span></button>
+              <button class="file-item" data-window="msn-window"><span class="icon msn-icon"></span><span>MSN</span></button>
+              <button class="file-item" data-window="system-window"><span class="icon system-icon"></span><span>System</span></button>
+              <button class="file-item" data-window="empty-folder-window"><span class="folder-mini big-mini"></span><span>Empty folder</span></button>
+            </div>
+          </div>
 
-              <button class="drive-item" data-window="shared-window">
-                <span class="folder-mini big-mini"></span>
-                <div>
-                  <strong>Shared Files</strong>
-                  <span>Recovered notes, logs and route fragments</span>
-                </div>
-              </button>
-
-              <button class="drive-item" data-window="restricted-window">
-                <span class="lock-mini big-mini"></span>
-                <div>
-                  <strong>Restricted</strong>
-                  <span>Access controlled. Curiosity detected.</span>
-                </div>
-              </button>
-
-              <button class="drive-item" data-window="help-window">
-                <span class="help-mini big-mini"></span>
-                <div>
-                  <strong>Help and Support</strong>
-                  <span>Useful when text looks broken on purpose</span>
-                </div>
-              </button>
+          <div class="computer-content hidden" id="computer-summer-view">
+            <h2>Summer 2026 (F:)</h2>
+            <div class="window-content explorer-content">
+              <button class="file-item" data-window="program-window"><span class="file-icon exe-file-icon"></span><span>TravelPortal.exe</span></button>
+              <button class="file-item" data-window="flight-cache-window"><span class="file-icon txt-icon"></span><span>route notes.txt</span></button>
+              <button class="file-item" data-window="festival-cache-window"><span class="file-icon txt-icon"></span><span>Roskilde wheather forecast.tmp</span></button>
+              <button class="file-item" data-window="booking-username-window"><span class="file-icon txt-icon"></span><span>Booking username.txt</span></button>
+              <button class="file-item" data-window="budget-window"><span class="file-icon broken-icon"></span><span>budget.txt</span></button>
             </div>
           </div>
         </div>
@@ -495,7 +470,7 @@
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
-          <p>Recovered route note</p>
+          <p>Route notes</p>
           <p></p>
           <p>Origin: NYC</p>
           <p>Destination: CPH</p>
@@ -506,76 +481,69 @@
 
       <article id="festival-cache-window" class="window text-window">
         <div class="window-titlebar">
-          <span>orange_index.ref - Notepad</span>
+          <span>Roskilde wheather forecast.tmp - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
-          <p>Event index reference</p>
+          <p>Roskilde wheather forecast</p>
           <p></p>
-          <p>Index name: ORANGE</p>
-          <p>Location: Roskilde</p>
-          <p>Field status: incomplete</p>
-          <p>Weather source: unreliable</p>
+          <p>Source: unavailable</p>
+          <p>Reliability: low</p>
+          <p>Status: cached</p>
+          <p></p>
+          <p>Forecast:</p>
+          <p>rain possible</p>
+          <p>wind variable</p>
+          <p>temperature unresolved</p>
         </div>
       </article>
 
-      <article id="balkan-cache-window" class="window text-window">
+      <article id="booking-username-window" class="window text-window">
         <div class="window-titlebar">
-          <span>road_sequence.txt - Notepad</span>
+          <span>Booking username.txt - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
-          <p>Recovered road sequence</p>
+          <p>Booking username</p>
           <p></p>
-          <p>Sequence key: BORDER</p>
-          <p>Route shape:</p>
-          <p>coast</p>
-          <p>mountains</p>
-          <p>border</p>
-          <p>unknown stop</p>
-          <p>return pending</p>
+          <p>username:</p>
+          <p>fortia.local</p>
+          <p></p>
+          <p>Status:</p>
+          <p>stored</p>
         </div>
       </article>
 
-      <article id="booking-fields-window" class="window text-window">
+      <article id="budget-window" class="window text-window">
         <div class="window-titlebar">
-          <span>booking_fields.tmp - Notepad</span>
+          <span>budget.txt - Notepad</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
-          <p>Temporary booking fields</p>
-          <p></p>
-          <p>TRAVEL_PORTAL requires:</p>
-          <p>- Access phrase</p>
-          <p>- Route ID</p>
-          <p>- Archive key</p>
-          <p></p>
-          <p>Source volume: Summer 2026</p>
-          <p></p>
-          <p>Archive key format:</p>
-          <p>[Index name]-[Sequence key]</p>
+          <p>##BUDGET_CACHE_ERROR##</p>
+          <p>øøø//x92--[unreadable]</p>
+          <p>4F 2A ?? ?? SUMMER</p>
+          <p>kr_???.??</p>
+          <p>line_item_03 corrupted</p>
+          <p>¤¤¤ ### ### ###</p>
+          <p>route_cost = [data missing]</p>
+          <p>festival_cost = [data missing]</p>
+          <p>road_cost = [data missing]</p>
+          <p>EOF_NOT_FOUND</p>
         </div>
       </article>
 
-      <article id="saved-preferences-window" class="window text-window">
+      <article id="empty-folder-window" class="window text-window">
         <div class="window-titlebar">
-          <span>saved_preferences.ini - Notepad</span>
+          <span>Folder - Explorer</span>
           <button class="window-close" aria-label="Close">×</button>
         </div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
-          <p>[records]</p>
-          <p>flight=enabled</p>
-          <p>orange=enabled</p>
-          <p>road=enabled</p>
-          <p></p>
-          <p>[portal]</p>
-          <p>archive_key_format=index-sequence</p>
-          <p>manual_review=true</p>
-          <p>automatic_confirmation=false</p>
+          <p>This folder is empty.</p>
         </div>
       </article>
 
@@ -624,6 +592,9 @@
           <p>BOOKING CACHE PARTIAL</p><p></p><p>NYC -> CPH</p><p>STATUS: NOT ISSUED</p><p>FIELD REQUIRED: ROUTE ID</p><p>SOURCE: SUMMER 2026</p>
         </div>
       </article>
+
+      <article id="unsent-message-window" class="window text-window"><div class="window-titlebar"><span>unsent_message.eml - Notepad</span><button class="window-close" aria-label="Close">×</button></div><div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div><div class="notepad-content"><p>To: unknown</p><p>Subject: summer</p><p></p><p>The route field was copied to the mounted volume.</p><p>The key is not a single word.</p></div></article>
+      <article id="previous-session-window" class="window text-window"><div class="window-titlebar"><span>previous_session.log - Notepad</span><button class="window-close" aria-label="Close">×</button></div><div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div><div class="notepad-content"><p>Previous session closed unexpectedly.</p><p></p><p>Opened:</p><p>- My Computer</p><p>- Summer 2026</p><p>- TravelPortal.exe</p><p></p><p>Last unresolved fields:</p><p>access phrase</p><p>route identifier</p><p>archive key</p></div></article>
 
       <article id="unsent-message-window" class="window text-window"><div class="window-titlebar"><span>unsent_message.eml - Notepad</span><button class="window-close" aria-label="Close">×</button></div><div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div><div class="notepad-content"><p>To: unknown</p><p>Subject: summer</p><p></p><p>The route field was copied to the mounted volume.</p><p>The key is not a single word.</p></div></article>
       <article id="previous-session-window" class="window text-window"><div class="window-titlebar"><span>previous_session.log - Notepad</span><button class="window-close" aria-label="Close">×</button></div><div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div><div class="notepad-content"><p>Previous session closed unexpectedly.</p><p></p><p>Opened:</p><p>- My Computer</p><p>- Summer 2026</p><p>- TravelPortal.exe</p><p></p><p>Last unresolved fields:</p><p>access phrase</p><p>route identifier</p><p>archive key</p></div></article>
