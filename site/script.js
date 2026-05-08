@@ -118,6 +118,12 @@ const msnContactName = $("msn-contact-name");
 const msnContactStatus = $("msn-contact-status");
 const msnContactList = $("msn-contact-list");
 const msnBadge = $("msn-badge");
+const bookingUsernameValue = $("booking-username-value");
+const agencyPassengerName = $("agency-passenger-name");
+const emptyFolderContent = $("empty-folder-content");
+const emptyFolderPlaceholder = $("empty-folder-placeholder");
+const denmarkRantTrash = $("denmark-rant-trash");
+const dukeRantTrash = $("duke-rant-trash");
 
 let highestZIndex = 10;
 let loginAttempts = 0;
@@ -125,6 +131,7 @@ let clockClicks = 0;
 let startClicks = 0;
 let currentComputerView = "root";
 let passwdRestored = false;
+let rantsRestored = false;
 let accessHasLoaded = false;
 let browserHistory = ["home"];
 let selectedFlightId = null;
@@ -135,6 +142,7 @@ let selectedOrangeDay = "Mon 29";
 let currentOrangePanel = "lineup";
 const campChecklist = { tape: false, powerbank: false, rain: false, sunscreen: false, socks: false };
 let activeMsnContact = null;
+let currentTravelAccessName = "";
 let flightLocked = false;
 let carLocked = false;
 let konamiIndex = 0;
@@ -148,6 +156,34 @@ function showScreen(screen) {
 
 function getPasswordInput() { return $("password"); }
 function getLoginMessage() { return $("login-message"); }
+function getCurrentOsUserName() {
+  const input = $("username");
+  return (input?.value || USER_NAME).trim() || USER_NAME;
+}
+
+function getDynamicBookingUser() {
+  return (currentTravelAccessName || getCurrentOsUserName() || USER_NAME).trim() || USER_NAME;
+}
+
+function syncDynamicText() {
+  if (bookingUsernameValue) bookingUsernameValue.textContent = getDynamicBookingUser();
+  if (agencyPassengerName) agencyPassengerName.textContent = getCurrentOsUserName();
+}
+
+function addFileToFolder(folderEl, windowId, label) {
+  if (!folderEl) return;
+  const existing = Array.from(folderEl.querySelectorAll('.file-item')).find((item) => item.dataset.window === windowId);
+  if (existing) return;
+  const file = document.createElement('button');
+  file.className = 'file-item';
+  file.type = 'button';
+  file.dataset.window = windowId;
+  file.innerHTML = '<span class="file-icon txt-icon"></span><span>' + label + '</span>';
+  folderEl.appendChild(file);
+  bindWindowOpener(file);
+  bindFileDoubleClick(file);
+}
+
 
 function openPasswordDialog() {
   showScreen(passwordScreen);
@@ -187,7 +223,7 @@ function startLoginLoader() {
     $("login-progress").style.width = Math.round(((index + 1) / steps.length) * 100) + "%";
     index += 1;
     if (index < steps.length) setTimeout(step, 560);
-    else setTimeout(() => { showScreen(desktop); updateClock(); }, 350);
+    else setTimeout(() => { showScreen(desktop); syncDynamicText(); updateClock(); }, 350);
   }
   step();
 }
@@ -223,6 +259,7 @@ function openWindow(windowId) {
   placeWindow(windowElement);
   closeStartMenu();
   if (windowId === "computer-window") switchComputerView(currentComputerView);
+  if (windowId === "booking-username-window" || windowId === "program-window" || windowId === "system-window") syncDynamicText();
   if (windowId === "msn-window") {
     const unread = Object.keys(msnStore).find((name) => msnStore[name].unread > 0);
     if (unread) showMsnConversation(unread, true);
@@ -257,6 +294,8 @@ function runAccessProgram() {
   const pass = travelPasswordInput.value.trim().toLowerCase();
   if (user === TRAVEL_USERNAME && pass === TRAVEL_PASSWORD) {
     accessMessage.textContent = "";
+    currentTravelAccessName = travelUsernameInput.value.trim() || getCurrentOsUserName();
+    syncDynamicText();
     accessLocked.classList.add("hidden");
     if (accessHasLoaded) {
       accessLoader.classList.add("hidden");
@@ -301,17 +340,18 @@ function startAccessLoader() {
 }
 
 function restoreRecycleBin() {
-  if (passwdRestored) { recycleStatus.textContent = "No deleted items selected."; shakeElement($("recycle-window")); return; }
-  passwdRestored = true;
-  if (passwdFile) passwdFile.remove();
-  const restoredFile = document.createElement("button");
-  restoredFile.className = "file-item";
-  restoredFile.dataset.window = "passwd-window";
-  restoredFile.innerHTML = '<span class="file-icon txt-icon"></span><span>passwd.txt</span>';
-  computerLocalDiskView.querySelector(".explorer-content").appendChild(restoredFile);
-  bindWindowOpener(restoredFile);
-  bindFileDoubleClick(restoredFile);
-  recycleStatus.textContent = "Restored passwd.txt to Local Disk (C:).";
+  if (rantsRestored) {
+    recycleStatus.textContent = "passwd.txt is locked. No other deleted items remain.";
+    shakeElement($("recycle-window"));
+    return;
+  }
+  if (emptyFolderPlaceholder) emptyFolderPlaceholder.remove();
+  addFileToFolder(emptyFolderContent, "denmark-rant-window", "Danmark VM 26.txt");
+  addFileToFolder(emptyFolderContent, "duke-rant-window", "March madness 26.txt");
+  denmarkRantTrash?.remove();
+  dukeRantTrash?.remove();
+  rantsRestored = true;
+  recycleStatus.textContent = "Restored 2 files to Empty folder.";
 }
 function emptyRecycleBin() { recycleStatus.textContent = "Cannot empty Recycle Bin: permission denied."; shakeElement($("recycle-window")); }
 
@@ -363,16 +403,11 @@ function setFlightDetail(flightId) {
 
   if (seatCard) seatCard.classList.add("locked-mode");
   saveFlightButton.disabled = true;
-  saveFlightButton.textContent = isConfirmedFlight ? "Option held" : "Locked";
+  saveFlightButton.textContent = isConfirmedFlight ? "Held" : "Hold locked";
   flightSeatStatus.textContent = isConfirmedFlight
-    ? (selectedSeat ? `Seat locked: ${selectedSeat}` : "Seat was left open.")
-    : "Seat changes are locked.";
-  if (flightLockStatus) {
-    const confirmed = flightData[confirmedFlightId];
-    flightLockStatus.textContent = isConfirmedFlight
-      ? "This is the held departure. You can review it, but not change it."
-      : `Another departure is already held: ${confirmed.number} (${confirmed.route}).`;
-  }
+    ? (selectedSeat ? `Held seat: ${selectedSeat}` : "Held without seat assignment.")
+    : "Preview only.";
+  if (flightLockStatus) flightLockStatus.textContent = "";
 }
 function openFlightDetail(flightId) {
   setFlightDetail(flightId);
@@ -391,16 +426,16 @@ function updateFlightOverviewLock() {
 function saveSelectedFlight() {
   if (!selectedFlightId || flightLocked) return;
   const flight = flightData[selectedFlightId];
-  const seatText = selectedSeat ? ` Seat ${selectedSeat} has been noted.` : " Seat is still open in the file.";
+  const seatText = selectedSeat ? `Seat ${selectedSeat} noted.` : "No seat assigned yet.";
   flightLocked = true;
   confirmedFlightId = selectedFlightId;
   document.querySelectorAll(".seat-button").forEach((button) => button.disabled = true);
   saveFlightButton.disabled = true;
-  saveFlightButton.textContent = "Option held";
-  if (flightLockStatus) flightLockStatus.textContent = "This departure is held. Other route cards stay readable, but cannot replace the hold.";
+  saveFlightButton.textContent = "Held";
   document.querySelector(".flight-seat-card")?.classList.add("locked-mode");
   updateFlightOverviewLock();
-  queueMsnMessage(flight.airline, `Hello ${USER_NAME}. Your selected option ${flight.number} (${flight.route}) is now on hold. Check-in opens 24 hours before departure.${seatText}`);
+  setFlightDetail(confirmedFlightId);
+  queueMsnMessage(flight.airline, `${flight.number} / ${flight.route}: Hi ${USER_NAME}. Your selected option is now on hold. ${seatText} Check-in opens 24 hours before departure.`);
 }
 
 function renderOrangePanel(panel) {
@@ -438,20 +473,15 @@ function updateCampProgress() {
 function updateOrangeConfirmState() {
   updateCampProgress();
   const allPacked = Object.values(campChecklist).every(Boolean);
-  if (currentOrangePanel === "camp") {
-    orangeConfirmButton.disabled = !allPacked;
-    orangeConfirmButton.textContent = allPacked ? "Confirm camp allocation" : "Complete packing list";
-  } else {
-    orangeConfirmButton.disabled = false;
-    orangeConfirmButton.textContent = "Confirm camp allocation";
-  }
+  orangeConfirmButton.disabled = !allPacked;
+  orangeConfirmButton.textContent = allPacked ? "Confirm camp allocation" : "Complete packing list";
 }
 function confirmOrangeAllocation() {
-  if (currentOrangePanel === "camp" && !Object.values(campChecklist).every(Boolean)) {
+  if (!Object.values(campChecklist).every(Boolean)) {
     shakeElement(orangePanelDisplay);
     return;
   }
-  queueMsnMessage("CAMPEN", `Welcome ${USER_NAME}. Your Orange week access is noted for ${selectedOrangeDay}. Camp handoff is active, and yes — you are in charge of lukewarm beer for the week.`);
+  queueMsnMessage("CAMPEN", `Hey ${USER_NAME}. Lovely of you to join us. Practical info: your Orange access is noted for ${selectedOrangeDay}, wristband handoff happens on site, and camp placement follows the partner file. Also, you are in charge of borrowing beer for the week. Best, Campen.`);
 }
 
 function openCountryDetail(country) {
@@ -567,6 +597,7 @@ const passwordInputInit = getPasswordInput();
 if (passwordInputInit) passwordInputInit.addEventListener("keydown", (event) => { if (event.key === "Enter") logIn(); });
 
 document.querySelectorAll("[data-window]").forEach(bindWindowOpener);
+syncDynamicText();
 document.querySelectorAll(".file-item").forEach(bindFileDoubleClick);
 document.querySelectorAll(".computer-drive-nav").forEach((button) => { button.addEventListener("click", (event) => { event.stopPropagation(); switchComputerView(button.dataset.computerView); }); button.addEventListener("dblclick", () => switchComputerView(button.dataset.computerView)); });
 computerBackButton.addEventListener("click", () => { if (currentComputerView !== "root") switchComputerView("root"); });
