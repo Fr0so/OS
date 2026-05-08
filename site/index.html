@@ -176,7 +176,7 @@
 <span class="file-icon locked-file-icon"></span>
 <span>passwd.txt</span>
 </button>
-<button class="file-item" data-window="denmark-rant-window"><span class="file-icon txt-icon deleted"></span><span>Danmark VM 26.txt</span></button><button class="file-item" data-window="duke-rant-window"><span class="file-icon txt-icon deleted"></span><span>March madness 26.txt</span></button></div>
+<button class="file-item" data-window="denmark-rant-window" id="denmark-rant-trash"><span class="file-icon txt-icon deleted"></span><span>Danmark VM 26.txt</span></button><button class="file-item" data-window="duke-rant-window" id="duke-rant-trash"><span class="file-icon txt-icon deleted"></span><span>March madness 26.txt</span></button></div>
 </article>
 <article class="window text-window" data-default-left="250" data-default-top="95" id="passwd-window">
 <div class="window-titlebar">
@@ -192,7 +192,7 @@
 <p>cph-2606</p>
 <p>summer2026</p>
 <p>border-orange</p>
-<p>fortia.local</p>
+<p id="booking-username-value">fortia.local</p>
 <p>roskilde</p>
 <p>admin</p>
 <p>password123</p>
@@ -202,13 +202,27 @@
 </article>
 <article class="window text-window" data-default-left="265" data-default-top="110" id="denmark-rant-window">
 <div class="window-titlebar"><span>Danmark VM 26.txt - Notepad</span><button aria-label="Close" class="window-close">×</button></div>
-<div class="notepad-menu">File  Edit  Format  View  Help</div>
-<div class="notepad-content"><p>DANMARK VM 26 - NOTES FROM THE BIN</p><p></p><p>World Cup expanded to 48 teams and Denmark still found a trapdoor. That is not a campaign, that is performance art with shin pads.</p><p>Czechia went through after a 2-2 playoff final and penalties. Cool. Normal. Meanwhile Denmark managed to turn qualification into a boardroom fog machine.</p><p>The worst part is not even losing. It is the tone afterwards. Process. Evaluation. Trust. All the usual words that mean nobody wants to say the football looked small, scared and over-managed.</p><p>Peter Møller backing Brian Riemer reads like one of those federation statements that has been printed before the match is even over. Very calm. Very professional. Very useful if the goal is to miss a 48-team World Cup with a straight face.</p><p>Fans online had the right energy: how do you have this player pool, this many chances, this much infrastructure, and still end up watching the tournament like the rest of us? At some point “bad luck” becomes a spreadsheet wearing a DBU polo.</p><p>Conclusion: not deleted. Archived out of shame.</p></div>
+<div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+<div class="notepad-content">
+<p>DANMARK VM 26</p>
+<p></p>
+<p>Forty-eight teams. Forty-eight. And Denmark still found a way to miss the World Cup. That takes real effort.</p>
+<p>Riemer made this team play scared. Slow, flat, sterile football, then the usual dead substitutions when the game needed nerve. With this player pool and this route, that is pathetic.</p>
+<p>And then Peter Møller goes on TV acting like fans should calm down? No. Missing this World Cup is a disgrace. Shrugging afterwards is even worse.</p>
+<p>The fans had the right take: both of them out. Fast. If you cannot get Denmark to a 48-team World Cup, you have absolutely no business acting offended that people are furious.</p>
+</div>
 </article>
 <article class="window text-window" data-default-left="285" data-default-top="125" id="duke-rant-window">
 <div class="window-titlebar"><span>March madness 26.txt - Notepad</span><button aria-label="Close" class="window-close">×</button></div>
-<div class="notepad-menu">File  Edit  Format  View  Help</div>
-<div class="notepad-content"><p>MARCH MADNESS 26 - DUKE FAN DAMAGE REPORT</p><p></p><p>I have watched Duke lose March games before. I have processed pain. This was not pain. This was a software crash at center court.</p><p>Up big. Control of the game. One seed. Blue blood. All the ingredients for “handle business and get to the Final Four.” Then UConn turns the last minute into a horror short and Braylon Mullins hits the kind of logo three that will be replayed until I am elderly.</p><p>People are calling it cosmic payback, Laettner in reverse, whatever. Fine. Let the neutrals have their little poetry. As a Duke fan, all I saw was a team with the game in its hands deciding the basketball was radioactive.</p><p>And yes, everyone online is doing the same joke: just hold the ball. Just get fouled. Just do the one boring thing. The whole season came down to “please be normal for ten seconds,” and somehow that was too much.</p><p>The worst part is knowing this is now March Madness content forever. Not a loss. A clip. A meme. A freeze-frame. Every tournament package will dig it up and make me relive the exact moment my living room went silent.</p><p>Final note: I still love this stupid team. That is the problem.</p></div>
+<div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
+<div class="notepad-content">
+<p>MARCH MADNESS 26</p>
+<p></p>
+<p>Duke had the game won and then completely lost its mind. That is the whole story.</p>
+<p>All they had to do was hold the ball, take the foul, and be boring for ten seconds. Instead they played like the ball was radioactive and handed UConn a forever highlight.</p>
+<p>As a Duke fan, that is the part that makes me sick. Not the shot. Not the noise. The fact that we basically opened the door for them ourselves.</p>
+<p>So yeah, I was livid. This is not just a loss now. It is a clip, a meme, and a collapse people are going to replay every March until the end of time.</p>
+</div>
 </article>
 <article class="window text-window" data-default-left="250" data-default-top="95" id="route-notes-window">
 <div class="window-titlebar">
@@ -265,28 +279,31 @@
 <span>budget.txt - Notepad</span>
 <button aria-label="Close" class="window-close">×</button>
 </div>
-<div class="notepad-menu">File  Edit  Format  View  Help</div>
+<div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
 <div class="notepad-content">
-<p>##BUDGET_CACHE_ERROR##</p>
-<p>øøø//x92--[unreadable]</p>
-<p>4F 2A ?? ?? SUMMER</p>
-<p>kr_???.??</p>
-<p>line_item_03 corrupted</p>
-<p>¤¤¤ ### ### ###</p>
-<p>route_cost = [data missing]</p>
-<p>festival_cost = [data missing]</p>
-<p>road_cost = [data missing]</p>
-<p>EOF_NOT_FOUND</p>
+<p>--BEGIN BUDGET.BLOB--</p>
+<p>sig:: 5F-A9-0C-77 / enc:: xor+rot</p>
+<p>blk_00 :: 8A 1F 9C 44 20 7E 11 03</p>
+<p>blk_01 :: 44 99 12 ?? C7 3A 5E 8D</p>
+<p>blk_02 :: route_cost = [[redacted]]</p>
+<p>blk_03 :: festival_cost = 0x3F_??_D8</p>
+<p>blk_04 :: road_cost = 71 ?? A4 2C</p>
+<p>blk_05 :: checksum mismatch // archive dirty</p>
+<p>blk_06 :: token stream lost @ byte_219</p>
+<p>tail :: #### //// #### ####</p>
+<p>--END BUDGET.BLOB--</p>
 </div>
 </article>
-<article class="window text-window" data-default-left="250" data-default-top="95" id="empty-folder-window">
+<article class="window large-window" data-default-left="250" data-default-top="95" id="empty-folder-window">
 <div class="window-titlebar">
-<span>Folder - Explorer</span>
+<span>Empty folder</span>
 <button aria-label="Close" class="window-close">×</button>
 </div>
-<div class="notepad-menu">File  Edit  Format  View  Help</div>
-<div class="notepad-content">
-<p>This folder is empty.</p>
+<div class="window-toolbar">
+<button class="window-close-soft">Back</button>
+</div>
+<div class="window-content explorer-content" id="empty-folder-content">
+<div class="empty-folder-placeholder" id="empty-folder-placeholder">This folder is empty.</div>
 </div>
 </article>
 <article class="window help-window" data-default-left="300" data-default-top="75" id="help-window">
@@ -390,7 +407,7 @@
 <div class="agency-footer-strip">
 <span>File source: Summer 2026 (F:)</span>
 <span>Desk status: archived / usable</span>
-<span>Passenger: Name</span>
+<span>Passenger: <strong id="agency-passenger-name">Name</strong></span>
 </div>
 </div>
 </section>
@@ -508,9 +525,7 @@
 <small>Partner list route</small>
 </div>
 </div>
-<div class="orange-stage-lines">
-<span></span><span></span><span></span>
-</div>
+<div class="orange-ticket-note"><strong>Route file</strong><p>Use the day tabs for lineup notes. Camp allocation stays locked until the full packing list is checked.</p></div>
 <div class="orange-week-ribbon"><button class="day-pill orange-day active" data-orange-day="Mon 29" type="button">Mon 29</button><button class="day-pill orange-day" data-orange-day="Tue 30" type="button">Tue 30</button><button class="day-pill orange-day" data-orange-day="Wed 01" type="button">Wed 01</button><button class="day-pill orange-day" data-orange-day="Thu 02" type="button">Thu 02</button><button class="day-pill orange-day" data-orange-day="Fri 03" type="button">Fri 03</button><button class="day-pill orange-day" data-orange-day="Sat 04" type="button">Sat 04</button></div>
 </div>
 <div class="orange-side-stack">
