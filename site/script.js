@@ -57,31 +57,35 @@ const flightData = {
 };
 
 const roadtripStops = {
-  Tirana: "Pickup point and first overnight.",
-  Kotor: "Bay stop with a slow coastal afternoon.",
-  Mostar: "Bridge stop and short old-town walk.",
-  Split: "Coast leg and ferry-side evening.",
-  Zagreb: "Northern finish and return handoff."
+  "Albania": "National dish: Tavë kosi. Best thing to see: Tirana and the Albanian Riviera. Culture note: coffee is basically infrastructure.",
+  "Montenegro": "National dish: Njeguši prosciutto. Best thing to see: Bay of Kotor. Culture note: mountain roads do not care about your schedule.",
+  "Croatia": "National dish: Peka. Best thing to see: the Adriatic coast and old towns. Culture note: every sea view thinks it is the main character.",
+  "Kosovo": "National dish: Flija. Best thing to see: Prizren. Culture note: cafe tables are planning offices.",
+  "Serbia": "National dish: Ćevapi. Best thing to see: Belgrade at night. Culture note: the playlist gets louder after midnight.",
+  "North Macedonia": "National dish: Tavče gravče. Best thing to see: Lake Ohrid. Culture note: slow mornings are part of the route."
 };
 
 const orangePanels = {
   lineup: `
     <div class="orange-lineup-cards">
-      <div class="orange-lineup-card"><span>Main slot</span><strong>18:00</strong><small>Warm-up block</small></div>
-      <div class="orange-lineup-card"><span>Evening</span><strong>20:30</strong><small>Orange headline slot</small></div>
-      <div class="orange-lineup-card"><span>Late</span><strong>23:45</strong><small>Night set</small></div>
+      <div class="orange-lineup-card"><span>Wed</span><strong>The Cure</strong><small>Orange stage · late</small></div>
+      <div class="orange-lineup-card"><span>Thu</span><strong>Little Simz</strong><small>High priority slot</small></div>
+      <div class="orange-lineup-card"><span>Fri</span><strong>David Byrne</strong><small>Evening slot</small></div>
     </div>`,
   camp: `
-    <div class="orange-lineup-cards">
-      <div class="orange-lineup-card"><span>Camp zone</span><strong>West</strong><small>Partner list access</small></div>
-      <div class="orange-lineup-card"><span>Arrival</span><strong>15:00</strong><small>Check-in suggested</small></div>
-      <div class="orange-lineup-card"><span>Task</span><strong>Beer</strong><small>Bring the lukewarm classics</small></div>
+    <div class="packing-list-panel">
+      <h3>Camp packing list</h3>
+      <label><input type="checkbox"> Pavilion tape</label>
+      <label><input type="checkbox"> Powerbank</label>
+      <label><input type="checkbox"> Rain cover</label>
+      <label><input type="checkbox"> Sunscreen that will be forgotten</label>
+      <label><input type="checkbox"> Lukewarm beer duty</label>
     </div>`,
   access: `
     <div class="orange-lineup-cards">
-      <div class="orange-lineup-card"><span>Access</span><strong>Granted</strong><small>Partner route found</small></div>
-      <div class="orange-lineup-card"><span>Wristband</span><strong>On site</strong><small>Collect at camp handoff</small></div>
-      <div class="orange-lineup-card"><span>Travel link</span><strong>CPH</strong><small>Best matched with Copenhagen route</small></div>
+      <div class="orange-lineup-card"><span>Access</span><strong>Partner</strong><small>Route not public</small></div>
+      <div class="orange-lineup-card"><span>Wristband</span><strong>On site</strong><small>Camp handoff</small></div>
+      <div class="orange-lineup-card"><span>Link</span><strong>CPH</strong><small>Matched with travel file</small></div>
     </div>`
 };
 
@@ -137,6 +141,8 @@ const saveCarButton = document.getElementById("save-car-button");
 const msnMessages = document.getElementById("msn-messages");
 const msnContactName = document.getElementById("msn-contact-name");
 const msnContactStatus = document.getElementById("msn-contact-status");
+const msnContactList = document.getElementById("msn-contact-list");
+const msnBadge = document.getElementById("msn-badge");
 
 let highestZIndex = 10;
 let loginAttempts = 0;
@@ -151,7 +157,18 @@ let selectedFlightId = null;
 let selectedSeat = null;
 let selectedRoadtripCar = null;
 let selectedOrangeDay = "Mon 29";
+let activeMsnContact = "CAMPEN";
+let flightLocked = false;
+let carLocked = false;
 let konamiIndex = 0;
+
+const msnStore = {
+  "SAS Travel Desk": { status: "Status: Away", messages: [], unread: 0 },
+  "Adriatic Air Desk": { status: "Status: Away", messages: [], unread: 0 },
+  "Swiss Booking Desk": { status: "Status: Away", messages: [], unread: 0 },
+  "CAMPEN": { status: "Status: Online", messages: [], unread: 0 },
+  "Adriatic AutoRent": { status: "Status: Online", messages: [], unread: 0 }
+};
 
 const konamiCode = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 
@@ -223,7 +240,6 @@ function startLoginLoader() {
       setTimeout(() => {
         showScreen(desktop);
         updateClock();
-        openWindow("computer-window");
       }, 400);
     }
   }
@@ -273,6 +289,10 @@ function openWindow(windowId) {
   placeWindow(windowElement);
   closeStartMenu();
   if (windowId === "computer-window") switchComputerView(currentComputerView);
+  if (windowId === "msn-window") {
+    const unreadContact = Object.keys(msnStore).find((name) => msnStore[name].unread > 0);
+    showMsnConversation(unreadContact || activeMsnContact, true);
+  }
   const input = windowElement.querySelector("input:not([readonly])");
   if (input) setTimeout(() => input.focus(), 40);
 }
@@ -417,25 +437,89 @@ function setFlightDetail(flightId) {
 }
 
 function openFlightDetail(flightId) {
+  if (flightLocked) return;
   setFlightDetail(flightId);
   navigateBrowser("flightdetail");
 }
 
-function pushMsnMessage(contact, message, status = "Status: Online") {
+function randomMessageDelay() {
+  return 900 + Math.floor(Math.random() * 1800);
+}
+
+function updateMsnBadge() {
+  if (!msnBadge) return;
+  const totalUnread = Object.values(msnStore).reduce((sum, item) => sum + item.unread, 0);
+  msnBadge.textContent = String(totalUnread);
+  msnBadge.classList.toggle("hidden", totalUnread === 0);
+}
+
+function renderMsnContacts() {
+  if (!msnContactList) return;
+  msnContactList.innerHTML = "";
+  Object.entries(msnStore).forEach(([name, convo]) => {
+    const button = document.createElement("button");
+    button.className = "msn-contact-item" + (name === activeMsnContact ? " active" : "");
+    button.type = "button";
+    button.dataset.contact = name;
+    button.innerHTML = `<span class="msn-contact-dot">${name.slice(0, 1)}</span><span><strong>${name}</strong><small>${convo.status.replace("Status: ", "")}</small></span>${convo.unread ? `<em>${convo.unread}</em>` : ""}`;
+    button.addEventListener("click", () => showMsnConversation(name, true));
+    msnContactList.appendChild(button);
+  });
+}
+
+function showMsnConversation(contact, markRead = true) {
+  if (!msnStore[contact]) return;
+  activeMsnContact = contact;
+  const convo = msnStore[contact];
   msnContactName.textContent = contact;
-  msnContactStatus.textContent = status;
-  const bubble = document.createElement("div");
-  bubble.className = "msn-message";
-  bubble.innerHTML = `<small>${contact}</small><div>${message}</div>`;
-  msnMessages.appendChild(bubble);
+  msnContactStatus.textContent = convo.status;
+  msnMessages.innerHTML = "";
+  if (!convo.messages.length) {
+    const empty = document.createElement("div");
+    empty.className = "msn-empty-state";
+    empty.textContent = "No messages in this conversation.";
+    msnMessages.appendChild(empty);
+  } else {
+    convo.messages.forEach((msg) => {
+      const bubble = document.createElement("div");
+      bubble.className = "msn-message";
+      bubble.innerHTML = `<small>${msg.time}</small><div>${msg.text}</div>`;
+      msnMessages.appendChild(bubble);
+    });
+  }
+  if (markRead) convo.unread = 0;
+  renderMsnContacts();
+  updateMsnBadge();
   msnMessages.scrollTop = msnMessages.scrollHeight;
-  openWindow("msn-window");
+}
+
+function pushMsnMessage(contact, message, status = "Status: Online") {
+  if (!msnStore[contact]) {
+    msnStore[contact] = { status, messages: [], unread: 0 };
+  }
+  setTimeout(() => {
+    const convo = msnStore[contact];
+    convo.status = status;
+    convo.messages.push({ text: message, time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) });
+    const msnOpen = document.getElementById("msn-window").classList.contains("open");
+    if (msnOpen && activeMsnContact === contact) {
+      showMsnConversation(contact, true);
+    } else {
+      convo.unread += 1;
+      renderMsnContacts();
+      updateMsnBadge();
+    }
+  }, randomMessageDelay());
 }
 
 function saveSelectedFlight() {
-  if (!selectedFlightId) return;
+  if (!selectedFlightId || flightLocked) return;
   const flight = flightData[selectedFlightId];
   const seatText = selectedSeat ? ` Seat ${selectedSeat} has been noted.` : " Seat is still open in the file.";
+  flightLocked = true;
+  document.querySelectorAll(".flight-route-button, .seat-button").forEach((button) => button.disabled = true);
+  saveFlightButton.disabled = true;
+  saveFlightButton.textContent = "Option held";
   pushMsnMessage(
     flight.airline,
     `Hello ${USER_NAME}. Your selected option ${flight.number} (${flight.route}) is now on hold. Check-in opens 24 hours before departure.${seatText}`
@@ -445,6 +529,20 @@ function saveSelectedFlight() {
 function renderOrangePanel(panel) {
   orangePanelDisplay.innerHTML = orangePanels[panel] || orangePanels.lineup;
   document.querySelectorAll(".orange-panel-button").forEach((btn) => btn.classList.toggle("active", btn.dataset.orangePanel === panel));
+}
+
+function updateOrangeLineupForDay(day) {
+  const dayMap = {
+    "Mon 29": ["Aphaca", "Tessa", "TV-2"],
+    "Tue 30": ["Diket", "Augusta Schackinger", "Pumpegris"],
+    "Wed 01": ["The Cure", "Wolf Alice", "Pil"],
+    "Thu 02": ["Little Simz", "Tobias Rahim", "Clipse"],
+    "Fri 03": ["David Byrne", "Yung Lean & Bladee", "Sierra Ferrell"],
+    "Sat 04": ["Gorillaz", "Jennie", "Zara Larsson"]
+  };
+  const artists = dayMap[day] || dayMap["Mon 29"];
+  orangePanelDisplay.innerHTML = `<div class="orange-lineup-cards">${artists.map((artist, index) => `<div class="orange-lineup-card"><span>${day}</span><strong>${artist}</strong><small>${index === 0 ? "Primary" : "Recommended"} slot</small></div>`).join("")}</div>`;
+  document.querySelectorAll(".orange-panel-button").forEach((btn) => btn.classList.toggle("active", btn.dataset.orangePanel === "lineup"));
 }
 
 function confirmOrangeAllocation() {
@@ -461,15 +559,21 @@ function selectRoadtripStop(stop) {
 }
 
 function selectRoadtripCar(button) {
+  if (carLocked) return;
   selectedRoadtripCar = button.dataset.car;
   document.querySelectorAll(".car-option-button").forEach((btn) => btn.classList.toggle("active", btn === button));
 }
 
 function saveRoadtripCar() {
+  if (carLocked) return;
   if (!selectedRoadtripCar) {
     pushMsnMessage("Adriatic AutoRent", `Hi ${USER_NAME}. Select a vehicle first so the rental file can be confirmed.`);
     return;
   }
+  carLocked = true;
+  document.querySelectorAll(".car-option-button").forEach((button) => button.disabled = true);
+  saveCarButton.disabled = true;
+  saveCarButton.textContent = "Vehicle reserved";
   pushMsnMessage(
     "Adriatic AutoRent",
     `Hi ${USER_NAME}. Your ${selectedRoadtripCar} reservation is confirmed for pickup in Tirana. Bring passport and driving license to the desk.`
@@ -549,6 +653,7 @@ browserHomeButton.addEventListener("click", () => navigateBrowser("home"));
 document.querySelectorAll(".browser-nav").forEach((button) => button.addEventListener("click", () => navigateBrowser(button.dataset.browserPage)));
 document.querySelectorAll(".flight-route-button").forEach((button) => button.addEventListener("click", () => openFlightDetail(button.dataset.flightId)));
 document.querySelectorAll(".seat-button").forEach((button) => button.addEventListener("click", () => {
+  if (flightLocked) return;
   selectedSeat = button.dataset.seat;
   document.querySelectorAll(".seat-button").forEach((btn) => btn.classList.remove("active"));
   button.classList.add("active");
@@ -560,6 +665,7 @@ document.querySelectorAll(".orange-panel-button").forEach((button) => button.add
 document.querySelectorAll(".orange-day").forEach((button) => button.addEventListener("click", () => {
   selectedOrangeDay = button.dataset.orangeDay;
   document.querySelectorAll(".orange-day").forEach((btn) => btn.classList.toggle("active", btn === button));
+  updateOrangeLineupForDay(selectedOrangeDay);
 }));
 orangeConfirmButton.addEventListener("click", confirmOrangeAllocation);
 
@@ -675,4 +781,4 @@ document.addEventListener("mouseup", () => {
 updateClock();
 navigateBrowser("home", false);
 renderOrangePanel("lineup");
-selectRoadtripStop("Tirana");
+selectRoadtripStop("Albania");
