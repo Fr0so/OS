@@ -506,3 +506,129 @@ button { user-select: none; }
 .postcard-card { min-height: 88px; }
 .map-node { white-space: nowrap; }
 @media (max-width: 760px) { .msn-app-shell { grid-template-columns: 1fr; } .msn-contact-list { border-right: 0; border-bottom: 1px solid #8bb8e8; max-height: 170px; } }
+
+/* v10 hardening + redesign pass */
+#desktop { position: relative; }
+#desktop-recycle-icon,
+#desktop .desktop-recycle-icon {
+  position: absolute !important;
+  top: 22px !important;
+  right: 22px !important;
+  left: auto !important;
+  bottom: auto !important;
+  z-index: 3 !important;
+}
+.desktop-icons { grid-auto-rows: max-content; align-content: start; }
+.desktop-icon { position: relative; }
+.desktop-icon span:last-child { width: 100%; text-align: center; line-height: 1.12; }
+.notification-badge {
+  position: absolute; top: 1px; left: 6px; min-width: 18px; height: 18px; padding: 0 5px;
+  display: grid; place-items: center; border-radius: 999px; background: #e21b1b; color: #fff;
+  font-size: 11px; font-weight: bold; text-shadow: none; box-shadow: 0 1px 3px rgba(0,0,0,.45);
+}
+.notification-badge.hidden { display: none; }
+
+.secret-agency-home { display: grid; gap: 18px; min-height: 485px; }
+.agency-hero-card {
+  position: relative; display: grid; grid-template-columns: 1fr 220px; gap: 24px; overflow: hidden;
+  padding: 26px; border: 1px solid #8fa9cd;
+  background:
+    radial-gradient(circle at top right, rgba(255,196,87,.42), transparent 32%),
+    repeating-linear-gradient(135deg, rgba(34,74,126,.07), rgba(34,74,126,.07) 8px, transparent 8px, transparent 18px),
+    linear-gradient(135deg, #fff8e9, #e2efff 55%, #d5e0f4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+.agency-stamp {
+  position: absolute; top: 16px; right: 22px; transform: rotate(4deg);
+  padding: 6px 10px; border: 2px solid #b2502a; color: #9b3517; background: rgba(255,255,255,.55);
+  font-weight: bold; letter-spacing: 1px; font-size: 11px;
+}
+.agency-copy h2 { margin: 6px 0 8px; font-size: 36px; color: #1e385f; letter-spacing: -.6px; }
+.agency-copy p { margin: 0; max-width: 460px; color: #425a7b; line-height: 1.55; }
+.agency-ticket-stack { display: grid; gap: 10px; align-content: center; padding-top: 26px; }
+.agency-ticket-stack span { height: 48px; border: 1px dashed #6d86aa; background: linear-gradient(90deg, #fff, #f3e3b5); box-shadow: 3px 4px 0 rgba(41,64,103,.12); }
+.agency-ticket-stack span:nth-child(2) { transform: translateX(16px); background: linear-gradient(90deg, #fff, #d7ecff); }
+.agency-ticket-stack span:nth-child(3) { transform: translateX(6px); background: linear-gradient(90deg, #fff, #ffe0c0); }
+.agency-route-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.agency-board-card {
+  display: grid; gap: 8px; padding: 18px; min-height: 148px; border: 1px solid #aebfd6;
+  background: linear-gradient(180deg, #fff, #edf5ff); text-align: left; cursor: pointer; color: #263b58;
+}
+.agency-board-card:hover { background: #e1efff; border-color: #4a78bf; }
+.agency-board-card.orange-card { background: linear-gradient(180deg, #fff8ed, #ffe3bd); border-color: #ecae61; }
+.agency-board-card.road-card { background: linear-gradient(180deg, #fffdf2, #e9f2dc); border-color: #b7c999; }
+.agency-card-code { justify-self: start; padding: 3px 7px; border: 1px solid currentColor; font-size: 11px; font-weight: bold; opacity: .75; }
+.agency-board-card strong { font-size: 19px; }
+.agency-board-card p { margin: 0; color: #50627b; line-height: 1.4; }
+.agency-footer-strip { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px; border: 1px solid #c4d0de; background: #fff; color: #52667f; font-size: 12px; }
+.agency-footer-strip span { padding: 4px 8px; background: #eef5ff; border: 1px solid #d3e0ef; }
+
+.flight-route-button.selected-flight-locked {
+  background: linear-gradient(#2e507d, #1b3355) !important;
+  border-color: #10243f !important;
+  color: #fff !important;
+}
+.flight-route-button.selected-flight-locked .flight-card-top,
+.flight-route-button.selected-flight-locked .flight-meta,
+.flight-route-button.selected-flight-locked .flight-footer { color: #fff !important; }
+.flight-route-button.unavailable-flight { opacity: .42; cursor: not-allowed; filter: grayscale(.45); }
+.seat-button:disabled, #save-flight-button:disabled { opacity: .62; cursor: not-allowed; }
+
+.balkan-landing { display: grid; gap: 16px; }
+.balkan-cover {
+  display: grid; grid-template-columns: 1fr 250px; gap: 18px; padding: 22px; border: 1px solid #b5c79a;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(129,161,88,.35), transparent 30%),
+    linear-gradient(135deg, #fffdf1, #edf6e4);
+}
+.balkan-cover h2 { margin: 6px 0 8px; font-size: 32px; color: #314f22; }
+.balkan-cover p { margin: 0; color: #5c6d54; line-height: 1.5; }
+.balkan-cover-map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-content: center; }
+.balkan-cover-map span { display: grid; place-items: center; min-height: 48px; border: 1px solid #8ea56b; background: #fff; color: #415f2e; font-weight: bold; box-shadow: 2px 3px 0 rgba(73,92,45,.12); }
+.country-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.country-card {
+  display: grid; gap: 6px; padding: 16px; min-height: 118px; text-align: left; cursor: pointer;
+  border: 1px solid #c7d6b1; background: linear-gradient(#fff, #f4faed); color: #304927;
+}
+.country-card:hover, .country-card.active { background: #e3f2d5; border-color: #6f9149; }
+.country-card span { font-size: 11px; opacity: .68; font-weight: bold; }
+.country-card strong { font-size: 18px; }
+.country-card small { color: #627356; line-height: 1.35; }
+.vehicle-desk-panel {
+  display: grid; grid-template-columns: 180px 1fr auto; gap: 14px; align-items: center; padding: 14px;
+  border: 1px solid #c7d6b1; background: linear-gradient(#fff, #f7fbf4);
+}
+.vehicle-desk-copy h3 { margin: 4px 0; color: #314f22; }
+.vehicle-desk-copy p { margin: 0; color: #65745a; font-size: 12px; }
+.country-detail-sheet { display: grid; gap: 16px; }
+.country-detail-hero {
+  display: grid; grid-template-columns: 1fr 120px; gap: 18px; padding: 24px; border: 1px solid #b6c89a;
+  background: linear-gradient(135deg, #fffaf0, #eaf5e0);
+}
+.country-detail-hero h2 { margin: 6px 0 8px; font-size: 36px; color: #304927; }
+.country-detail-hero p { margin: 0; color: #596d50; line-height: 1.55; }
+.country-detail-code { display: grid; place-items: center; border: 2px solid #6f9149; background: #fff; color: #314f22; font-size: 36px; font-weight: bold; }
+.country-fact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.country-fact-card { padding: 16px; border: 1px solid #cad9b7; background: #fff; }
+.country-fact-card.wide { grid-column: 1 / -1; }
+.country-fact-card span { display: block; color: #68775e; font-size: 12px; margin-bottom: 6px; }
+.country-fact-card strong { color: #304927; line-height: 1.45; }
+.car-option-button.active { background: #dcefcf !important; border-color: #6f9149 !important; }
+.car-option-button:disabled, #save-car-button:disabled { opacity: .7; cursor: not-allowed; }
+.camp-pack-layout { display: grid; grid-template-columns: 190px 1fr; gap: 14px; }
+.camp-task-card { padding: 14px; border: 1px solid #efc38e; background: linear-gradient(#fff8ef, #ffe3c2); }
+.camp-task-card span, .camp-task-card small { display: block; color: #8a5d2e; }
+.camp-task-card strong { display: block; margin: 7px 0; color: #7a3f0c; }
+
+.msn-contact-empty { padding: 12px; color: #5d7490; font-size: 12px; text-align: center; }
+.msn-contact-list:empty::before { content: "No contacts yet."; display: block; padding: 12px; color: #5d7490; font-size: 12px; text-align: center; }
+.msn-chat-header { min-height: 70px; }
+.msn-message { max-width: 90%; }
+
+@media (max-width: 860px) {
+  .agency-hero-card, .agency-route-board, .balkan-cover, .country-card-grid, .vehicle-desk-panel, .country-detail-hero, .country-fact-grid, .camp-pack-layout { grid-template-columns: 1fr; }
+  .country-fact-card.wide { grid-column: auto; }
+}
+@media (max-width: 700px) {
+  #desktop-recycle-icon, #desktop .desktop-recycle-icon { top: 12px !important; right: 12px !important; }
+}
