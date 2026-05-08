@@ -84,12 +84,48 @@ const seats = ["12A", "12C", "12D", "12F", "14A", "14C", "14D", "14F"];
 
 const orangeDays = ["Mon 29", "Tue 30", "Wed 01", "Thu 02", "Fri 03", "Sat 04"];
 const orangeLineup = {
-  "Mon 29": ["Pil", "Aphaca", "Sierra Ferrell"],
-  "Tue 30": ["Lily Allen", "Addison Rae", "Kneecap"],
-  "Wed 01": ["The Cure", "Wolf Alice", "Little Simz"],
-  "Thu 02": ["Clipse", "David Byrne", "Jennie"],
-  "Fri 03": ["Yung Lean & Bladee", "Zara Larsson", "Pil"],
-  "Sat 04": ["Gorillaz", "The Cure", "Aphaca"]
+  "Mon 29": [
+    ["Pil", "warm-up"],
+    ["Aphaca", "Danish slot"],
+    ["Tessa", "opening day"],
+    ["TV-2", "legacy"],
+    ["Pumpegris", "late tent"]
+  ],
+  "Tue 30": [
+    ["Kneecap", "loud file"],
+    ["Lily Allen", "pop"],
+    ["Addison Rae", "pop"],
+    ["Sierra Ferrell", "country"],
+    ["Diket", "first days"]
+  ],
+  "Wed 01": [
+    ["The Cure", "headline"],
+    ["Wolf Alice", "guitar"],
+    ["Little Simz", "rap"],
+    ["Clipse", "rap"],
+    ["David Byrne", "special file"]
+  ],
+  "Thu 02": [
+    ["Gorillaz", "headline"],
+    ["Jennie", "pop"],
+    ["Zara Larsson", "pop"],
+    ["Yung Lean & Bladee", "night"],
+    ["Aphaca", "Danish slot"]
+  ],
+  "Fri 03": [
+    ["David Byrne", "art pop"],
+    ["Kneecap", "late file"],
+    ["Lily Allen", "main field"],
+    ["Addison Rae", "pop"],
+    ["Sierra Ferrell", "sunset"]
+  ],
+  "Sat 04": [
+    ["Gorillaz", "closing board"],
+    ["The Cure", "black marker"],
+    ["Jennie", "pop"],
+    ["Zara Larsson", "orange field"],
+    ["Yung Lean & Bladee", "after dark"]
+  ]
 };
 
 const campChecklist = {
@@ -116,54 +152,72 @@ const countryData = {
     slug: "albania",
     sub: "Tirana / Riviera",
     dish: "Tavë kosi",
-    see: "Tirana and the Albanian Riviera",
-    note: "Coffee is infrastructure. Start practical in Tirana, then let the coast do the convincing.",
-    copy: "Compact route sheet for Tirana, mountain roads and the coast southbound. Best opened with time in the schedule."
+    see: "Tirana, Gjirokastër, Himarë coast",
+    note: "Coffee first, logistics second. Tirana works as the desk, the coast works as the reward.",
+    border: "Keep car papers easy to reach.",
+    drive: "Mountain roads look short on paper and then eat the afternoon.",
+    copy: "Tirana pickup, bunker edges, mountain turns and a southbound coast file with too many places to stop.",
+    stops: ["Tirana", "Gjirokastër", "Himarë", "Ksamil"]
   },
   "Montenegro": {
     code: "ME",
     slug: "montenegro",
     sub: "Bay of Kotor",
     dish: "Njeguši prosciutto",
-    see: "Bay of Kotor",
-    note: "Tiny roads, huge views. The best stop is usually the one that was not printed on the route.",
-    copy: "A dense coast card: switchbacks, stone towns and short drives that take longer than they look."
+    see: "Kotor bay road and Lovćen switchbacks",
+    note: "Small country, huge views. The slow parts are the point.",
+    border: "Check green card / rental permission before entering.",
+    drive: "Take the bay road slowly; buses do not care about your confidence.",
+    copy: "Kotor stone, steep turns, bay water and a route that looks tiny until the road starts climbing.",
+    stops: ["Kotor", "Perast", "Lovćen", "Budva"]
   },
   "Croatia": {
     code: "HR",
     slug: "croatia",
     sub: "Coast / old towns",
     dish: "Peka",
-    see: "Adriatic coast and old towns",
-    note: "Everything looks like a postcard and half of it probably is. Good final stretch if the car still has patience.",
-    copy: "Old town edges, ferry timing, coast roads and long late dinners. Keep parking notes separate."
+    see: "Adriatic old towns and late ferries",
+    note: "Pretty enough to feel suspicious. Parking is the real boss fight.",
+    border: "EU entry makes paperwork easier, not parking easier.",
+    drive: "Coast roads reward early starts and punish heroic schedules.",
+    copy: "A clean coast card: old stone, ferry timing, late dinners and one folder just for parking notes.",
+    stops: ["Dubrovnik", "Split", "Zadar", "Plitvice"]
   },
   "Kosovo": {
     code: "XK",
     slug: "kosovo",
     sub: "Prizren",
     dish: "Flija",
-    see: "Prizren",
-    note: "Cafés double as planning offices. Add time for conversations that were supposed to be five minutes.",
-    copy: "Small sheet for Prizren, border timing and city walking. Best used slowly."
+    see: "Prizren old town and fortress walk",
+    note: "Cafés double as planning offices. Five-minute stops become forty.",
+    border: "Entry stamp sequence can matter depending on route.",
+    drive: "Short drives, dense towns, park once and walk.",
+    copy: "A compact city sheet for Prizren, border timing and the kind of coffee break that rewrites the afternoon.",
+    stops: ["Prizren", "Pristina", "Rugova", "Gjakova"]
   },
   "Serbia": {
     code: "RS",
     slug: "serbia",
     sub: "Belgrade",
     dish: "Ćevapi",
-    see: "Belgrade at night",
-    note: "The playlist gets louder after midnight. Treat it as a route branch, not a quiet detour.",
-    copy: "Belgrade city file with night notes, parking caution and one very optimistic morning departure."
+    see: "Belgrade after dark",
+    note: "The playlist gets louder after midnight. Morning departures become theory.",
+    border: "Double-check rental cross-border permission.",
+    drive: "City traffic first, river roads after.",
+    copy: "Belgrade city file with night notes, river edges, parking caution and one very optimistic morning departure.",
+    stops: ["Belgrade", "Novi Sad", "Niš", "Tara"]
   },
   "North Macedonia": {
     code: "MK",
     slug: "north-macedonia",
     sub: "Lake Ohrid",
     dish: "Tavče gravče",
-    see: "Lake Ohrid",
-    note: "Slow mornings are not delays here. They are the itinerary defending itself.",
-    copy: "Lake card for Ohrid and the southern route. Leave space for a second coffee."
+    see: "Lake Ohrid and old town steps",
+    note: "Slow mornings are not delays. They are the itinerary defending itself.",
+    border: "Keep insurance papers visible at the desk.",
+    drive: "Lake roads are easy until everyone stops for the same view.",
+    copy: "Ohrid lake card, soft mornings, monastery stops and a southern route that should not be rushed.",
+    stops: ["Ohrid", "Skopje", "Bitola", "Matka Canyon"]
   }
 };
 
@@ -192,7 +246,7 @@ let currentTravelName = DEFAULT_USER_NAME;
 let browserHistory = ["home"];
 let activePage = "home";
 let selectedFlightId = null;
-let confirmedFlightId = null;
+const heldFlightSeats = {};
 let selectedSeat = null;
 let selectedOrangeDay = "Mon 29";
 let currentOrangePanel = "lineup";
@@ -397,6 +451,12 @@ function addFileToEmptyFolder(windowId, label, options = {}) {
 function restoreRecycleBin() {
   const status = $("recycle-status");
 
+  if (!selectedTrashId) {
+    if (status) status.textContent = "Select one item to restore.";
+    shakeElement($("recycle-window"));
+    return;
+  }
+
   if (selectedTrashId === "passwd") {
     passwdRestored = true;
     addFileToEmptyFolder("passwd-window", "passwd.txt");
@@ -406,20 +466,23 @@ function restoreRecycleBin() {
     return;
   }
 
-  let restored = 0;
-  if (!rantsRestored) {
-    addFileToEmptyFolder("denmark-rant-window", "Danmark VM 26.txt");
-    addFileToEmptyFolder("duke-rant-window", "March madness 26.txt");
-    $("denmark-rant-trash")?.remove();
-    $("duke-rant-trash")?.remove();
-    rantsRestored = true;
-    restored = 2;
+  const map = {
+    denmark: ["denmark-rant-window", "Danmark VM 26.txt", "denmark-rant-trash"],
+    duke: ["duke-rant-window", "March madness 26.txt", "duke-rant-trash"]
+  };
+
+  const entry = map[selectedTrashId];
+  if (!entry) {
+    if (status) status.textContent = "Cannot restore selected item.";
+    shakeElement($("recycle-window"));
+    return;
   }
 
-  if (status) {
-    status.textContent = restored ? "Restored 2 files to Empty folder." : "passwd.txt is locked.";
-  }
-  if (!restored) shakeElement($("recycle-window"));
+  const [windowId, label, trashButtonId] = entry;
+  addFileToEmptyFolder(windowId, label);
+  $(trashButtonId)?.remove();
+  if (status) status.textContent = `Restored ${label} to Empty folder.`;
+  selectedTrashId = null;
 }
 
 function emptyRecycleBin() {
@@ -567,10 +630,10 @@ function renderFlights() {
   grid.innerHTML = "";
 
   Object.entries(flightData).forEach(([id, flight]) => {
+    const isHeld = Object.prototype.hasOwnProperty.call(heldFlightSeats, id);
     const button = document.createElement("button");
     button.className = "flight-card";
-    if (confirmedFlightId === id) button.classList.add("held");
-    if (confirmedFlightId && confirmedFlightId !== id) button.classList.add("readonly");
+    if (isHeld) button.classList.add("held");
     button.type = "button";
     button.dataset.flightId = id;
     button.innerHTML = `
@@ -582,7 +645,7 @@ function renderFlights() {
         <span>${flight.arriveTime}</span>
         <span>${flight.arriveCode}</span>
       </div>
-      <div class="flight-footer"><span>${flight.duration}</span><em>${confirmedFlightId === id ? "Held" : "View"}</em></div>
+      <div class="flight-footer"><span>${flight.duration}</span><em>${isHeld ? "Held" : "View"}</em></div>
     `;
     button.addEventListener("click", () => openFlightDetail(id));
     grid.appendChild(button);
@@ -598,6 +661,7 @@ function setFlightDetail(id) {
   const flight = flightData[id];
   if (!flight) return;
   selectedFlightId = id;
+  selectedSeat = Object.prototype.hasOwnProperty.call(heldFlightSeats, id) ? (heldFlightSeats[id] || null) : null;
 
   $("flight-detail-route").textContent = flight.route;
   $("flight-detail-number").textContent = flight.number;
@@ -633,19 +697,19 @@ function updateFlightDetailState() {
   const seatCard = $("seat-card");
   const status = $("seat-status");
   const seatCopy = $("flight-detail-seat-copy");
+  if (!selectedFlightId) return;
 
-  const isHeldFlight = confirmedFlightId === selectedFlightId;
-  const lockedByOther = confirmedFlightId && !isHeldFlight;
+  const isHeldFlight = Object.prototype.hasOwnProperty.call(heldFlightSeats, selectedFlightId);
 
   document.querySelectorAll(".seat-button").forEach((button) => {
-    const matchesSeat = selectedSeat === button.dataset.seat;
-    button.classList.toggle("active", matchesSeat && !lockedByOther);
-    button.disabled = !!confirmedFlightId;
+    const seat = button.dataset.seat;
+    button.classList.toggle("active", !!selectedSeat && selectedSeat === seat);
+    button.disabled = isHeldFlight;
   });
 
-  seatCard.classList.toggle("locked", !!confirmedFlightId);
+  seatCard?.classList.toggle("locked", isHeldFlight);
 
-  if (!confirmedFlightId) {
+  if (!isHeldFlight) {
     holdButton.disabled = false;
     holdButton.textContent = "Hold this option";
     status.textContent = selectedSeat ? `Seat selected: ${selectedSeat}` : "No seat selected.";
@@ -654,15 +718,13 @@ function updateFlightDetailState() {
   }
 
   holdButton.disabled = true;
-  holdButton.textContent = isHeldFlight ? "Held" : "Hold unavailable";
-  status.textContent = isHeldFlight
-    ? (selectedSeat ? `Held seat: ${selectedSeat}` : "Held without seat.")
-    : "View only.";
-  seatCopy.textContent = isHeldFlight ? "Locked" : "View only";
+  holdButton.textContent = "Held";
+  status.textContent = selectedSeat ? `Held seat: ${selectedSeat}` : "Held without seat.";
+  seatCopy.textContent = "Locked";
 }
 
 function selectSeat(seat) {
-  if (confirmedFlightId) return;
+  if (Object.prototype.hasOwnProperty.call(heldFlightSeats, selectedFlightId)) return;
   selectedSeat = seat;
   document.querySelectorAll(".seat-button").forEach((button) => {
     button.classList.toggle("active", button.dataset.seat === seat);
@@ -671,9 +733,9 @@ function selectSeat(seat) {
 }
 
 function holdSelectedFlight() {
-  if (!selectedFlightId || confirmedFlightId) return;
+  if (!selectedFlightId || Object.prototype.hasOwnProperty.call(heldFlightSeats, selectedFlightId)) return;
   const flight = flightData[selectedFlightId];
-  confirmedFlightId = selectedFlightId;
+  heldFlightSeats[selectedFlightId] = selectedSeat || "";
   renderFlights();
   updateFlightDetailState();
 
@@ -717,14 +779,20 @@ function renderOrangePanel(panel) {
   if (panel === "lineup") {
     const names = orangeLineup[selectedOrangeDay] || [];
     container.innerHTML = `
-      <div class="lineup-list">
-        ${names.map((name, index) => `
-          <div class="lineup-card">
-            <span>${selectedOrangeDay}</span>
-            <strong>${name}</strong>
-            <small>${index === 0 ? "orange slip" : "allocation pick"}</small>
-          </div>
-        `).join("")}
+      <div class="lineup-board">
+        <div class="lineup-board-head">
+          <span>${selectedOrangeDay}</span>
+          <strong>Orange shortlist</strong>
+        </div>
+        <div class="lineup-rows">
+          ${names.map(([name, tag], index) => `
+            <div class="lineup-row ${index === 0 ? "top-row" : ""}">
+              <em>${String(index + 1).padStart(2, "0")}</em>
+              <strong>${name}</strong>
+              <span>${tag}</span>
+            </div>
+          `).join("")}
+        </div>
       </div>
     `;
     updateOrangeConfirmState();
@@ -735,8 +803,8 @@ function renderOrangePanel(panel) {
     container.innerHTML = `
       <div class="camp-layout">
         <div class="camp-task-card">
-          <span>Task</span>
-          <strong>Lukewarm beer lead</strong>
+          <span>Camp task</span>
+          <strong>Borrowing beer for the week</strong>
           <small>${getBookingName()}</small>
           <div class="camp-progress-bar"><span class="camp-progress-fill" id="camp-progress-fill"></span></div>
           <em class="camp-progress-text" id="camp-progress-text">0 / ${campItems.length} packed</em>
@@ -758,10 +826,14 @@ function renderOrangePanel(panel) {
   }
 
   container.innerHTML = `
-    <div class="access-note-grid">
-      <div class="access-note-card"><span>Wristband</span><strong>handoff on site</strong></div>
-      <div class="access-note-card"><span>Camp</span><strong>partner file placement</strong></div>
-      <div class="access-note-card"><span>Name</span><strong>${getBookingName()}</strong></div>
+    <div class="access-sheet">
+      <div class="access-sheet-title"><span>Access note</span><strong>${getBookingName()}</strong></div>
+      <div class="access-note-grid">
+        <div class="access-note-card"><span>Wristband</span><strong>handoff on site</strong></div>
+        <div class="access-note-card"><span>Camp</span><strong>after packing list</strong></div>
+        <div class="access-note-card"><span>Bring</span><strong>ID + ticket mail</strong></div>
+        <div class="access-note-card"><span>Desk</span><strong>partner window</strong></div>
+      </div>
     </div>
   `;
   updateOrangeConfirmState();
@@ -823,13 +895,14 @@ function renderCountries() {
 
   Object.entries(countryData).forEach(([country, data], index) => {
     const button = document.createElement("button");
-    button.className = "country-card";
+    button.className = "country-card travelguide-card";
     button.type = "button";
     button.dataset.country = country;
     button.innerHTML = `
-      <span>${String(index + 1).padStart(2, "0")}</span>
+      <span class="country-card-index">${String(index + 1).padStart(2, "0")}</span>
       <strong>${country}</strong>
       <small>${data.sub}</small>
+      <em>${data.see}</em>
     `;
     button.addEventListener("click", () => openCountry(country));
     grid.appendChild(button);
@@ -848,9 +921,19 @@ function setCountryDetail(country, pushHistory = true) {
   $("country-title").textContent = country;
   $("country-copy").textContent = data.copy;
   $("country-code").textContent = data.code;
+  const region = $("country-region");
+  if (region) region.textContent = data.sub;
   $("country-dish").textContent = data.dish;
   $("country-see").textContent = data.see;
   $("country-note").textContent = data.note;
+  const border = $("country-border");
+  if (border) border.textContent = data.border;
+  const drive = $("country-drive");
+  if (drive) drive.textContent = data.drive;
+  const itinerary = $("country-itinerary");
+  if (itinerary) {
+    itinerary.innerHTML = `<span>Route marks</span>${data.stops.map((stop) => `<b>${stop}</b>`).join("")}`;
+  }
 
   document.querySelectorAll(".country-card").forEach((button) => {
     button.classList.toggle("active", button.dataset.country === country);
