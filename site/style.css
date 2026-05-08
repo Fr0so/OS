@@ -64,10 +64,7 @@ button {
 
 .welcome-layout {
   position: absolute;
-  top: 80px;
-  bottom: 32px;
-  left: 0;
-  right: 0;
+  inset: 80px 0 32px;
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
   align-items: center;
@@ -174,7 +171,7 @@ button {
   font-weight: bold;
 }
 
-/* Fortia logo */
+/* Logo */
 .fortia-logo {
   position: relative;
   width: 52px;
@@ -211,7 +208,7 @@ button {
   height: 48px;
 }
 
-/* OS login */
+/* Login */
 #password-screen {
   position: relative;
   background: #00529f;
@@ -668,8 +665,8 @@ button {
 }
 
 .travel-window {
-  width: min(980px, calc(100vw - 34px));
-  min-height: 640px;
+  width: min(1040px, calc(100vw - 34px));
+  min-height: 650px;
 }
 
 .music-window {
@@ -913,7 +910,7 @@ button {
 
 .travel-login-screen,
 .travel-loader-screen {
-  min-height: 600px;
+  min-height: 610px;
   padding: 24px;
   background:
     radial-gradient(circle at 16% 14%, rgba(251, 206, 112, 0.34), transparent 24%),
@@ -1068,7 +1065,7 @@ button {
 }
 
 .travel-browser {
-  min-height: 600px;
+  min-height: 610px;
   background:
     radial-gradient(circle at top left, rgba(255, 160, 50, 0.14), transparent 28%),
     radial-gradient(circle at bottom right, rgba(64, 119, 190, 0.18), transparent 32%),
@@ -1103,8 +1100,10 @@ button {
 
 .browser-page {
   display: none;
-  min-height: 552px;
+  min-height: 560px;
+  max-height: 575px;
   padding: 20px;
+  overflow-y: auto;
 }
 
 .browser-page.active {
@@ -1282,6 +1281,7 @@ button {
 }
 
 .flight-card {
+  position: relative;
   display: grid;
   gap: 10px;
   padding: 16px;
@@ -1308,12 +1308,18 @@ button {
   color: white !important;
 }
 
-.flight-card.readonly {
-  opacity: 0.82;
-}
-
-.flight-card.readonly:hover {
-  opacity: 1;
+.flight-card.held::after {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 2px 7px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.4px;
+  content: "HELD";
+  background: rgba(0, 0, 0, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.42);
 }
 
 .flight-card-top,
@@ -1432,6 +1438,10 @@ button {
   opacity: 1;
 }
 
+.seat-card.locked .seat-button:not(.active) {
+  opacity: 0.42;
+}
+
 .seat-status {
   min-height: 18px;
   margin: 12px 0 14px;
@@ -1452,17 +1462,32 @@ button {
 
 .orange-layout {
   display: grid;
-  grid-template-columns: minmax(300px, 0.92fr) minmax(0, 1.22fr);
+  grid-template-columns: 320px minmax(0, 1fr);
   gap: 20px;
 }
 
 .orange-ticket {
+  position: relative;
+  overflow: hidden;
   padding: 20px;
   background:
-    radial-gradient(circle at 15% 14%, rgba(255, 149, 34, 0.22), transparent 24%),
-    linear-gradient(180deg, #fff9f0, #ffe8c9 78%);
-  border: 1px solid #e0a24f;
+    radial-gradient(circle at 18% 14%, rgba(255, 122, 0, 0.28), transparent 26%),
+    repeating-linear-gradient(0deg, rgba(122, 65, 18, 0.035), rgba(122, 65, 18, 0.035) 1px, transparent 1px, transparent 9px),
+    linear-gradient(180deg, #fff9ef, #ffe0b7 80%);
+  border: 1px solid #d98a2a;
+  border-left: 7px solid #ff7a00;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 8px 22px rgba(175, 106, 19, 0.1);
+}
+
+.orange-ticket::after {
+  position: absolute;
+  right: -28px;
+  bottom: -30px;
+  width: 120px;
+  height: 120px;
+  content: "";
+  background: rgba(255, 122, 0, 0.16);
+  border-radius: 50%;
 }
 
 .orange-ticket-top {
@@ -1492,20 +1517,42 @@ button {
   color: #8d5d24;
 }
 
-.orange-ticket-code {
+.orange-file-stack {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
-.orange-ticket-code span {
-  padding: 10px;
-  color: #754100;
+.orange-file-line {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(190, 111, 24, 0.42);
+  box-shadow: 2px 3px 0 rgba(143, 79, 14, 0.08);
+}
+
+.orange-file-line span {
+  color: #865017;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.orange-file-line strong {
+  color: #532a05;
+  font-size: 12px;
+}
+
+.orange-divider-label {
+  margin: 2px 0 10px;
+  color: #8a4a0e;
+  font-size: 11px;
   font-weight: bold;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.62);
-  border: 1px dashed #d88d38;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
 }
 
 .day-ribbon {
@@ -1586,41 +1633,96 @@ button {
 }
 
 .orange-panel {
-  min-height: 270px;
+  min-height: 330px;
   padding: 16px;
-  background: linear-gradient(#fffdf8, #fff6ea);
+  background:
+    linear-gradient(90deg, rgba(255, 128, 0, 0.08), transparent 35%),
+    linear-gradient(#fffdf8, #fff4e6);
   border: 1px solid #efc38e;
 }
 
-.lineup-list {
+.lineup-board {
   display: grid;
   gap: 12px;
 }
 
-.lineup-card {
+.lineup-board-head {
   display: grid;
-  grid-template-columns: 110px 1fr auto;
-  gap: 14px;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
   align-items: center;
-  padding: 14px;
-  color: #7a4f1d;
-  background: linear-gradient(#fff9f1, #fff1e0);
-  border: 1px solid #ffd4a0;
+  padding: 12px 14px;
+  color: #5d2e05;
+  background: #fff;
+  border: 1px solid #efc38e;
 }
 
-.lineup-card span {
+.lineup-board-head span {
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  background: #ffcf95;
+  border: 1px solid #d78930;
+}
+
+.lineup-board-head strong {
+  font-size: 22px;
+  letter-spacing: -0.3px;
+}
+
+.lineup-meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 3px;
+}
+
+.lineup-meta-strip b {
+  padding: 4px 7px;
+  color: #784507;
   font-size: 11px;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
+  background: #fff3dd;
+  border: 1px solid #efc38e;
 }
 
-.lineup-card strong {
-  color: #5a300b;
-  font-size: 24px;
+.lineup-rows {
+  display: grid;
+  gap: 8px;
 }
 
-.lineup-card small {
-  color: #885a27;
+.lineup-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  min-height: 50px;
+  padding: 9px 12px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid #f0c58e;
+}
+
+.lineup-row.top-row {
+  background: linear-gradient(90deg, #ffbc6f, #fff6e9 72%);
+  border-color: #cc7620;
+}
+
+.lineup-row em {
+  color: #a05b11;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.lineup-row strong {
+  color: #3f2106;
+  font-size: 20px;
+}
+
+.lineup-row span {
+  padding: 3px 7px;
+  color: #7c4c1b;
+  font-size: 11px;
+  background: #fff2df;
+  border: 1px solid #f0c58e;
 }
 
 .camp-layout {
@@ -1703,8 +1805,38 @@ button {
   background: #fff0d7;
 }
 
+.access-sheet {
+  display: grid;
+  gap: 14px;
+}
+
+.access-sheet-title {
+  padding: 14px;
+  background: #fff;
+  border: 1px solid #efc38e;
+}
+
+.access-sheet-title span,
+.access-sheet-title strong {
+  display: block;
+}
+
+.access-sheet-title span {
+  color: #8c5c25;
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.access-sheet-title strong {
+  margin-top: 4px;
+  color: #4a2605;
+  font-size: 24px;
+}
+
 .access-note-grid {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -1729,6 +1861,15 @@ button {
   font-size: 20px;
 }
 
+.access-fineprint {
+  padding: 10px 12px;
+  color: #765120;
+  font-family: "Lucida Console", Consolas, monospace;
+  font-size: 12px;
+  background: #fffaf2;
+  border: 1px dashed #e1ab63;
+}
+
 .orange-confirm {
   justify-self: start;
   min-width: 180px;
@@ -1737,108 +1878,171 @@ button {
 /* Balkan */
 .balkan-page {
   background:
-    radial-gradient(circle at top left, rgba(255, 231, 184, 0.6), transparent 26%),
-    radial-gradient(circle at bottom right, rgba(125, 155, 84, 0.22), transparent 30%),
-    linear-gradient(#fffdf7, #eef5e7);
+    radial-gradient(circle at 12% 10%, rgba(232, 189, 102, 0.42), transparent 25%),
+    radial-gradient(circle at 90% 22%, rgba(84, 116, 71, 0.28), transparent 25%),
+    linear-gradient(135deg, #f8f1df, #eef5e8 58%, #e7efe1);
 }
 
-.balkan-landing {
+.balkan-desk {
   display: grid;
-  gap: 18px;
+  gap: 16px;
 }
 
-.balkan-cover {
-  position: relative;
+.balkan-hero-card {
   display: grid;
-  grid-template-columns: 1.2fr 240px;
-  gap: 18px;
-  padding: 22px;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 20px;
+  align-items: end;
+  padding: 24px;
   overflow: hidden;
   background:
-    repeating-linear-gradient(135deg, rgba(107, 133, 67, 0.05), rgba(107, 133, 67, 0.05) 12px, transparent 12px, transparent 26px),
-    linear-gradient(135deg, #fffdf5, #eef5e4 64%);
-  border: 1px solid #8ca869;
-  border-left: 6px solid #64833f;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 7px 18px rgba(74, 92, 48, 0.12);
+    repeating-linear-gradient(135deg, rgba(55, 73, 42, 0.06), rgba(55, 73, 42, 0.06) 10px, transparent 10px, transparent 22px),
+    linear-gradient(135deg, #fff8e8, #e4efd8);
+  border: 1px solid #7d965f;
+  border-left: 8px solid #5b7841;
+  box-shadow: 0 10px 22px rgba(64, 79, 45, 0.14);
 }
 
-.balkan-cover h2 {
+.balkan-hero-card h2 {
   margin: 6px 0 8px;
-  color: #314f22;
+  color: #263d1d;
   font-size: 44px;
   line-height: 1;
 }
 
-.balkan-cover p {
+.balkan-hero-card p {
+  max-width: 540px;
   margin: 0;
-  color: #5c6d54;
+  color: #56664d;
   line-height: 1.5;
 }
 
-.balkan-map-grid {
+.balkan-route-strip {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  align-content: center;
+  grid-template-columns: 1fr 24px 1fr 24px 1fr 24px 1fr;
+  gap: 6px;
+  align-items: center;
 }
 
-.balkan-map-grid span {
+.balkan-route-strip span {
   display: grid;
-  place-items: center;
   min-height: 48px;
+  place-items: center;
+  color: #334c25;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid #a9bd8b;
+  box-shadow: 2px 3px 0 rgba(77, 96, 54, 0.1);
+}
+
+.balkan-route-strip i {
+  height: 2px;
+  background: #78935c;
+}
+
+.balkan-index-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.route-ledger {
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid #bdcda9;
+}
+
+.route-ledger span,
+.route-ledger strong {
+  display: block;
+}
+
+.route-ledger span {
+  color: #67765d;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.route-ledger strong {
+  margin-top: 4px;
+  color: #2d441f;
+}
+
+.balkan-content-grid {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 14px;
+}
+
+.road-file-index {
+  padding: 16px;
+  background: linear-gradient(#fffdf4, #f2ead5);
+  border: 1px solid #c6b98c;
+  box-shadow: 3px 5px 0 rgba(89, 75, 42, 0.08);
+}
+
+.road-file-index h3 {
+  margin: 0 0 8px;
+  color: #3e3219;
+  font-size: 22px;
+}
+
+.road-file-index p {
+  margin: 0 0 14px;
+  color: #6a5e3d;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.road-file-mini-map {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+}
+
+.road-file-mini-map span {
+  display: grid;
+  min-height: 38px;
+  place-items: center;
   color: #415f2e;
   font-weight: bold;
   background: #fff;
-  border: 1px solid #8ea56b;
-  box-shadow: 2px 3px 0 rgba(73, 92, 45, 0.12);
-}
-
-.crumb-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-  padding: 12px 14px;
-  color: #536947;
-  font-size: 12px;
-  background: #fff;
-  border: 1px solid #c7d6b1;
-  border-left: 4px solid #8ba96a;
-}
-
-.crumb-strip b {
-  color: #78935c;
+  border: 1px solid #a9bd8b;
 }
 
 .country-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
+}
+
+.travelguide-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .country-card {
   position: relative;
   display: grid;
-  gap: 6px;
-  min-height: 148px;
+  gap: 8px;
+  min-height: 166px;
   padding: 18px;
   overflow: hidden;
   color: #304927;
   text-align: left;
   cursor: pointer;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(245, 250, 238, 0.96)),
-    linear-gradient(90deg, transparent 0 16px, rgba(100, 131, 63, 0.05) 16px 18px, transparent 18px 100%);
-  border: 1px solid #b5ca98;
+    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(240, 247, 231, 0.96)),
+    radial-gradient(circle at 90% 80%, rgba(82, 112, 55, 0.16), transparent 28%);
+  border: 1px solid #a7bd89;
   border-radius: 4px;
-  box-shadow: 3px 5px 0 rgba(90, 113, 55, 0.08);
+  box-shadow: 4px 6px 0 rgba(86, 111, 55, 0.08);
 }
 
 .country-card:hover,
 .country-card.active {
   background: linear-gradient(#f8fff2, #e6f2d8);
   border-color: #6c8b48;
-  box-shadow: 0 0 0 2px rgba(108, 139, 72, 0.16), 3px 5px 0 rgba(90, 113, 55, 0.08);
+  box-shadow: 0 0 0 2px rgba(108, 139, 72, 0.16), 4px 6px 0 rgba(86, 111, 55, 0.08);
   transform: translateY(-1px);
 }
 
@@ -1846,38 +2050,52 @@ button {
   position: absolute;
   right: -22px;
   bottom: -20px;
-  width: 80px;
-  height: 80px;
+  width: 86px;
+  height: 86px;
   content: "";
   background: rgba(111, 145, 73, 0.12);
   border-radius: 50%;
 }
 
 .country-card span {
+  position: relative;
+  z-index: 1;
   font-size: 11px;
   font-weight: bold;
   opacity: 0.68;
 }
 
 .country-card strong {
-  font-size: 20px;
+  position: relative;
+  z-index: 1;
+  font-size: 24px;
 }
 
-.country-card small {
-  max-width: 190px;
-  color: #627356;
+.country-card small,
+.country-card em {
+  position: relative;
+  z-index: 1;
+  max-width: 280px;
+  color: #586b4c;
+  font-size: 12px;
   line-height: 1.35;
+}
+
+.country-card em {
+  font-style: normal;
 }
 
 .rental-desk {
   display: grid;
-  grid-template-columns: 200px 1fr auto;
+  grid-template-columns: 210px minmax(0, 1fr) auto;
   gap: 16px;
   align-items: center;
   padding: 16px;
-  background: linear-gradient(#fff, #f7fbf3);
+  background:
+    linear-gradient(90deg, rgba(106, 138, 74, 0.12), transparent 42%),
+    #fff;
   border: 1px solid #9fb982;
-  border-left: 6px solid #7a9954;
+  border-left: 6px solid #304d20;
   box-shadow: 0 6px 14px rgba(74, 92, 48, 0.1);
 }
 
@@ -1937,7 +2155,7 @@ button {
 
 .country-sheet {
   display: grid;
-  gap: 16px;
+  gap: 14px;
   min-height: 500px;
   padding-top: 14px;
 }
@@ -1945,13 +2163,13 @@ button {
 .country-hero {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 120px;
+  grid-template-columns: minmax(0, 1fr) 150px;
   gap: 18px;
   padding: 24px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 80% 20%, rgba(120, 149, 84, 0.18), transparent 24%),
-    linear-gradient(135deg, #fffdf4, #eef5e4);
+    repeating-linear-gradient(135deg, rgba(84, 104, 62, 0.05), rgba(84, 104, 62, 0.05) 10px, transparent 10px, transparent 24px),
+    linear-gradient(135deg, #fff8e9, #e9f3de);
   border: 1px solid #b6c89a;
   border-left: 6px solid #6c8b48;
   box-shadow: 0 8px 18px rgba(74, 92, 48, 0.12);
@@ -1970,9 +2188,16 @@ button {
   line-height: 1.55;
 }
 
+.country-tag-stack {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
 .country-code {
   z-index: 1;
   display: grid;
+  min-height: 110px;
   place-items: center;
   color: #314f22;
   font-size: 36px;
@@ -1982,34 +2207,71 @@ button {
   box-shadow: 4px 5px 0 rgba(92, 113, 63, 0.1);
 }
 
-.fact-grid {
+.country-tag-stack span {
+  display: block;
+  padding: 8px;
+  color: #40592c;
+  font-size: 12px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #a9bd8b;
+}
+
+.country-guide-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
-.fact-card {
-  min-height: 86px;
+.guide-card {
+  min-height: 96px;
   padding: 16px;
   background: #fff;
-  border: 1px solid #cad9b7;
+  border: 1px solid #c5d4ae;
   box-shadow: 2px 3px 0 rgba(92, 113, 63, 0.08);
 }
 
-.fact-card.wide {
+.guide-card.wide {
   grid-column: 1 / -1;
 }
 
-.fact-card span {
+.guide-card span {
   display: block;
   margin-bottom: 6px;
-  color: #68775e;
-  font-size: 12px;
+  color: #67765d;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-.fact-card strong {
+.guide-card strong {
   color: #304927;
   line-height: 1.45;
+}
+
+.mini-itinerary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid #c5d4ae;
+}
+
+.mini-itinerary span {
+  color: #64735a;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.mini-itinerary b {
+  padding: 5px 9px;
+  color: #304927;
+  background: #eef6e6;
+  border: 1px solid #c5d4ae;
 }
 
 /* Music */
@@ -2072,14 +2334,10 @@ button {
 .msn-contact-list {
   padding: 8px;
   overflow-y: auto;
-  background: linear-gradient(#f8fcff, #cfe8ff);
-  border-right: 1px solid #8bb8e8;
-}
-
-.msn-contact-list:empty {
   background:
     linear-gradient(#f8fcff, #cfe8ff),
     repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(73, 132, 184, 0.08) 24px);
+  border-right: 1px solid #8bb8e8;
 }
 
 .msn-contact-item {
@@ -2444,18 +2702,29 @@ button {
   .orange-layout,
   .orange-tabs,
   .camp-layout,
-  .balkan-cover,
-  .country-grid,
+  .balkan-hero-card,
+  .balkan-index-row,
+  .balkan-content-grid,
+  .travelguide-grid,
   .rental-desk,
   .country-hero,
-  .fact-grid,
+  .country-guide-grid,
+  .access-note-grid,
   .system-grid,
   .system-panels {
     grid-template-columns: 1fr;
   }
 
-  .fact-card.wide {
+  .guide-card.wide {
     grid-column: auto;
+  }
+
+  .balkan-route-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .balkan-route-strip i {
+    display: none;
   }
 }
 
@@ -2525,498 +2794,7 @@ button {
     border-bottom: 1px solid #8bb8e8;
   }
 
-  .lineup-card {
+  .lineup-row {
     grid-template-columns: 1fr;
-  }
-}
-
-/* v3 focused fixes */
-.computer-content .explorer-content {
-  min-height: 320px;
-}
-
-.flight-card:not(.held) {
-  opacity: 1;
-  filter: none;
-}
-
-.flight-card.held {
-  position: relative;
-}
-
-.flight-card.held::after {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 2px 7px;
-  color: #fff;
-  font-size: 10px;
-  font-weight: bold;
-  letter-spacing: 0.4px;
-  content: "HELD";
-  background: rgba(0, 0, 0, 0.24);
-  border: 1px solid rgba(255, 255, 255, 0.42);
-}
-
-.flight-card.readonly {
-  opacity: 1;
-  filter: none;
-}
-
-.seat-card.locked .seat-button:not(.active) {
-  opacity: 0.42;
-}
-
-.orange-layout-v3 {
-  grid-template-columns: 310px minmax(0, 1fr);
-}
-
-.orange-ticket-v3 {
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 18% 14%, rgba(255, 122, 0, 0.28), transparent 26%),
-    repeating-linear-gradient(0deg, rgba(122, 65, 18, 0.035), rgba(122, 65, 18, 0.035) 1px, transparent 1px, transparent 9px),
-    linear-gradient(180deg, #fff9ef, #ffe0b7 80%);
-  border: 1px solid #d98a2a;
-  border-left: 7px solid #ff7a00;
-}
-
-.orange-ticket-v3::after {
-  position: absolute;
-  right: -28px;
-  bottom: -30px;
-  width: 120px;
-  height: 120px;
-  content: "";
-  background: rgba(255, 122, 0, 0.16);
-  border-radius: 50%;
-}
-
-.orange-file-stack {
-  display: grid;
-  gap: 8px;
-  margin-bottom: 18px;
-}
-
-.orange-file-line {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 10px;
-  align-items: center;
-  padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(190, 111, 24, 0.42);
-  box-shadow: 2px 3px 0 rgba(143, 79, 14, 0.08);
-}
-
-.orange-file-line span {
-  color: #865017;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.orange-file-line strong {
-  color: #532a05;
-  font-size: 12px;
-}
-
-.orange-divider-label {
-  margin: 2px 0 10px;
-  color: #8a4a0e;
-  font-size: 11px;
-  font-weight: bold;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-}
-
-.orange-main-v3 .orange-panel {
-  min-height: 310px;
-  background:
-    linear-gradient(90deg, rgba(255, 128, 0, 0.08), transparent 35%),
-    linear-gradient(#fffdf8, #fff4e6);
-}
-
-.lineup-board {
-  display: grid;
-  gap: 12px;
-}
-
-.lineup-board-head {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 10px;
-  align-items: center;
-  padding: 12px 14px;
-  color: #5d2e05;
-  background: #fff;
-  border: 1px solid #efc38e;
-}
-
-.lineup-board-head span {
-  padding: 4px 8px;
-  font-size: 12px;
-  font-weight: bold;
-  background: #ffcf95;
-  border: 1px solid #d78930;
-}
-
-.lineup-board-head strong {
-  font-size: 22px;
-  letter-spacing: -0.3px;
-}
-
-.lineup-rows {
-  display: grid;
-  gap: 8px;
-}
-
-.lineup-row {
-  display: grid;
-  grid-template-columns: 42px minmax(0, 1fr) auto;
-  gap: 12px;
-  align-items: center;
-  min-height: 50px;
-  padding: 9px 12px;
-  background: rgba(255, 255, 255, 0.86);
-  border: 1px solid #f0c58e;
-}
-
-.lineup-row.top-row {
-  background: linear-gradient(90deg, #ffbc6f, #fff6e9 72%);
-  border-color: #cc7620;
-}
-
-.lineup-row em {
-  color: #a05b11;
-  font-style: normal;
-  font-weight: bold;
-}
-
-.lineup-row strong {
-  color: #3f2106;
-  font-size: 20px;
-}
-
-.lineup-row span {
-  padding: 3px 7px;
-  color: #7c4c1b;
-  font-size: 11px;
-  background: #fff2df;
-  border: 1px solid #f0c58e;
-}
-
-.access-sheet {
-  display: grid;
-  gap: 14px;
-}
-
-.access-sheet-title {
-  padding: 14px;
-  background: #fff;
-  border: 1px solid #efc38e;
-}
-
-.access-sheet-title span,
-.access-sheet-title strong {
-  display: block;
-}
-
-.access-sheet-title span {
-  color: #8c5c25;
-  font-size: 11px;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
-}
-
-.access-sheet-title strong {
-  margin-top: 4px;
-  color: #4a2605;
-  font-size: 24px;
-}
-
-.access-note-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.balkan-page {
-  background:
-    radial-gradient(circle at 12% 10%, rgba(232, 189, 102, 0.42), transparent 25%),
-    radial-gradient(circle at 90% 22%, rgba(84, 116, 71, 0.28), transparent 25%),
-    linear-gradient(135deg, #f8f1df, #eef5e8 58%, #e7efe1) !important;
-}
-
-.balkan-desk {
-  display: grid;
-  gap: 16px;
-}
-
-.balkan-hero-card {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 310px;
-  gap: 20px;
-  align-items: end;
-  padding: 24px;
-  overflow: hidden;
-  background:
-    repeating-linear-gradient(135deg, rgba(55, 73, 42, 0.06), rgba(55, 73, 42, 0.06) 10px, transparent 10px, transparent 22px),
-    linear-gradient(135deg, #fff8e8, #e4efd8);
-  border: 1px solid #7d965f;
-  border-left: 8px solid #5b7841;
-  box-shadow: 0 10px 22px rgba(64, 79, 45, 0.14);
-}
-
-.balkan-hero-card h2 {
-  margin: 6px 0 8px;
-  color: #263d1d;
-  font-size: 44px;
-  line-height: 1;
-}
-
-.balkan-hero-card p {
-  max-width: 540px;
-  margin: 0;
-  color: #56664d;
-  line-height: 1.5;
-}
-
-.balkan-route-strip {
-  display: grid;
-  grid-template-columns: 1fr 24px 1fr 24px 1fr 24px 1fr;
-  gap: 6px;
-  align-items: center;
-}
-
-.balkan-route-strip span {
-  display: grid;
-  min-height: 48px;
-  place-items: center;
-  color: #334c25;
-  font-weight: bold;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid #a9bd8b;
-  box-shadow: 2px 3px 0 rgba(77, 96, 54, 0.1);
-}
-
-.balkan-route-strip i {
-  height: 2px;
-  background: #78935c;
-}
-
-.balkan-index-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.route-ledger {
-  padding: 12px 14px;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid #bdcda9;
-}
-
-.route-ledger span,
-.route-ledger strong {
-  display: block;
-}
-
-.route-ledger span {
-  color: #67765d;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.route-ledger strong {
-  margin-top: 4px;
-  color: #2d441f;
-}
-
-.balkan-content-grid {
-  display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: 14px;
-}
-
-.road-file-index {
-  padding: 16px;
-  background: linear-gradient(#fffdf4, #f2ead5);
-  border: 1px solid #c6b98c;
-  box-shadow: 3px 5px 0 rgba(89, 75, 42, 0.08);
-}
-
-.road-file-index h3 {
-  margin: 0 0 8px;
-  color: #3e3219;
-  font-size: 22px;
-}
-
-.road-file-index p {
-  margin: 0 0 14px;
-  color: #6a5e3d;
-  font-size: 13px;
-  line-height: 1.45;
-}
-
-.road-file-mini-map {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 7px;
-}
-
-.road-file-mini-map span {
-  display: grid;
-  min-height: 38px;
-  place-items: center;
-  color: #415f2e;
-  font-weight: bold;
-  background: #fff;
-  border: 1px solid #a9bd8b;
-}
-
-.travelguide-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.travelguide-card {
-  min-height: 158px;
-  padding: 18px;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(240, 247, 231, 0.96)),
-    radial-gradient(circle at 90% 80%, rgba(82, 112, 55, 0.16), transparent 28%);
-  border: 1px solid #a7bd89;
-  box-shadow: 4px 6px 0 rgba(86, 111, 55, 0.08);
-}
-
-.travelguide-card strong {
-  font-size: 24px;
-}
-
-.travelguide-card em {
-  position: relative;
-  z-index: 1;
-  max-width: 280px;
-  color: #586b4c;
-  font-style: normal;
-  font-size: 12px;
-  line-height: 1.35;
-}
-
-.rental-desk-v3 {
-  grid-template-columns: 210px minmax(0, 1fr) auto;
-  background:
-    linear-gradient(90deg, rgba(106, 138, 74, 0.12), transparent 42%),
-    #fff;
-  border-left-color: #304d20;
-}
-
-.country-sheet-v3 {
-  gap: 14px;
-}
-
-.country-hero-v3 {
-  grid-template-columns: minmax(0, 1fr) 150px;
-  background:
-    repeating-linear-gradient(135deg, rgba(84, 104, 62, 0.05), rgba(84, 104, 62, 0.05) 10px, transparent 10px, transparent 24px),
-    linear-gradient(135deg, #fff8e9, #e9f3de);
-}
-
-.country-tag-stack {
-  display: grid;
-  gap: 8px;
-  align-content: start;
-}
-
-.country-tag-stack span {
-  display: block;
-  padding: 8px;
-  color: #40592c;
-  font-size: 12px;
-  text-align: center;
-  background: #fff;
-  border: 1px solid #a9bd8b;
-}
-
-.country-guide-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.guide-card {
-  min-height: 96px;
-  padding: 16px;
-  background: #fff;
-  border: 1px solid #c5d4ae;
-  box-shadow: 2px 3px 0 rgba(92, 113, 63, 0.08);
-}
-
-.guide-card.wide {
-  grid-column: 1 / -1;
-}
-
-.guide-card span {
-  display: block;
-  margin-bottom: 6px;
-  color: #67765d;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.guide-card strong {
-  color: #304927;
-  line-height: 1.45;
-}
-
-.mini-itinerary {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid #c5d4ae;
-}
-
-.mini-itinerary span {
-  color: #64735a;
-  font-size: 11px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.mini-itinerary b {
-  padding: 5px 9px;
-  color: #304927;
-  background: #eef6e6;
-  border: 1px solid #c5d4ae;
-}
-
-@media (max-width: 900px) {
-  .orange-layout-v3,
-  .balkan-hero-card,
-  .balkan-index-row,
-  .balkan-content-grid,
-  .travelguide-grid,
-  .rental-desk-v3,
-  .country-hero-v3,
-  .country-guide-grid,
-  .access-note-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .guide-card.wide {
-    grid-column: auto;
-  }
-
-  .balkan-route-strip {
-    grid-template-columns: 1fr;
-  }
-
-  .balkan-route-strip i {
-    display: none;
   }
 }
