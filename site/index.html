@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Fortia OS</title>
-<link href="style.css?v=9" rel="stylesheet"/>
+<link href="style.css?v=10" rel="stylesheet"/>
 </head>
 <body>
 <main id="app">
@@ -91,7 +91,7 @@
 <span>System</span>
 </button>
 </div>
-<button class="desktop-icon desktop-recycle-icon" data-window="recycle-window">
+<button class="desktop-icon desktop-recycle-icon" data-window="recycle-window" id="desktop-recycle-icon">
 <span class="icon recycle-icon"></span>
 <span>Recycle Bin</span>
 </button>
@@ -203,27 +203,12 @@
 <article class="window text-window" data-default-left="265" data-default-top="110" id="denmark-rant-window">
 <div class="window-titlebar"><span>Danmark VM 26.txt - Notepad</span><button aria-label="Close" class="window-close">×</button></div>
 <div class="notepad-menu">File  Edit  Format  View  Help</div>
-<div class="notepad-content">
-<p>DANMARK VM 26 - RANT</p><p></p>
-<p>48 hold. OTTEOGFYRRE. Og Danmark formår stadig at misse VM efter playoff mod Tjekkiet.</p>
-<p>Det er næsten imponerende, hvor meget organisatorisk støj der kan pakkes ind i ord som proces, kontinuitet og ro.</p>
-<p>Peter Møller freder Brian Riemer, som om det her bare var en uheldig tirsdag og ikke en kæmpe national fodboldfiasko.</p>
-<p>Hvis man ikke kvalificerer sig til et VM med så mange pladser, må hele ledelsesgangen lugte af varm printer og dårlige PowerPoints.</p>
-<p>Det her land kan producere verdensklasse keepere, midtbaner og ølreklamer, men åbenbart ikke en kvalifikation når døren står på vid gab.</p>
-<p>Konklusion: slet ikke slettet nok.</p>
-</div>
+<div class="notepad-content"><p>DANMARK VM 26 - NOTES FROM THE BIN</p><p></p><p>World Cup expanded to 48 teams and Denmark still found a trapdoor. That is not a campaign, that is performance art with shin pads.</p><p>Czechia went through after a 2-2 playoff final and penalties. Cool. Normal. Meanwhile Denmark managed to turn qualification into a boardroom fog machine.</p><p>The worst part is not even losing. It is the tone afterwards. Process. Evaluation. Trust. All the usual words that mean nobody wants to say the football looked small, scared and over-managed.</p><p>Peter Møller backing Brian Riemer reads like one of those federation statements that has been printed before the match is even over. Very calm. Very professional. Very useful if the goal is to miss a 48-team World Cup with a straight face.</p><p>Fans online had the right energy: how do you have this player pool, this many chances, this much infrastructure, and still end up watching the tournament like the rest of us? At some point “bad luck” becomes a spreadsheet wearing a DBU polo.</p><p>Conclusion: not deleted. Archived out of shame.</p></div>
 </article>
 <article class="window text-window" data-default-left="285" data-default-top="125" id="duke-rant-window">
 <div class="window-titlebar"><span>March madness 26.txt - Notepad</span><button aria-label="Close" class="window-close">×</button></div>
 <div class="notepad-menu">File  Edit  Format  View  Help</div>
-<div class="notepad-content">
-<p>MARCH MADNESS 26 - DUKE RANT</p><p></p>
-<p>No. 1 overall seed. Survived Siena by six after looking asleep. Beat St. John's. Then Elite Eight.</p>
-<p>And then UConn. Of course UConn. A last-second three with basically no time left, because apparently the universe needed one more Duke trauma file.</p>
-<p>You do not get to be Duke, get a 1-seed, walk into March with that much talent, and then let the whole thing become a cautionary tale.</p>
-<p>Every March I say I am emotionally diversified. Every March Duke turns my bracket into wet cardboard.</p>
-<p>Check system logs: hope created, hope indexed, hope deleted.</p>
-</div>
+<div class="notepad-content"><p>MARCH MADNESS 26 - DUKE FAN DAMAGE REPORT</p><p></p><p>I have watched Duke lose March games before. I have processed pain. This was not pain. This was a software crash at center court.</p><p>Up big. Control of the game. One seed. Blue blood. All the ingredients for “handle business and get to the Final Four.” Then UConn turns the last minute into a horror short and Braylon Mullins hits the kind of logo three that will be replayed until I am elderly.</p><p>People are calling it cosmic payback, Laettner in reverse, whatever. Fine. Let the neutrals have their little poetry. As a Duke fan, all I saw was a team with the game in its hands deciding the basketball was radioactive.</p><p>And yes, everyone online is doing the same joke: just hold the ball. Just get fouled. Just do the one boring thing. The whole season came down to “please be normal for ten seconds,” and somehow that was too much.</p><p>The worst part is knowing this is now March Madness content forever. Not a loss. A clip. A meme. A freeze-frame. Every tournament package will dig it up and make me relive the exact moment my living room went silent.</p><p>Final note: I still love this stupid team. That is the problem.</p></div>
 </article>
 <article class="window text-window" data-default-left="250" data-default-top="95" id="route-notes-window">
 <div class="window-titlebar">
@@ -373,35 +358,39 @@
 <div class="address-bar" id="browser-address">travelportal://home</div>
 </div>
 <section class="browser-page active" id="browser-home">
-<div class="portal-dashboard">
-<div class="portal-hero clean-hero">
-<div>
-<div class="page-kicker">Summer 2026</div>
-<h2>Travel Options</h2>
-<p>Flights, festival allocation and regional planning.</p>
+<div class="secret-agency-home">
+<div class="agency-hero-card">
+<div class="agency-stamp">PRIVATE DESK</div>
+<div class="agency-copy">
+<div class="page-kicker">Fortia Travel Bureau</div>
+<h2>Summer routing file</h2>
+<p>Three entries are available from the mounted volume. Select one to open the desk file.</p>
 </div>
-<div class="portal-status-card">
-<span>Account</span>
-<strong>Name</strong>
-<small>TravelPortal access enabled</small>
+<div class="agency-ticket-stack">
+<span></span><span></span><span></span>
 </div>
 </div>
-<div class="portal-grid dashboard-grid">
-<button class="portal-card browser-nav" data-browser-page="flight">
-<span class="portal-icon">✈</span>
-<strong>Flights</strong>
-<p>Search archived fare options</p>
+<div class="agency-route-board">
+<button class="agency-board-card browser-nav" data-browser-page="flight" type="button">
+<span class="agency-card-code">FL-26</span>
+<strong>Flight Desk</strong>
+<p>Held routes, seat map and check-in notes.</p>
 </button>
-<button class="portal-card browser-nav orange-card" data-browser-page="roskilde">
-<span class="portal-icon">●</span>
-<strong>Orange</strong>
-<p>Festival allocation and access notes</p>
+<button class="agency-board-card orange-card browser-nav" data-browser-page="roskilde" type="button">
+<span class="agency-card-code">OR-26</span>
+<strong>Orange Allocation</strong>
+<p>Partner-list access and camp handoff.</p>
 </button>
-<button class="portal-card browser-nav road-card" data-browser-page="balkan">
-<span class="portal-icon">▣</span>
-<strong>Balkan Roadtrip</strong>
-<p>Vehicle and route planning</p>
+<button class="agency-board-card road-card browser-nav" data-browser-page="balkan" type="button">
+<span class="agency-card-code">BK-26</span>
+<strong>Balkan Road File</strong>
+<p>Country cards, vehicle desk and regional notes.</p>
 </button>
+</div>
+<div class="agency-footer-strip">
+<span>File source: Summer 2026 (F:)</span>
+<span>Desk status: archived / usable</span>
+<span>Passenger: Name</span>
 </div>
 </div>
 </section>
@@ -550,42 +539,57 @@
 </div>
 </section>
 <section class="browser-page balkan-page" id="browser-balkan">
-<div class="section-head">
+<div class="balkan-landing">
+<div class="balkan-cover">
 <div>
-<div class="page-kicker">Balkan roadtrip</div>
-<h2>Drive planner</h2>
+<div class="page-kicker">TravelPortal / Balkan</div>
+<h2>Road agency file</h2>
+<p>Choose a country card to open the guide sheet. Vehicle desk is locked to this route file.</p>
 </div>
-<div class="section-chip">Route board</div>
+<div class="balkan-cover-map"><span>AL</span><span>ME</span><span>HR</span><span>XK</span><span>RS</span><span>MK</span></div>
 </div>
-<div class="roadtrip-shell">
-<div class="roadtrip-board">
-<div class="roadtrip-map modern-roadtrip-map"><button class="map-node route-stop-button active" data-stop="Albania" type="button">Albania</button><div class="map-line"></div><button class="map-node route-stop-button" data-stop="Montenegro" type="button">Montenegro</button><div class="map-line"></div><button class="map-node route-stop-button" data-stop="Croatia" type="button">Croatia</button><div class="map-line"></div><button class="map-node route-stop-button" data-stop="Kosovo" type="button">Kosovo</button><div class="map-line"></div><button class="map-node route-stop-button" data-stop="Serbia" type="button">Serbia</button><div class="map-line"></div><button class="map-node route-stop-button" data-stop="North Macedonia" type="button">North Macedonia</button></div>
-<div class="roadtrip-postcards"><button class="postcard-card route-stop-button active" data-stop="Albania" type="button"><strong>Albania</strong><span>Tavë kosi · Tirana + Riviera</span></button><button class="postcard-card route-stop-button" data-stop="Montenegro" type="button"><strong>Montenegro</strong><span>Njeguši prosciutto · Bay of Kotor</span></button><button class="postcard-card route-stop-button" data-stop="Croatia" type="button"><strong>Croatia</strong><span>Peka · coast + old towns</span></button><button class="postcard-card route-stop-button" data-stop="Kosovo" type="button"><strong>Kosovo</strong><span>Flija · Prizren</span></button><button class="postcard-card route-stop-button" data-stop="Serbia" type="button"><strong>Serbia</strong><span>Ćevapi · Belgrade</span></button><button class="postcard-card route-stop-button" data-stop="North Macedonia" type="button"><strong>North Macedonia</strong><span>Tavče gravče · Ohrid</span></button></div>
+<div class="country-card-grid">
+<button class="country-card route-stop-button active" data-stop="Albania" type="button"><span>01</span><strong>Albania</strong><small>Tirana / Riviera</small></button>
+<button class="country-card route-stop-button" data-stop="Montenegro" type="button"><span>02</span><strong>Montenegro</strong><small>Bay of Kotor</small></button>
+<button class="country-card route-stop-button" data-stop="Croatia" type="button"><span>03</span><strong>Croatia</strong><small>Coast / old towns</small></button>
+<button class="country-card route-stop-button" data-stop="Kosovo" type="button"><span>04</span><strong>Kosovo</strong><small>Prizren</small></button>
+<button class="country-card route-stop-button" data-stop="Serbia" type="button"><span>05</span><strong>Serbia</strong><small>Belgrade</small></button>
+<button class="country-card route-stop-button" data-stop="North Macedonia" type="button"><span>06</span><strong>North Macedonia</strong><small>Lake Ohrid</small></button>
 </div>
-<div class="roadtrip-sidepanel">
-<div class="roadtrip-note-card">
-<span>Selected stop</span>
-<strong id="roadtrip-stop-title">Albania</strong>
-<p id="roadtrip-stop-copy">National dish: Tavë kosi. Best thing to see: Tirana and the Albanian Riviera. Culture note: coffee is basically infrastructure.</p>
+<div class="vehicle-desk-panel">
+<div class="vehicle-desk-copy">
+<div class="page-kicker">Rental desk</div>
+<h3>Choose vehicle</h3>
+<p>Reservation locks after confirmation.</p>
 </div>
 <div class="vehicle-list roadtrip-vehicle-list">
-<button class="vehicle-card car-option-button" data-car="Volkswagen Golf" type="button">
-<strong>Volkswagen Golf</strong>
-<span>Compact • manual</span>
-</button>
-<button class="vehicle-card car-option-button" data-car="Suzuki Jimny" type="button">
-<strong>Suzuki Jimny</strong>
-<span>Small 4x4 • manual</span>
-</button>
-<button class="vehicle-card car-option-button" data-car="Fiat Panda 4x4" type="button">
-<strong>Fiat Panda 4x4</strong>
-<span>Light utility • manual</span>
-</button>
+<button class="vehicle-card car-option-button" data-car="Volkswagen Golf" type="button"><strong>Volkswagen Golf</strong><span>Compact • manual • safe default</span></button>
+<button class="vehicle-card car-option-button" data-car="Suzuki Jimny" type="button"><strong>Suzuki Jimny</strong><span>Small 4x4 • tighter roads</span></button>
+<button class="vehicle-card car-option-button" data-car="Fiat Panda 4x4" type="button"><strong>Fiat Panda 4x4</strong><span>Light utility • weirdly correct</span></button>
 </div>
 <button class="xp-button roadtrip-save" id="save-car-button" type="button">Reserve vehicle</button>
 </div>
 </div>
 </section>
+<section class="browser-page balkan-country-page" id="browser-balkancountry">
+<div class="country-detail-sheet">
+<button class="xp-button tiny-button" id="balkan-country-back" type="button">Back to countries</button>
+<div class="country-detail-hero">
+<div>
+<div class="page-kicker">TravelPortal / Balkan / <span id="country-detail-path">albania</span></div>
+<h2 id="country-detail-title">Albania</h2>
+<p id="country-detail-copy">Country guide sheet.</p>
+</div>
+<div class="country-detail-code" id="country-detail-code">AL</div>
+</div>
+<div class="country-fact-grid">
+<div class="country-fact-card"><span>National dish</span><strong id="country-dish">Tavë kosi</strong></div>
+<div class="country-fact-card"><span>See</span><strong id="country-see">Tirana and Riviera</strong></div>
+<div class="country-fact-card wide"><span>Note</span><strong id="country-note">Coffee is basically infrastructure.</strong></div>
+</div>
+</div>
+</section>
+
 </div>
 </div>
 </div>
@@ -619,9 +623,9 @@
 <section class="msn-conversation-panel">
 <div class="msn-chat-header">
 <div class="msn-avatar">?</div>
-<div><strong id="msn-contact-name">Unknown Contact</strong><p id="msn-contact-status">Status: Offline</p></div>
+<div><strong id="msn-contact-name">No messages</strong><p id="msn-contact-status">Status: Waiting</p></div>
 </div>
-<div class="msn-messages" id="msn-messages"></div>
+<div class="msn-messages" id="msn-messages"><div class="msn-empty-state">No conversations yet.</div></div>
 <div class="msn-input-row"><input readonly="" type="text" value="Message disabled in template mode"/><button class="xp-button">Send</button></div>
 </section>
 </div>
@@ -721,6 +725,6 @@
 </footer>
 </section>
 </main>
-<script src="script.js?v=9"></script>
+<script src="script.js?v=10"></script>
 </body>
 </html>
