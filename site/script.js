@@ -84,57 +84,72 @@ const seats = ["12A", "12C", "12D", "12F", "14A", "14C", "14D", "14F"];
 
 const orangeDays = ["Mon 29", "Tue 30", "Wed 01", "Thu 02", "Fri 03", "Sat 04"];
 const orangeLineup = {
-  "Mon 29": [
-    ["Pil", "warm-up"],
-    ["Aphaca", "Danish slot"],
-    ["Tessa", "opening day"],
-    ["TV-2", "legacy"],
-    ["Pumpegris", "late tent"]
-  ],
-  "Tue 30": [
-    ["Kneecap", "loud file"],
-    ["Lily Allen", "pop"],
-    ["Addison Rae", "pop"],
-    ["Sierra Ferrell", "country"],
-    ["Diket", "first days"]
-  ],
-  "Wed 01": [
-    ["The Cure", "headline"],
-    ["Wolf Alice", "guitar"],
-    ["Little Simz", "rap"],
-    ["Clipse", "rap"],
-    ["David Byrne", "special file"]
-  ],
-  "Thu 02": [
-    ["Gorillaz", "headline"],
-    ["Jennie", "pop"],
-    ["Zara Larsson", "pop"],
-    ["Yung Lean & Bladee", "night"],
-    ["Aphaca", "Danish slot"]
-  ],
-  "Fri 03": [
-    ["David Byrne", "art pop"],
-    ["Kneecap", "late file"],
-    ["Lily Allen", "main field"],
-    ["Addison Rae", "pop"],
-    ["Sierra Ferrell", "sunset"]
-  ],
-  "Sat 04": [
-    ["Gorillaz", "closing board"],
-    ["The Cure", "black marker"],
-    ["Jennie", "pop"],
-    ["Zara Larsson", "orange field"],
-    ["Yung Lean & Bladee", "after dark"]
-  ]
-};
-
-const campChecklist = {
-  tape: false,
-  powerbank: false,
-  rain: false,
-  sunscreen: false,
-  socks: false,
-  beer: false
+  "Mon 29": {
+    board: "First Days file",
+    meta: ["camp arrival", "warm-up", "low print"],
+    picks: [
+      ["Tessa", "main note"],
+      ["TV-2", "legacy"],
+      ["EsDeeKid", "new file"],
+      ["Bad Gyal", "late"],
+      ["Aphaca", "danish marker"]
+    ]
+  },
+  "Tue 30": {
+    board: "First Days file",
+    meta: ["wristband day", "camp traffic", "late tent"],
+    picks: [
+      ["Addison Rae", "pop"],
+      ["Lily Allen", "pop"],
+      ["Kneecap", "loud file"],
+      ["Ken Carson", "night"],
+      ["Sierra Ferrell", "sunset"]
+    ]
+  },
+  "Wed 01": {
+    board: "Orange opening slip",
+    meta: ["Pil opens Orange", "stage file", "row 017"],
+    picks: [
+      ["Pil", "orange opener"],
+      ["Wolf Alice", "guitar"],
+      ["Little Simz", "rap"],
+      ["Clipse", "rap"],
+      ["Aphaca", "orange pool"]
+    ]
+  },
+  "Thu 02": {
+    board: "Main field slip",
+    meta: ["bigger names", "orange pool", "late route"],
+    picks: [
+      ["Gorillaz", "headline pool"],
+      ["Zara Larsson", "pop"],
+      ["Jennie", "pop"],
+      ["David Byrne", "special file"],
+      ["Ethel Cain", "dark marker"]
+    ]
+  },
+  "Fri 03": {
+    board: "Weekend slip",
+    meta: ["heavy ground", "late entries", "camp note"],
+    picks: [
+      ["The Cure", "black marker"],
+      ["Clipse", "rap"],
+      ["Wolf Alice", "guitar"],
+      ["Kneecap", "late file"],
+      ["Lily Allen", "pop"]
+    ]
+  },
+  "Sat 04": {
+    board: "Closing slip",
+    meta: ["last field day", "orange pool", "packed camp"],
+    picks: [
+      ["Gorillaz", "closing board"],
+      ["Yung Lean & Bladee", "after dark"],
+      ["Zara Larsson", "orange field"],
+      ["Jennie", "pop"],
+      ["Little Simz", "rap"]
+    ]
+  }
 };
 
 const campItems = [
@@ -145,6 +160,8 @@ const campItems = [
   ["socks", "Dry socks"],
   ["beer", "Borrowing beer for the week"]
 ];
+
+const campChecklist = Object.fromEntries(campItems.map(([key]) => [key, false]));
 
 const countryData = {
   "Albania": {
@@ -236,17 +253,14 @@ const vehicleData = {
   }
 };
 
+let booted = false;
 let highestZIndex = 10;
 let currentComputerView = "root";
 let selectedTrashId = null;
-let rantsRestored = false;
-let passwdRestored = false;
 let travelLoaded = false;
 let currentTravelName = DEFAULT_USER_NAME;
 let browserHistory = ["home"];
-let activePage = "home";
 let selectedFlightId = null;
-const heldFlightSeats = {};
 let selectedSeat = null;
 let selectedOrangeDay = "Mon 29";
 let currentOrangePanel = "lineup";
@@ -261,6 +275,7 @@ let selecting = false;
 let selectionStartX = 0;
 let selectionStartY = 0;
 
+const heldFlightSeats = {};
 const msnStore = {};
 
 function showScreen(screenId) {
@@ -413,14 +428,15 @@ function switchComputerView(view) {
   $("computer-root-view")?.classList.toggle("hidden", view !== "root");
   $("computer-localdisk-view")?.classList.toggle("hidden", view !== "localdisk");
   $("computer-summer-view")?.classList.toggle("hidden", view !== "summer");
-  $("computer-back-button").disabled = view === "root";
+  const backButton = $("computer-back-button");
+  if (backButton) backButton.disabled = view === "root";
 
   const title = view === "root"
     ? "My Computer"
     : view === "localdisk"
       ? "Local Disk (C:) - My Computer"
       : "Summer 2026 (F:) - My Computer";
-  $("computer-title").textContent = title;
+  if ($("computer-title")) $("computer-title").textContent = title;
 }
 
 function selectTrashFile(id) {
@@ -458,7 +474,6 @@ function restoreRecycleBin() {
   }
 
   if (selectedTrashId === "passwd") {
-    passwdRestored = true;
     addFileToEmptyFolder("passwd-window", "passwd.txt");
     $("passwd-file")?.remove();
     if (status) status.textContent = "Restored passwd.txt to Empty folder.";
@@ -507,11 +522,11 @@ function runTravelLogin() {
     currentTravelName = username || getOsName();
     syncDynamicNames();
     if (msg) msg.textContent = "";
-    $("travel-login-screen").classList.add("hidden");
+    $("travel-login-screen")?.classList.add("hidden");
 
     if (travelLoaded) {
-      $("travel-loader-screen").classList.add("hidden");
-      $("travel-browser").classList.remove("hidden");
+      $("travel-loader-screen")?.classList.add("hidden");
+      $("travel-browser")?.classList.remove("hidden");
       navigateBrowser("home", false);
     } else {
       startTravelLoader();
@@ -534,6 +549,8 @@ function startTravelLoader() {
   const progress = $("progress-bar");
   const line = $("loader-line");
   const log = $("loader-log");
+
+  if (!loader || !browser || !progress || !line || !log) return;
 
   loader.classList.remove("hidden");
   browser.classList.add("hidden");
@@ -588,14 +605,15 @@ function navigateBrowser(page, addHistory = true, detail = "") {
   document.querySelectorAll(".browser-page").forEach((section) => section.classList.remove("active"));
   $("page-" + page)?.classList.add("active");
 
-  activePage = page;
-  $("browser-address").textContent = addressForPage(page, detail);
+  const address = $("browser-address");
+  if (address) address.textContent = addressForPage(page, detail);
 
   const historyItem = detail ? `${page}:${detail}` : page;
   if (addHistory && browserHistory[browserHistory.length - 1] !== historyItem) {
     browserHistory.push(historyItem);
   }
-  $("browser-back-button").disabled = browserHistory.length <= 1;
+  const backButton = $("browser-back-button");
+  if (backButton) backButton.disabled = browserHistory.length <= 1;
 }
 
 function navigateFromHistory(item) {
@@ -697,7 +715,7 @@ function updateFlightDetailState() {
   const seatCard = $("seat-card");
   const status = $("seat-status");
   const seatCopy = $("flight-detail-seat-copy");
-  if (!selectedFlightId) return;
+  if (!selectedFlightId || !holdButton || !status || !seatCopy) return;
 
   const isHeldFlight = Object.prototype.hasOwnProperty.call(heldFlightSeats, selectedFlightId);
 
@@ -729,7 +747,8 @@ function selectSeat(seat) {
   document.querySelectorAll(".seat-button").forEach((button) => {
     button.classList.toggle("active", button.dataset.seat === seat);
   });
-  $("seat-status").textContent = `Seat selected: ${seat}`;
+  const status = $("seat-status");
+  if (status) status.textContent = `Seat selected: ${seat}`;
 }
 
 function holdSelectedFlight() {
@@ -777,15 +796,18 @@ function renderOrangePanel(panel) {
   if (!container) return;
 
   if (panel === "lineup") {
-    const names = orangeLineup[selectedOrangeDay] || [];
+    const file = orangeLineup[selectedOrangeDay];
     container.innerHTML = `
       <div class="lineup-board">
         <div class="lineup-board-head">
           <span>${selectedOrangeDay}</span>
-          <strong>Orange shortlist</strong>
+          <div>
+            <strong>${file.board}</strong>
+            <div class="lineup-meta-strip">${file.meta.map((item) => `<b>${item}</b>`).join("")}</div>
+          </div>
         </div>
         <div class="lineup-rows">
-          ${names.map(([name, tag], index) => `
+          ${file.picks.map(([name, tag], index) => `
             <div class="lineup-row ${index === 0 ? "top-row" : ""}">
               <em>${String(index + 1).padStart(2, "0")}</em>
               <strong>${name}</strong>
@@ -825,15 +847,17 @@ function renderOrangePanel(panel) {
     return;
   }
 
+  const allPacked = Object.values(campChecklist).every(Boolean);
   container.innerHTML = `
     <div class="access-sheet">
-      <div class="access-sheet-title"><span>Access note</span><strong>${getBookingName()}</strong></div>
+      <div class="access-sheet-title"><span>Access note</span><strong>${getBookingName()} / row 017</strong></div>
       <div class="access-note-grid">
-        <div class="access-note-card"><span>Wristband</span><strong>handoff on site</strong></div>
-        <div class="access-note-card"><span>Camp</span><strong>after packing list</strong></div>
+        <div class="access-note-card"><span>Wristband</span><strong>on-site handoff</strong></div>
+        <div class="access-note-card"><span>Camp</span><strong>${allPacked ? "ready for confirm" : "packing pending"}</strong></div>
         <div class="access-note-card"><span>Bring</span><strong>ID + ticket mail</strong></div>
-        <div class="access-note-card"><span>Desk</span><strong>partner window</strong></div>
+        <div class="access-note-card"><span>Window</span><strong>partner desk</strong></div>
       </div>
+      <div class="access-fineprint">orange_row=017 // camp_file=${allPacked ? "ready" : "pending"} // name=${getBookingName()}</div>
     </div>
   `;
   updateOrangeConfirmState();
@@ -857,12 +881,15 @@ function updateOrangeConfirmState() {
   const done = Object.values(campChecklist).filter(Boolean).length;
   const complete = done === total;
   const button = $("orange-confirm-button");
+  const miniStatus = $("orange-camp-mini-status");
 
   const fill = $("camp-progress-fill");
   const text = $("camp-progress-text");
   if (fill) fill.style.width = Math.round((done / total) * 100) + "%";
   if (text) text.textContent = `${done} / ${total} packed`;
+  if (miniStatus) miniStatus.textContent = campConfirmed ? "confirmed" : complete ? "ready" : "pending pack";
 
+  if (!button) return;
   if (campConfirmed) {
     button.disabled = true;
     button.textContent = "Camp confirmed";
@@ -882,6 +909,7 @@ function confirmOrange() {
 
   campConfirmed = true;
   updateOrangeConfirmState();
+  renderOrangePanel(currentOrangePanel);
   queueMsnMessage(
     "CAMPEN",
     `Hey ${getBookingName()}. Lovely of you to join us. Practical info: wristband handoff is on site, camp placement follows the partner file. Btw, you are in charge of borrowing beer for the week. Best, CAMPEN.`
@@ -895,11 +923,11 @@ function renderCountries() {
 
   Object.entries(countryData).forEach(([country, data], index) => {
     const button = document.createElement("button");
-    button.className = "country-card travelguide-card";
+    button.className = "country-card";
     button.type = "button";
     button.dataset.country = country;
     button.innerHTML = `
-      <span class="country-card-index">${String(index + 1).padStart(2, "0")}</span>
+      <span class="country-card-index">${String(index + 1).padStart(2, "0")} / ${data.code}</span>
       <strong>${country}</strong>
       <small>${data.sub}</small>
       <em>${data.see}</em>
@@ -921,15 +949,13 @@ function setCountryDetail(country, pushHistory = true) {
   $("country-title").textContent = country;
   $("country-copy").textContent = data.copy;
   $("country-code").textContent = data.code;
-  const region = $("country-region");
-  if (region) region.textContent = data.sub;
+  $("country-region").textContent = data.sub;
   $("country-dish").textContent = data.dish;
   $("country-see").textContent = data.see;
   $("country-note").textContent = data.note;
-  const border = $("country-border");
-  if (border) border.textContent = data.border;
-  const drive = $("country-drive");
-  if (drive) drive.textContent = data.drive;
+  $("country-border").textContent = data.border;
+  $("country-drive").textContent = data.drive;
+
   const itinerary = $("country-itinerary");
   if (itinerary) {
     itinerary.innerHTML = `<span>Route marks</span>${data.stops.map((stop) => `<b>${stop}</b>`).join("")}`;
@@ -963,7 +989,8 @@ function renderVehicles() {
 function selectVehicle(name) {
   if (vehicleReserved) return;
   selectedVehicle = name;
-  $("rental-status").textContent = `${name} selected.`;
+  const status = $("rental-status");
+  if (status) status.textContent = `${name} selected.`;
   renderVehicles();
 }
 
@@ -971,7 +998,8 @@ function reserveVehicle() {
   if (vehicleReserved) return;
 
   if (!selectedVehicle) {
-    $("rental-status").textContent = "Choose one vehicle first.";
+    const status = $("rental-status");
+    if (status) status.textContent = "Choose one vehicle first.";
     shakeElement(document.querySelector(".rental-desk"));
     return;
   }
@@ -1096,13 +1124,15 @@ function toggleStartMenu() {
 function bindWindowOpeners() {
   document.querySelectorAll("[data-window]").forEach((button) => {
     button.addEventListener("click", (event) => {
-      const isFile = button.classList.contains("file-item");
       const isDesktop = button.classList.contains("desktop-icon");
+      const isRecycleFile = button.closest("#recycle-files");
+
       if (isDesktop) {
         document.querySelectorAll(".desktop-icon").forEach((icon) => icon.classList.remove("selected"));
         button.classList.add("selected");
       }
-      if (isFile && button.closest("#recycle-files")) return;
+
+      if (isRecycleFile) return;
       event.stopPropagation();
       openWindow(button.dataset.window);
     });
@@ -1190,8 +1220,15 @@ function bindDesktopSelection() {
   });
 }
 
-function boot() {
-  $("user-tile")?.addEventListener("click", openPasswordDialog);
+function bindStaticControls() {
+  document.addEventListener("click", (event) => {
+    if (event.target.closest("#user-tile")) {
+      event.preventDefault();
+      openPasswordDialog();
+      return;
+    }
+  });
+
   $("login-button")?.addEventListener("click", osLogin);
   $("password")?.addEventListener("keydown", (event) => { if (event.key === "Enter") osLogin(); });
   $("cancel-button")?.addEventListener("click", () => showScreen("welcome-screen"));
@@ -1206,10 +1243,6 @@ function boot() {
   document.addEventListener("click", closeStartMenu);
   $("logoff-button")?.addEventListener("click", () => window.location.reload());
   $("desktop-shutdown-button")?.addEventListener("click", () => showScreen("welcome-screen"));
-
-  bindWindowOpeners();
-  bindWindowDragging();
-  bindDesktopSelection();
 
   document.querySelectorAll(".window-close").forEach((button) => {
     button.addEventListener("click", () => closeWindow(button.closest(".window")));
@@ -1265,16 +1298,34 @@ function boot() {
   window.addEventListener("resize", () => {
     document.querySelectorAll(".window.open").forEach(clampWindow);
   });
-
-  renderFlights();
-  renderOrangeDays();
-  renderOrangePanel("lineup");
-  renderCountries();
-  renderVehicles();
-  renderMsnContacts();
-  syncDynamicNames();
-  updateClock();
-  setInterval(updateClock, 1000);
 }
 
-boot();
+function boot() {
+  if (booted) return;
+  booted = true;
+
+  try {
+    bindStaticControls();
+    bindWindowOpeners();
+    bindWindowDragging();
+    bindDesktopSelection();
+    renderFlights();
+    renderOrangeDays();
+    renderOrangePanel("lineup");
+    renderCountries();
+    renderVehicles();
+    renderMsnContacts();
+    syncDynamicNames();
+    switchComputerView("root");
+    updateClock();
+    setInterval(updateClock, 1000);
+  } catch (error) {
+    console.error("Fortia boot failed", error);
+  }
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", boot);
+} else {
+  boot();
+}
