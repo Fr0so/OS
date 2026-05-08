@@ -501,23 +501,24 @@
                 </div>
                 <div class="section-chip orange-chip">OR-26</div>
               </div>
-              <div class="orange-layout">
-                <div class="orange-ticket">
+              <div class="orange-layout orange-layout-v3">
+                <div class="orange-ticket orange-ticket-v3">
                   <div class="orange-ticket-top">
                     <span class="orange-dot"></span>
                     <div>
                       <strong>ORANGE</strong>
-                      <small>partner list route</small>
+                      <small>partner allocation sheet</small>
                     </div>
                   </div>
-                  <div class="orange-ticket-code">
-                    <span>RF</span>
-                    <span>2026</span>
-                    <span>PASS</span>
+                  <div class="orange-file-stack" aria-label="allocation file">
+                    <div class="orange-file-line"><span>Partner list</span><strong>row 017</strong></div>
+                    <div class="orange-file-line"><span>Camp file</span><strong>pending pack</strong></div>
+                    <div class="orange-file-line"><span>Handoff</span><strong>on site</strong></div>
                   </div>
+                  <div class="orange-divider-label">day slips</div>
                   <div class="day-ribbon" id="orange-day-ribbon"></div>
                 </div>
-                <div class="orange-main">
+                <div class="orange-main orange-main-v3">
                   <div class="orange-tabs">
                     <button class="orange-tab active" data-orange-panel="lineup" type="button">Lineup view</button>
                     <button class="orange-tab" data-orange-panel="camp" type="button">Camp list</button>
@@ -530,20 +531,40 @@
             </section>
 
             <section class="browser-page balkan-page" id="page-balkan">
-              <div class="balkan-landing">
-                <div class="balkan-cover">
+              <div class="balkan-desk">
+                <div class="balkan-hero-card">
                   <div>
                     <div class="page-kicker">TravelPortal / Balkan</div>
-                    <h2>Road agency file</h2>
-                    <p>Country cards, guide notes and vehicle desk for the regional route.</p>
+                    <h2>Roadtrip guide desk</h2>
+                    <p>Country files, border notes and rental paperwork for a Tirana-start route.</p>
                   </div>
-                  <div class="balkan-map-grid" aria-hidden="true">
-                    <span>AL</span><span>ME</span><span>HR</span><span>XK</span><span>RS</span><span>MK</span>
+                  <div class="balkan-route-strip" aria-hidden="true">
+                    <span>Tirana</span><i></i><span>Kotor</span><i></i><span>Coast</span><i></i><span>Ohrid</span>
                   </div>
                 </div>
-                <div class="crumb-strip"><span>TravelPortal</span><b>/</b><span>Balkan Roadtrip</span><b>/</b><span>countries</span></div>
-                <div class="country-grid" id="country-grid"></div>
-                <div class="rental-desk">
+                <div class="balkan-index-row">
+                  <div class="route-ledger">
+                    <span>Route file</span>
+                    <strong>BK-26 / Adriatic loop</strong>
+                  </div>
+                  <div class="route-ledger">
+                    <span>Pickup</span>
+                    <strong>Tirana</strong>
+                  </div>
+                  <div class="route-ledger">
+                    <span>Countries</span>
+                    <strong>6 cards</strong>
+                  </div>
+                </div>
+                <div class="balkan-content-grid">
+                  <aside class="road-file-index">
+                    <h3>Country files</h3>
+                    <p>Open a card for the short guide sheet. Back returns to this board.</p>
+                    <div class="road-file-mini-map"><span>AL</span><span>ME</span><span>HR</span><span>XK</span><span>RS</span><span>MK</span></div>
+                  </aside>
+                  <div class="country-grid travelguide-grid" id="country-grid"></div>
+                </div>
+                <div class="rental-desk rental-desk-v3">
                   <div class="rental-copy">
                     <div class="page-kicker">Rental desk</div>
                     <h3>Vehicle file</h3>
@@ -557,20 +578,26 @@
 
             <section class="browser-page balkan-country-page" id="page-balkan-country">
               <button class="xp-button tiny-button" id="country-back-button" type="button">Back to countries</button>
-              <div class="country-sheet">
-                <div class="country-hero">
+              <div class="country-sheet country-sheet-v3">
+                <div class="country-hero country-hero-v3">
                   <div>
                     <div class="page-kicker" id="country-path">TravelPortal / Balkan / albania</div>
                     <h2 id="country-title">Albania</h2>
                     <p id="country-copy"></p>
                   </div>
-                  <div class="country-code" id="country-code">AL</div>
+                  <div class="country-tag-stack">
+                    <div class="country-code" id="country-code">AL</div>
+                    <span id="country-region">Tirana / Riviera</span>
+                  </div>
                 </div>
-                <div class="fact-grid">
-                  <div class="fact-card"><span>National dish</span><strong id="country-dish"></strong></div>
-                  <div class="fact-card"><span>Best thing to see</span><strong id="country-see"></strong></div>
-                  <div class="fact-card wide"><span>Culture note</span><strong id="country-note"></strong></div>
+                <div class="country-guide-grid">
+                  <div class="guide-card"><span>Eat</span><strong id="country-dish"></strong></div>
+                  <div class="guide-card"><span>See</span><strong id="country-see"></strong></div>
+                  <div class="guide-card"><span>Border note</span><strong id="country-border"></strong></div>
+                  <div class="guide-card"><span>Drive note</span><strong id="country-drive"></strong></div>
+                  <div class="guide-card wide"><span>Culture note</span><strong id="country-note"></strong></div>
                 </div>
+                <div class="mini-itinerary" id="country-itinerary"></div>
               </div>
             </section>
           </div>
