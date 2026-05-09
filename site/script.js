@@ -342,7 +342,7 @@ function renderFlights() {
   Object.entries(flightData).forEach(([id, f]) => {
     const held = Object.hasOwn(heldFlightSeats, id);
     const row = document.createElement("tr");
-    row.className = "flight-row";
+    row.className = "flight-row" + (held ? " held" : "");
     row.tabIndex = 0;
     row.dataset.flightId = id;
     row.innerHTML = `
