@@ -405,9 +405,14 @@
           <!-- Browser -->
           <div class="travel-browser hidden" id="travel-browser">
             <div class="browser-toolbar">
-              <button class="xp-button tiny-button" id="browser-back-button" type="button" disabled>Back</button>
-              <button class="xp-button tiny-button" id="browser-home-button" type="button">Home</button>
-              <div class="address-bar" id="browser-address">travelportal://home</div>
+              <div class="tp-browser-menubar" aria-hidden="true">File&nbsp;&nbsp;Edit&nbsp;&nbsp;View&nbsp;&nbsp;Favorites&nbsp;&nbsp;Tools&nbsp;&nbsp;Help</div>
+              <div class="tp-browser-controls">
+                <button class="xp-button tiny-button" id="browser-back-button" type="button" disabled>Back</button>
+                <button class="xp-button tiny-button" id="browser-home-button" type="button">Home</button>
+                <span class="tp-address-label">Address</span>
+                <div class="address-bar" id="browser-address">travelportal://home</div>
+                <span class="tp-go-button">Go</span>
+              </div>
             </div>
 
             <!-- Home -->
@@ -436,6 +441,10 @@
                 </aside>
 
                 <section class="tp-invite-panel">
+                  <div class="tp-window-caption" aria-hidden="true">
+                    <span>Fortia TravelPortal booking registry</span>
+                    <em>build 4.26 / archived route file</em>
+                  </div>
                   <div class="tp-main-topbar">
                     <span class="portal-desktop-icon mini" aria-hidden="true"></span>
                     <div class="tp-faux-address"></div>
@@ -459,14 +468,17 @@
                     <button class="tp-invite-card tp-flight-invite" data-page="flights" type="button">
                       <div class="tp-invite-banner"><span>1.</span><i class="flight-symbol" aria-hidden="true"></i></div>
                       <strong>Flights</strong>
+                      <em class="tp-file-meta" aria-hidden="true">route-hold.dat</em>
                     </button>
                     <button class="tp-invite-card tp-roskilde-invite" data-page="orange" type="button">
                       <div class="tp-invite-banner"><span>2.</span><i class="tent-symbol" aria-hidden="true"></i></div>
                       <strong>Roskilde festival</strong>
+                      <em class="tp-file-meta" aria-hidden="true">orange-row.inv</em>
                     </button>
                     <button class="tp-invite-card tp-balkan-invite" data-page="balkan" type="button">
                       <div class="tp-invite-banner"><span>3.</span><i class="car-symbol" aria-hidden="true"></i></div>
                       <strong>Balkan Roadtrip</strong>
+                      <em class="tp-file-meta" aria-hidden="true">border-loop.bk</em>
                     </button>
                   </div>
 
@@ -622,6 +634,11 @@
               </div>
             </section>
 
+            <div class="tp-statusbar" aria-hidden="true">
+              <span>Ready</span>
+              <span>Local intranet</span>
+              <span>F:\SUMMER26\TRAVELPORTAL</span>
+            </div>
           </div><!-- /travel-browser -->
         </div><!-- /travel-content -->
       </article>
