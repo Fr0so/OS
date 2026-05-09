@@ -8,6 +8,8 @@
 </head>
 <body>
   <main id="app">
+
+    <!-- WELCOME SCREEN -->
     <section class="screen active" id="welcome-screen">
       <div class="top-band"></div>
       <div class="welcome-layout">
@@ -32,6 +34,7 @@
       <div class="bottom-band"></div>
     </section>
 
+    <!-- LOGIN SCREEN -->
     <section class="screen" id="password-screen">
       <div class="dialog-window">
         <div class="dialog-titlebar">Log On to Fortia OS</div>
@@ -65,92 +68,180 @@
       </div>
     </section>
 
+    <!-- DESKTOP -->
     <section class="screen" id="desktop">
+
+      <!-- Desktop Icons (left column) -->
       <div class="desktop-icons">
-        <button class="desktop-icon" data-window="computer-window" type="button"><span class="icon computer-icon"></span><span>My Computer</span></button>
-        <button class="desktop-icon" data-window="program-window" type="button"><span class="icon exe-icon"></span><span>TravelPortal.exe</span></button>
-        <button class="desktop-icon" data-window="help-window" type="button"><span class="icon help-icon"></span><span>Help</span></button>
-        <button class="desktop-icon" data-window="music-window" type="button"><span class="icon music-icon"></span><span>Music</span></button>
-        <button class="desktop-icon" data-window="msn-window" id="msn-desktop-icon" type="button"><span class="icon msn-icon"></span><span class="notification-badge hidden" id="msn-badge">0</span><span>MSN</span></button>
-        <button class="desktop-icon" data-window="system-window" type="button"><span class="icon system-icon"></span><span>System</span></button>
+        <button class="desktop-icon" data-window="computer-window" type="button">
+          <span class="icon computer-icon"></span><span>My Computer</span>
+        </button>
+        <button class="desktop-icon" data-window="program-window" type="button">
+          <span class="icon exe-icon"></span><span>TravelPortal.exe</span>
+        </button>
+        <button class="desktop-icon" data-window="help-window" type="button">
+          <span class="icon help-icon"></span><span>Help</span>
+        </button>
+        <button class="desktop-icon" data-window="music-window" type="button">
+          <span class="icon music-icon"></span><span>Music</span>
+        </button>
+        <button class="desktop-icon" data-window="msn-window" id="msn-desktop-icon" type="button">
+          <span class="icon msn-icon"></span>
+          <span class="notification-badge hidden" id="msn-badge">0</span>
+          <span>MSN</span>
+        </button>
+        <button class="desktop-icon" data-window="system-window" type="button">
+          <span class="icon system-icon"></span><span>System</span>
+        </button>
       </div>
 
+      <!-- Recycle Bin (fixed top-right) -->
       <button class="desktop-icon desktop-recycle-icon" data-window="recycle-window" id="desktop-recycle-icon" type="button">
         <span class="icon recycle-icon"></span>
         <span>Recycle Bin</span>
       </button>
 
+      <!-- MY COMPUTER WINDOW -->
       <article class="window large-window" data-default-left="135" data-default-top="70" id="computer-window">
-        <div class="window-titlebar"><span id="computer-title">My Computer</span><button class="window-close" aria-label="Close" type="button">×</button></div>
-        <div class="window-toolbar"><button id="computer-back-button" type="button" disabled>Back</button></div>
+        <div class="window-titlebar">
+          <span id="computer-title">My Computer</span>
+          <button class="window-close" aria-label="Close" type="button">×</button>
+        </div>
+        <div class="window-toolbar">
+          <button id="computer-back-button" type="button" disabled>Back</button>
+        </div>
         <div class="computer-layout">
           <div class="computer-content" id="computer-root-view">
             <h2>Files Stored on This Computer</h2>
             <div class="drive-section">
-              <button class="drive-item computer-drive-nav" data-computer-view="localdisk" type="button"><span class="drive-icon"></span><div><strong>Local Disk (C:)</strong><span>Type: Local drive</span></div></button>
-              <button class="drive-item computer-drive-nav" data-computer-view="summer" type="button"><span class="drive-icon usb-drive"></span><div><strong>Summer 2026 (F:)</strong><span>Type: USB</span></div></button>
+              <button class="drive-item computer-drive-nav" data-computer-view="localdisk" type="button">
+                <span class="drive-icon"></span>
+                <div><strong>Local Disk (C:)</strong><span>Type: Local drive</span></div>
+              </button>
+              <button class="drive-item computer-drive-nav" data-computer-view="summer" type="button">
+                <span class="drive-icon usb-drive"></span>
+                <div><strong>Summer 2026 (F:)</strong><span>Type: USB</span></div>
+              </button>
             </div>
           </div>
           <div class="computer-content hidden" id="computer-localdisk-view">
             <h2>Local Disk (C:)</h2>
             <div class="window-content explorer-content">
-              <button class="file-item" data-window="all-apps-window" type="button"><span class="folder-mini big-mini"></span><span>All apps</span></button>
-              <button class="file-item" data-window="recycle-window" type="button"><span class="icon recycle-icon"></span><span>Recycle Bin</span></button>
-              <button class="file-item" data-window="help-window" type="button"><span class="help-mini big-mini"></span><span>Help and Support</span></button>
-              <button class="file-item" data-window="music-window" type="button"><span class="icon music-icon"></span><span>Music</span></button>
-              <button class="file-item" data-window="msn-window" type="button"><span class="icon msn-icon"></span><span>MSN</span></button>
-              <button class="file-item" data-window="system-window" type="button"><span class="icon system-icon"></span><span>System</span></button>
-              <button class="file-item" data-window="empty-folder-window" type="button"><span class="folder-mini big-mini"></span><span>Empty folder</span></button>
+              <button class="file-item" data-window="all-apps-window" type="button">
+                <span class="folder-mini big-mini"></span><span>All apps</span>
+              </button>
+              <button class="file-item" data-window="recycle-window" type="button">
+                <span class="icon recycle-icon small-icon"></span><span>Recycle Bin</span>
+              </button>
+              <button class="file-item" data-window="help-window" type="button">
+                <span class="help-mini big-mini"></span><span>Help and Support</span>
+              </button>
+              <button class="file-item" data-window="music-window" type="button">
+                <span class="icon music-icon small-icon"></span><span>Music</span>
+              </button>
+              <button class="file-item" data-window="msn-window" type="button">
+                <span class="icon msn-icon small-icon"></span><span>MSN</span>
+              </button>
+              <button class="file-item" data-window="system-window" type="button">
+                <span class="icon system-icon small-icon"></span><span>System</span>
+              </button>
+              <button class="file-item" data-window="empty-folder-window" type="button">
+                <span class="folder-mini big-mini"></span><span>Empty folder</span>
+              </button>
             </div>
           </div>
           <div class="computer-content hidden" id="computer-summer-view">
             <h2>Summer 2026 (F:)</h2>
             <div class="window-content explorer-content">
-              <button class="file-item" data-window="program-window" type="button"><span class="file-icon exe-file-icon"></span><span>TravelPortal.exe</span></button>
-              <button class="file-item" data-window="route-notes-window" type="button"><span class="file-icon txt-icon"></span><span>route notes.txt</span></button>
-              <button class="file-item" data-window="weather-window" type="button"><span class="file-icon txt-icon"></span><span>Roskilde wheather forecast.tmp</span></button>
-              <button class="file-item" data-window="booking-username-window" type="button"><span class="file-icon txt-icon"></span><span>Booking username.txt</span></button>
-              <button class="file-item" data-window="budget-window" type="button"><span class="file-icon broken-icon"></span><span>budget.txt</span></button>
+              <button class="file-item" data-window="program-window" type="button">
+                <span class="file-icon exe-file-icon"></span><span>TravelPortal.exe</span>
+              </button>
+              <button class="file-item" data-window="route-notes-window" type="button">
+                <span class="file-icon txt-icon"></span><span>route notes.txt</span>
+              </button>
+              <button class="file-item" data-window="weather-window" type="button">
+                <span class="file-icon txt-icon"></span><span>Roskilde wheather forecast.tmp</span>
+              </button>
+              <button class="file-item" data-window="booking-username-window" type="button">
+                <span class="file-icon txt-icon"></span><span>Booking username.txt</span>
+              </button>
+              <button class="file-item" data-window="budget-window" type="button">
+                <span class="file-icon broken-icon"></span><span>budget.txt</span>
+              </button>
             </div>
           </div>
         </div>
       </article>
 
+      <!-- ALL APPS WINDOW -->
       <article class="window large-window" data-default-left="185" data-default-top="95" id="all-apps-window">
         <div class="window-titlebar"><span>All apps</span><button class="window-close" aria-label="Close" type="button">×</button></div>
         <div class="window-toolbar"><button class="window-close-soft" type="button">Back</button></div>
         <div class="window-content explorer-content">
-          <button class="file-item" data-window="help-window" type="button"><span class="help-mini big-mini"></span><span>Help and Support</span></button>
-          <button class="file-item" data-window="music-window" type="button"><span class="icon music-icon"></span><span>Music</span></button>
-          <button class="file-item" data-window="msn-window" type="button"><span class="icon msn-icon"></span><span>MSN</span></button>
-          <button class="file-item" data-window="system-window" type="button"><span class="icon system-icon"></span><span>System</span></button>
+          <button class="file-item" data-window="help-window" type="button">
+            <span class="help-mini big-mini"></span><span>Help and Support</span>
+          </button>
+          <button class="file-item" data-window="music-window" type="button">
+            <span class="icon music-icon small-icon"></span><span>Music</span>
+          </button>
+          <button class="file-item" data-window="msn-window" type="button">
+            <span class="icon msn-icon small-icon"></span><span>MSN</span>
+          </button>
+          <button class="file-item" data-window="system-window" type="button">
+            <span class="icon system-icon small-icon"></span><span>System</span>
+          </button>
         </div>
       </article>
 
+      <!-- RECYCLE BIN WINDOW -->
       <article class="window large-window" data-default-left="205" data-default-top="95" id="recycle-window">
         <div class="window-titlebar"><span>Recycle Bin</span><button class="window-close" aria-label="Close" type="button">×</button></div>
-        <div class="window-toolbar recycle-toolbar"><button id="restore-recycle-button" type="button">Restore</button><button id="empty-recycle-button" type="button">Empty Recycle Bin</button><span class="toolbar-status" id="recycle-status"></span></div>
+        <div class="window-toolbar recycle-toolbar">
+          <button id="restore-recycle-button" type="button">Restore</button>
+          <button id="empty-recycle-button" type="button">Empty Recycle Bin</button>
+          <span class="toolbar-status" id="recycle-status"></span>
+        </div>
         <div class="window-content explorer-content" id="recycle-files">
-          <button class="file-item recycle-file locked-trash-file" data-trash-id="passwd" id="passwd-file" type="button"><span class="file-icon locked-file-icon"></span><span>passwd.txt</span></button>
-          <button class="file-item recycle-file" data-trash-id="denmark" data-window="denmark-rant-window" id="denmark-rant-trash" type="button"><span class="file-icon txt-icon deleted"></span><span>Danmark VM 26.txt</span></button>
-          <button class="file-item recycle-file" data-trash-id="duke" data-window="duke-rant-window" id="duke-rant-trash" type="button"><span class="file-icon txt-icon deleted"></span><span>March madness 26.txt</span></button>
+          <button class="file-item recycle-file locked-trash-file" data-trash-id="passwd" id="passwd-file" type="button">
+            <span class="file-icon locked-file-icon"></span><span>passwd.txt</span>
+          </button>
+          <button class="file-item recycle-file" data-trash-id="denmark" id="denmark-rant-trash" type="button">
+            <span class="file-icon txt-icon deleted"></span><span>Danmark VM 26.txt</span>
+          </button>
+          <button class="file-item recycle-file" data-trash-id="duke" id="duke-rant-trash" type="button">
+            <span class="file-icon txt-icon deleted"></span><span>March madness 26.txt</span>
+          </button>
         </div>
       </article>
 
+      <!-- PASSWD WINDOW -->
       <article class="window text-window" data-default-left="260" data-default-top="105" id="passwd-window">
         <div class="window-titlebar"><span>passwd.txt - Notepad</span><button class="window-close" aria-label="Close" type="button">×</button></div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content">
           <p>passwords:</p>
-          <p>Rigsby</p><p>orange-border</p><p>open</p><p>cph-2606</p><p>summer2026</p><p>border-orange</p><p class="dynamic-booking-name">Name</p><p>roskilde</p><p>admin</p><p>Letmein</p><p>nyc-cph</p><p>wrongdoor</p>
+          <p>Rigsby</p>
+          <p>orange-border</p>
+          <p>open</p>
+          <p>cph-2606</p>
+          <p>summer2026</p>
+          <p>border-orange</p>
+          <p class="dynamic-booking-name">Name</p>
+          <p>roskilde</p>
+          <p>admin</p>
+          <p>Letmein</p>
+          <p>nyc-cph</p>
+          <p>wrongdoor</p>
         </div>
       </article>
 
+      <!-- DENMARK RANT WINDOW -->
       <article class="window text-window" data-default-left="265" data-default-top="110" id="denmark-rant-window">
         <div class="window-titlebar"><span>Danmark VM 26.txt - Notepad</span><button class="window-close" aria-label="Close" type="button">×</button></div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content rant-copy">
-          <p>DANMARK VM 26</p><p></p>
+          <p>DANMARK VM 26</p>
+          <p></p>
           <p>48 teams. Forty-eight. And we still found the trapdoor.</p>
           <p>Sideways passes, no bite, dead subs. Same face while the match disappears.</p>
           <p>DBU will call it a process. Fans call it missing the World Cup.</p>
@@ -158,11 +249,13 @@
         </div>
       </article>
 
+      <!-- DUKE RANT WINDOW -->
       <article class="window text-window" data-default-left="285" data-default-top="125" id="duke-rant-window">
         <div class="window-titlebar"><span>March madness 26.txt - Notepad</span><button class="window-close" aria-label="Close" type="button">×</button></div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
         <div class="notepad-content rant-copy">
-          <p>MARCH MADNESS 26</p><p></p>
+          <p>MARCH MADNESS 26</p>
+          <p></p>
           <p>We had it won.</p>
           <p>Just hold the ball. Take the foul. Be normal for ten seconds.</p>
           <p>Instead: panic, turnover, UConn clip forever.</p>
@@ -170,24 +263,55 @@
         </div>
       </article>
 
+      <!-- ROUTE NOTES -->
       <article class="window text-window" data-default-left="250" data-default-top="95" id="route-notes-window">
         <div class="window-titlebar"><span>route notes.txt - Notepad</span><button class="window-close" aria-label="Close" type="button">×</button></div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content"><p>Route notes</p><p></p><p>Origin: NYC</p><p>Destination: CPH</p><p>Route ID: CPH-2606</p><p>Status: not issued</p></div>
+        <div class="notepad-content">
+          <p>Route notes</p>
+          <p></p>
+          <p>Origin: NYC</p>
+          <p>Destination: CPH</p>
+          <p>Route ID: CPH-2606</p>
+          <p>Status: not issued</p>
+        </div>
       </article>
 
+      <!-- WEATHER -->
       <article class="window text-window" data-default-left="250" data-default-top="95" id="weather-window">
         <div class="window-titlebar"><span>Roskilde wheather forecast.tmp - Notepad</span><button class="window-close" aria-label="Close" type="button">×</button></div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content"><p>Roskilde wheather forecast</p><p></p><p>source: taped printout</p><p>confidence: low</p><p></p><p>mon: field dust / late wind</p><p>tue: cloud cover</p><p>wed: rain possible</p><p>thu: rain still possible</p><p>fri: sun / heavy ground</p><p>sat: unresolved</p></div>
+        <div class="notepad-content">
+          <p>Roskilde wheather forecast</p>
+          <p></p>
+          <p>source: taped printout</p>
+          <p>confidence: low</p>
+          <p></p>
+          <p>mon: field dust / late wind</p>
+          <p>tue: cloud cover</p>
+          <p>wed: rain possible</p>
+          <p>thu: rain still possible</p>
+          <p>fri: sun / heavy ground</p>
+          <p>sat: unresolved</p>
+        </div>
       </article>
 
+      <!-- BOOKING USERNAME -->
       <article class="window text-window" data-default-left="250" data-default-top="95" id="booking-username-window">
         <div class="window-titlebar"><span>Booking username.txt - Notepad</span><button class="window-close" aria-label="Close" type="button">×</button></div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
-        <div class="notepad-content"><p>Booking username</p><p></p><p>username:</p><p class="dynamic-booking-name">Name</p><p></p><p>Status:</p><p>stored</p></div>
+        <div class="notepad-content">
+          <p>Booking username</p>
+          <p></p>
+          <p>username:</p>
+          <p class="dynamic-booking-name">Name</p>
+          <p></p>
+          <p>Status:</p>
+          <p>stored</p>
+        </div>
       </article>
 
+      <!-- BUDGET -->
       <article class="window text-window" data-default-left="250" data-default-top="95" id="budget-window">
         <div class="window-titlebar"><span>budget.txt - Notepad</span><button class="window-close" aria-label="Close" type="button">×</button></div>
         <div class="notepad-menu">File&nbsp;&nbsp;Edit&nbsp;&nbsp;Format&nbsp;&nbsp;View&nbsp;&nbsp;Help</div>
@@ -209,60 +333,354 @@
         </div>
       </article>
 
+      <!-- EMPTY FOLDER -->
       <article class="window large-window" data-default-left="250" data-default-top="95" id="empty-folder-window">
         <div class="window-titlebar"><span>Empty folder</span><button class="window-close" aria-label="Close" type="button">×</button></div>
         <div class="window-toolbar"><button class="window-close-soft" type="button">Back</button></div>
-        <div class="window-content explorer-content" id="empty-folder-content"><div class="empty-folder-placeholder" id="empty-folder-placeholder">This folder is empty.</div></div>
+        <div class="window-content explorer-content" id="empty-folder-content">
+          <div class="empty-folder-placeholder" id="empty-folder-placeholder">This folder is empty.</div>
+        </div>
       </article>
 
+      <!-- HELP WINDOW -->
       <article class="window help-window" data-default-left="300" data-default-top="75" id="help-window">
         <div class="window-titlebar"><span>Help and Support</span><button class="window-close" aria-label="Close" type="button">×</button></div>
-        <div class="help-shell"><div class="help-header"><h2>Help and Support</h2></div><div class="empty-help-content"><div class="help-empty-icon">?</div><p>No help topics are available.</p></div></div>
-      </article>
-
-      <article class="window travel-window" data-default-left="120" data-default-top="34" id="program-window">
-        <div class="window-titlebar"><span>TravelPortal.exe</span><button class="window-close" aria-label="Close" type="button">×</button></div>
-        <div class="window-content travel-content">
-          <div class="travel-login-screen" id="travel-login-screen">
-            <div class="travel-login-card">
-              <div class="travel-login-brand"><div class="travel-badge">TP</div><div><div class="page-kicker">Fortia Travel Desk</div><h2>Passenger Access</h2></div></div>
-              <div class="login-ledger"><div><span>desk</span><strong>private bookings</strong></div><div><span>file</span><strong>summer routes</strong></div><div><span>print</span><strong>26-06</strong></div></div>
-              <div class="travel-login-form">
-                <label for="travel-username-input">Username</label><input id="travel-username-input" type="text" autocomplete="off" value="Name" />
-                <label for="travel-password-input">Password</label><input id="travel-password-input" type="password" autocomplete="off" />
-                <div class="travel-login-actions"><button class="xp-button" id="travel-login-button" type="button">Log in</button><p id="travel-login-message"></p></div>
-              </div>
-            </div>
-          </div>
-          <div class="travel-loader-screen hidden" id="travel-loader-screen"><div class="loader-panel"><div class="travel-badge small">TP</div><div><h2>Travel Portal</h2><p id="loader-line">Opening desk files...</p></div></div><div class="progress-shell"><div class="progress-bar" id="progress-bar"></div></div><ul class="loader-log" id="loader-log"></ul></div>
-          <div class="travel-browser hidden" id="travel-browser">
-            <div class="browser-toolbar"><button class="xp-button tiny-button" id="browser-back-button" type="button">Back</button><button class="xp-button tiny-button" id="browser-home-button" type="button">Home</button><div class="address-bar" id="browser-address">travelportal://home</div></div>
-            <section class="browser-page active" id="page-home">
-              <div class="agency-home">
-                <div class="agency-hero"><div class="stamp">PRIVATE DESK</div><div><div class="page-kicker">Fortia Travel Bureau</div><h2>Summer routing file</h2><p>Passenger file, fare holds, partner allocation and road desk.</p></div><div class="ticket-stack" aria-hidden="true"><span></span><span></span><span></span></div></div>
-                <div class="agency-grid"><button class="agency-card" data-page="flights" type="button"><span>FL-26</span><strong>Flights</strong><p>Fare holds, route cards and seat map.</p></button><button class="agency-card orange-agency" data-page="orange" type="button"><span>OR-26</span><strong>Orange / Roskilde</strong><p>Day slips, camp list and handoff note.</p></button><button class="agency-card balkan-agency" data-page="balkan" type="button"><span>BK-26</span><strong>Balkan Roadtrip</strong><p>Country files, border notes and vehicle desk.</p></button></div>
-                <div class="desk-strip"><span>Passenger: <strong class="dynamic-booking-name">Name</strong></span><span>Volume: Summer 2026 (F:)</span><span>Desk: Copenhagen</span></div>
-              </div>
-            </section>
-            <section class="browser-page flight-page" id="page-flights"><div class="section-head"><div><div class="page-kicker">Flights</div><h2>Available routes</h2></div><div class="section-chip">Summer schedule</div></div><div class="flight-grid" id="flight-grid"></div></section>
-            <section class="browser-page flight-detail-page" id="page-flight-detail"><div class="section-head"><div><div class="page-kicker">Selected flight</div><h2 id="flight-detail-route">NYC → CPH</h2></div><div class="section-chip" id="flight-detail-number">SK 912</div></div><div class="flight-detail-layout"><div class="flight-file-card"><div class="detail-strip"><div><span>Departure</span><strong id="flight-detail-departure"></strong></div><div><span>Arrival</span><strong id="flight-detail-arrival"></strong></div><div><span>Trip duration</span><strong id="flight-detail-duration"></strong></div></div><div class="detail-info-grid"><div><span>Fare</span><strong id="flight-detail-fare"></strong></div><div><span>Cabin</span><strong id="flight-detail-cabin"></strong></div><div><span>Baggage</span><strong id="flight-detail-baggage"></strong></div><div><span>Seat selection</span><strong id="flight-detail-seat-copy">Available</strong></div></div></div><div class="seat-card" id="seat-card"><h3>Seat map</h3><div class="seat-grid" id="seat-grid"></div><p class="seat-status" id="seat-status">No seat selected.</p><button class="xp-button" id="hold-flight-button" type="button">Hold this option</button></div></div></section>
-            <section class="browser-page orange-page" id="page-orange"><div class="section-head"><div><div class="page-kicker">Orange / Roskilde</div><h2>Partner allocation</h2></div><div class="section-chip orange-chip">OR-26</div></div><div class="orange-layout"><div class="orange-ticket"><div class="orange-ticket-top"><span class="orange-dot"></span><div><strong>ORANGE</strong><small>partner allocation sheet</small></div></div><div class="orange-file-stack"><div class="orange-file-line"><span>Row</span><strong>017</strong></div><div class="orange-file-line"><span>Camp file</span><strong id="orange-camp-mini-status">pending pack</strong></div><div class="orange-file-line"><span>Handoff</span><strong>on site</strong></div></div><div class="orange-divider-label">day slips</div><div class="day-ribbon" id="orange-day-ribbon"></div></div><div class="orange-main"><div class="orange-tabs"><button class="orange-tab active" data-orange-panel="lineup" type="button">Lineup view</button><button class="orange-tab" data-orange-panel="camp" type="button">Camp list</button><button class="orange-tab" data-orange-panel="access" type="button">Access note</button></div><div class="orange-panel" id="orange-panel"></div><button class="xp-button orange-confirm" id="orange-confirm-button" type="button" disabled>Complete packing list</button></div></div></section>
-            <section class="browser-page balkan-page" id="page-balkan"><div class="balkan-desk"><div class="balkan-hero-card"><div><div class="page-kicker">TravelPortal / Balkan</div><h2>Roadtrip guide desk</h2><p>Country files, border notes and rental paperwork for a Tirana-start route.</p></div><div class="balkan-route-strip" aria-hidden="true"><span>Tirana</span><i></i><span>Kotor</span><i></i><span>Coast</span><i></i><span>Ohrid</span></div></div><div class="balkan-index-row"><div class="route-ledger"><span>Route file</span><strong>BK-26 / Adriatic loop</strong></div><div class="route-ledger"><span>Pickup</span><strong>Tirana</strong></div><div class="route-ledger"><span>Countries</span><strong>6 cards</strong></div></div><div class="balkan-content-grid"><aside class="road-file-index"><h3>Country files</h3><p>Open a card for the guide sheet. Back returns to this board.</p><div class="road-file-mini-map"><span>AL</span><span>ME</span><span>HR</span><span>XK</span><span>RS</span><span>MK</span></div></aside><div class="country-grid travelguide-grid" id="country-grid"></div></div><div class="rental-desk"><div class="rental-copy"><div class="page-kicker">Rental desk</div><h3>Vehicle file</h3><p id="rental-status">Choose one vehicle.</p></div><div class="vehicle-grid" id="vehicle-grid"></div><button class="xp-button" id="reserve-car-button" type="button">Reserve vehicle</button></div></div></section>
-            <section class="browser-page balkan-country-page" id="page-balkan-country"><button class="xp-button tiny-button" id="country-back-button" type="button">Back to countries</button><div class="country-sheet"><div class="country-hero"><div><div class="page-kicker" id="country-path">TravelPortal / Balkan / albania</div><h2 id="country-title">Albania</h2><p id="country-copy"></p></div><div class="country-tag-stack"><div class="country-code" id="country-code">AL</div><span id="country-region">Tirana / Riviera</span></div></div><div class="country-guide-grid"><div class="guide-card"><span>Eat</span><strong id="country-dish"></strong></div><div class="guide-card"><span>See</span><strong id="country-see"></strong></div><div class="guide-card"><span>Border note</span><strong id="country-border"></strong></div><div class="guide-card"><span>Drive note</span><strong id="country-drive"></strong></div><div class="guide-card wide"><span>Culture note</span><strong id="country-note"></strong></div></div><div class="mini-itinerary" id="country-itinerary"></div></div></section>
+        <div class="help-shell">
+          <div class="help-header"><h2>Help and Support</h2></div>
+          <div class="empty-help-content">
+            <div class="help-empty-icon">?</div>
+            <p>No help topics are available.</p>
           </div>
         </div>
       </article>
 
-      <article class="window music-window" data-default-left="320" data-default-top="90" id="music-window"><div class="window-titlebar"><span>Fortia Media Player</span><button class="window-close" aria-label="Close" type="button">×</button></div><div class="media-player"><div class="media-sidebar"><div class="media-disc"></div><p>Now Playing</p></div><div class="media-main"><h2>Playlist</h2><p class="media-subtitle">Summer 2026</p><div class="spotify-box"><iframe class="spotify-embed" src="https://open.spotify.com/embed/playlist/2snaSJkyxjre2Eg6riJFY2" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div></div></div></article>
+      <!-- TRAVEL PORTAL WINDOW -->
+      <article class="window travel-window" data-default-left="120" data-default-top="34" id="program-window">
+        <div class="window-titlebar"><span>TravelPortal.exe</span><button class="window-close" aria-label="Close" type="button">×</button></div>
+        <div class="window-content travel-content">
 
-      <article class="window msn-window" data-default-left="470" data-default-top="110" id="msn-window"><div class="window-titlebar"><span>MSN Messenger</span><button class="window-close" aria-label="Close" type="button">×</button></div><div class="msn-app"><aside class="msn-contact-list" id="msn-contact-list"></aside><section class="msn-conversation"><div class="msn-chat-header"><div class="msn-avatar" id="msn-avatar">?</div><div><strong id="msn-contact-name">No messages</strong><p id="msn-contact-status">Status: Waiting</p></div></div><div class="msn-messages" id="msn-messages"></div><div class="msn-input-row"><input type="text" readonly value="Message disabled in template mode" /><button class="xp-button" type="button">Send</button></div></section></div></article>
+          <!-- Login -->
+          <div class="travel-login-screen" id="travel-login-screen">
+            <div class="travel-login-card">
+              <div class="travel-login-brand">
+                <div class="travel-badge">TP</div>
+                <div>
+                  <div class="page-kicker">Fortia Travel Desk</div>
+                  <h2>Passenger Access</h2>
+                </div>
+              </div>
+              <div class="login-ledger">
+                <div><span>desk</span><strong>private bookings</strong></div>
+                <div><span>file</span><strong>summer routes</strong></div>
+                <div><span>print</span><strong>26-06</strong></div>
+              </div>
+              <div class="travel-login-form">
+                <label for="travel-username-input">Username</label>
+                <input id="travel-username-input" type="text" autocomplete="off" value="Name" />
+                <label for="travel-password-input">Password</label>
+                <input id="travel-password-input" type="password" autocomplete="off" />
+                <div class="travel-login-actions">
+                  <button class="xp-button" id="travel-login-button" type="button">Log in</button>
+                  <p id="travel-login-message"></p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <article class="window system-window" data-default-left="390" data-default-top="160" id="system-window"><div class="window-titlebar"><span>System</span><button class="window-close" aria-label="Close" type="button">×</button></div><div class="system-shell"><div class="system-top"><div><div class="page-kicker">System overview</div><h2>Fortia OS</h2></div><div class="system-version">v0.9</div></div><div class="system-grid"><div class="system-card"><span>User</span><strong class="dynamic-booking-name">Name</strong></div><div class="system-card"><span>Status</span><strong>Ready</strong></div><div class="system-card"><span>Shell</span><strong>XP desktop</strong></div><div class="system-card"><span>Display</span><strong>Adaptive viewport</strong></div></div><div class="system-panels"><div class="system-panel"><h3>Mounted volumes</h3><ul><li>Local Disk (C:)</li><li>Summer 2026 (F:) — USB</li></ul></div><div class="system-panel"><h3>Installed modules</h3><ul><li>My Computer</li><li>Recycle Bin</li><li>TravelPortal.exe</li><li>Media Player</li><li>MSN Messenger</li><li>Help and Support</li></ul></div></div></div></article>
+          <!-- Loader -->
+          <div class="travel-loader-screen hidden" id="travel-loader-screen">
+            <div class="loader-panel">
+              <div class="travel-badge small">TP</div>
+              <div><h2>Travel Portal</h2><p id="loader-line">Opening desk files...</p></div>
+            </div>
+            <div class="progress-shell"><div class="progress-bar" id="progress-bar"></div></div>
+            <ul class="loader-log" id="loader-log"></ul>
+          </div>
 
-      <div class="start-menu" id="start-menu"><div class="start-menu-header"><div class="start-menu-avatar">N</div><span>Name</span></div><div class="start-menu-body"><button class="start-menu-item" data-window="computer-window" type="button"><span class="mini-icon computer-mini"></span>My Computer</button><button class="start-menu-item" data-window="program-window" type="button"><span class="mini-icon exe-mini"></span>TravelPortal.exe</button><button class="start-menu-item" data-window="help-window" type="button"><span class="mini-icon help-mini"></span>Help and Support</button><button class="start-menu-item" data-window="music-window" type="button"><span class="mini-icon music-mini"></span>Music</button><button class="start-menu-item" data-window="msn-window" type="button"><span class="mini-icon msn-mini"></span>MSN Messenger</button><button class="start-menu-item" data-window="recycle-window" type="button"><span class="mini-icon recycle-mini"></span>Recycle Bin</button><button class="start-menu-item" data-window="system-window" type="button"><span class="mini-icon system-mini"></span>System</button></div><div class="start-menu-footer"><button id="logoff-button" type="button">Log Off</button><button id="desktop-shutdown-button" type="button">Shut Down</button></div></div>
+          <!-- Browser -->
+          <div class="travel-browser hidden" id="travel-browser">
+            <div class="browser-toolbar">
+              <button class="xp-button tiny-button" id="browser-back-button" type="button" disabled>Back</button>
+              <button class="xp-button tiny-button" id="browser-home-button" type="button">Home</button>
+              <div class="address-bar" id="browser-address">travelportal://home</div>
+            </div>
+
+            <!-- Home -->
+            <section class="browser-page active" id="page-home">
+              <div class="agency-home">
+                <div class="agency-hero">
+                  <div class="stamp">PRIVATE DESK</div>
+                  <div>
+                    <div class="page-kicker">Fortia Travel Bureau</div>
+                    <h2>Summer routing file</h2>
+                    <p>Passenger file, fare holds, partner allocation and road desk.</p>
+                  </div>
+                  <div class="ticket-stack" aria-hidden="true"><span></span><span></span><span></span></div>
+                </div>
+                <div class="agency-grid">
+                  <button class="agency-card" data-page="flights" type="button">
+                    <span>FL-26</span><strong>Flights</strong><p>Fare holds, route cards and seat map.</p>
+                  </button>
+                  <button class="agency-card orange-agency" data-page="orange" type="button">
+                    <span>OR-26</span><strong>Orange / Roskilde</strong><p>Day slips, camp list and handoff note.</p>
+                  </button>
+                  <button class="agency-card balkan-agency" data-page="balkan" type="button">
+                    <span>BK-26</span><strong>Balkan Roadtrip</strong><p>Country files, border notes and vehicle desk.</p>
+                  </button>
+                </div>
+                <div class="desk-strip">
+                  <span>Passenger: <strong class="dynamic-booking-name">Name</strong></span>
+                  <span>Volume: Summer 2026 (F:)</span>
+                  <span>Desk: Copenhagen</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- Flights -->
+            <section class="browser-page flight-page" id="page-flights">
+              <div class="section-head">
+                <div><div class="page-kicker">Flights</div><h2>Available routes</h2></div>
+                <div class="section-chip">Summer schedule</div>
+              </div>
+              <div class="flight-grid" id="flight-grid"></div>
+            </section>
+
+            <!-- Flight Detail -->
+            <section class="browser-page flight-detail-page" id="page-flight-detail">
+              <div class="section-head">
+                <div>
+                  <div class="page-kicker">Selected flight</div>
+                  <h2 id="flight-detail-route">NYC → CPH</h2>
+                </div>
+                <div class="section-chip" id="flight-detail-number">SK 912</div>
+              </div>
+              <div class="flight-detail-layout">
+                <div class="flight-file-card">
+                  <div class="detail-strip">
+                    <div><span>Departure</span><strong id="flight-detail-departure"></strong></div>
+                    <div><span>Arrival</span><strong id="flight-detail-arrival"></strong></div>
+                    <div><span>Trip duration</span><strong id="flight-detail-duration"></strong></div>
+                  </div>
+                  <div class="detail-info-grid">
+                    <div><span>Fare</span><strong id="flight-detail-fare"></strong></div>
+                    <div><span>Cabin</span><strong id="flight-detail-cabin"></strong></div>
+                    <div><span>Baggage</span><strong id="flight-detail-baggage"></strong></div>
+                    <div><span>Seat selection</span><strong id="flight-detail-seat-copy">Available</strong></div>
+                  </div>
+                </div>
+                <div class="seat-card" id="seat-card">
+                  <h3>Seat map</h3>
+                  <div class="seat-grid" id="seat-grid"></div>
+                  <p class="seat-status" id="seat-status">No seat selected.</p>
+                  <button class="xp-button" id="hold-flight-button" type="button">Hold this option</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Orange / Roskilde -->
+            <section class="browser-page orange-page" id="page-orange">
+              <div class="section-head">
+                <div><div class="page-kicker">Orange / Roskilde</div><h2>Partner allocation</h2></div>
+                <div class="section-chip orange-chip">OR-26</div>
+              </div>
+              <div class="orange-layout">
+                <div class="orange-ticket">
+                  <div class="orange-ticket-top">
+                    <span class="orange-dot"></span>
+                    <div><strong>ORANGE</strong><small>partner allocation sheet</small></div>
+                  </div>
+                  <div class="orange-file-stack">
+                    <div class="orange-file-line"><span>Row</span><strong>017</strong></div>
+                    <div class="orange-file-line"><span>Camp file</span><strong id="orange-camp-mini-status">pending pack</strong></div>
+                    <div class="orange-file-line"><span>Handoff</span><strong>on site</strong></div>
+                  </div>
+                  <div class="orange-divider-label">day slips</div>
+                  <div class="day-ribbon" id="orange-day-ribbon"></div>
+                </div>
+                <div class="orange-main">
+                  <div class="orange-tabs">
+                    <button class="orange-tab active" data-orange-panel="lineup" type="button">Lineup view</button>
+                    <button class="orange-tab" data-orange-panel="camp" type="button">Camp list</button>
+                    <button class="orange-tab" data-orange-panel="access" type="button">Access note</button>
+                  </div>
+                  <div class="orange-panel" id="orange-panel"></div>
+                  <button class="xp-button orange-confirm" id="orange-confirm-button" type="button" disabled>Complete packing list</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Balkan -->
+            <section class="browser-page balkan-page" id="page-balkan">
+              <div class="balkan-desk">
+                <div class="balkan-hero-card">
+                  <div>
+                    <div class="page-kicker">TravelPortal / Balkan</div>
+                    <h2>Roadtrip guide desk</h2>
+                    <p>Country files, border notes and rental paperwork for a Tirana-start route.</p>
+                  </div>
+                  <div class="balkan-route-strip" aria-hidden="true">
+                    <span>Tirana</span><i></i><span>Kotor</span><i></i><span>Coast</span><i></i><span>Ohrid</span>
+                  </div>
+                </div>
+                <div class="balkan-index-row">
+                  <div class="route-ledger"><span>Route file</span><strong>BK-26 / Adriatic loop</strong></div>
+                  <div class="route-ledger"><span>Pickup</span><strong>Tirana</strong></div>
+                  <div class="route-ledger"><span>Countries</span><strong>6 cards</strong></div>
+                </div>
+                <div class="country-grid travelguide-grid" id="country-grid"></div>
+                <div class="rental-desk">
+                  <div class="rental-copy">
+                    <div class="page-kicker">Rental desk</div>
+                    <h3>Vehicle file</h3>
+                    <p id="rental-status">Choose one vehicle.</p>
+                  </div>
+                  <div class="vehicle-grid" id="vehicle-grid"></div>
+                  <button class="xp-button" id="reserve-car-button" type="button">Reserve vehicle</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Balkan Country Detail -->
+            <section class="browser-page balkan-country-page" id="page-balkan-country">
+              <button class="xp-button tiny-button" id="country-back-button" type="button">Back to countries</button>
+              <div class="country-sheet">
+                <div class="country-hero">
+                  <div>
+                    <div class="page-kicker" id="country-path">TravelPortal / Balkan / albania</div>
+                    <h2 id="country-title">Albania</h2>
+                    <p id="country-copy"></p>
+                  </div>
+                  <div class="country-tag-stack">
+                    <div class="country-code" id="country-code">AL</div>
+                    <span id="country-region">Tirana / Riviera</span>
+                  </div>
+                </div>
+                <div class="country-guide-grid">
+                  <div class="guide-card"><span>Eat</span><strong id="country-dish"></strong></div>
+                  <div class="guide-card"><span>See</span><strong id="country-see"></strong></div>
+                  <div class="guide-card"><span>Border note</span><strong id="country-border"></strong></div>
+                  <div class="guide-card"><span>Drive note</span><strong id="country-drive"></strong></div>
+                  <div class="guide-card wide"><span>Culture note</span><strong id="country-note"></strong></div>
+                </div>
+                <div class="mini-itinerary" id="country-itinerary"></div>
+              </div>
+            </section>
+
+          </div><!-- /travel-browser -->
+        </div><!-- /travel-content -->
+      </article>
+
+      <!-- MUSIC WINDOW -->
+      <article class="window music-window" data-default-left="320" data-default-top="90" id="music-window">
+        <div class="window-titlebar"><span>Fortia Media Player</span><button class="window-close" aria-label="Close" type="button">×</button></div>
+        <div class="media-player">
+          <div class="media-sidebar">
+            <div class="media-disc"></div>
+            <p>Now Playing</p>
+          </div>
+          <div class="media-main">
+            <h2>Playlist</h2>
+            <p class="media-subtitle">Summer 2026</p>
+            <div class="spotify-box">
+              <iframe class="spotify-embed"
+                src="https://open.spotify.com/embed/playlist/2snaSJkyxjre2Eg6riJFY2"
+                width="100%" height="352" frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- MSN WINDOW -->
+      <article class="window msn-window" data-default-left="470" data-default-top="110" id="msn-window">
+        <div class="window-titlebar"><span>MSN Messenger</span><button class="window-close" aria-label="Close" type="button">×</button></div>
+        <div class="msn-app">
+          <aside class="msn-contact-list" id="msn-contact-list"></aside>
+          <section class="msn-conversation">
+            <div class="msn-chat-header">
+              <div class="msn-avatar" id="msn-avatar">?</div>
+              <div>
+                <strong id="msn-contact-name">No messages</strong>
+                <p id="msn-contact-status">Status: Waiting</p>
+              </div>
+            </div>
+            <div class="msn-messages" id="msn-messages"></div>
+            <div class="msn-input-row">
+              <input type="text" readonly value="Message disabled in template mode" />
+              <button class="xp-button" type="button">Send</button>
+            </div>
+          </section>
+        </div>
+      </article>
+
+      <!-- SYSTEM WINDOW -->
+      <article class="window system-window" data-default-left="390" data-default-top="160" id="system-window">
+        <div class="window-titlebar"><span>System</span><button class="window-close" aria-label="Close" type="button">×</button></div>
+        <div class="system-shell">
+          <div class="system-top">
+            <div><div class="page-kicker">System overview</div><h2>Fortia OS</h2></div>
+            <div class="system-version">v0.9</div>
+          </div>
+          <div class="system-grid">
+            <div class="system-card"><span>User</span><strong class="dynamic-booking-name">Name</strong></div>
+            <div class="system-card"><span>Status</span><strong>Ready</strong></div>
+            <div class="system-card"><span>Shell</span><strong>XP desktop</strong></div>
+            <div class="system-card"><span>Display</span><strong>Adaptive viewport</strong></div>
+          </div>
+          <div class="system-panels">
+            <div class="system-panel">
+              <h3>Mounted volumes</h3>
+              <ul>
+                <li>Local Disk (C:)</li>
+                <li>Summer 2026 (F:) — USB</li>
+              </ul>
+            </div>
+            <div class="system-panel">
+              <h3>Installed modules</h3>
+              <ul>
+                <li>My Computer</li>
+                <li>Recycle Bin</li>
+                <li>TravelPortal.exe</li>
+                <li>Media Player</li>
+                <li>MSN Messenger</li>
+                <li>Help and Support</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- START MENU -->
+      <div class="start-menu" id="start-menu">
+        <div class="start-menu-header">
+          <div class="start-menu-avatar">N</div>
+          <span>Name</span>
+        </div>
+        <div class="start-menu-body">
+          <button class="start-menu-item" data-window="computer-window" type="button"><span class="mini-icon computer-mini"></span>My Computer</button>
+          <button class="start-menu-item" data-window="program-window" type="button"><span class="mini-icon exe-mini"></span>TravelPortal.exe</button>
+          <button class="start-menu-item" data-window="help-window" type="button"><span class="mini-icon help-mini"></span>Help and Support</button>
+          <button class="start-menu-item" data-window="music-window" type="button"><span class="mini-icon music-mini"></span>Music</button>
+          <button class="start-menu-item" data-window="msn-window" type="button"><span class="mini-icon msn-mini"></span>MSN Messenger</button>
+          <button class="start-menu-item" data-window="recycle-window" type="button"><span class="mini-icon recycle-mini"></span>Recycle Bin</button>
+          <button class="start-menu-item" data-window="system-window" type="button"><span class="mini-icon system-mini"></span>System</button>
+        </div>
+        <div class="start-menu-footer">
+          <button id="logoff-button" type="button">Log Off</button>
+          <button id="desktop-shutdown-button" type="button">Shut Down</button>
+        </div>
+      </div>
 
       <div id="selection-box"></div>
-      <footer class="taskbar"><button id="start-button" type="button"><span class="start-dot"></span>start</button><div class="taskbar-spacer"></div><div id="clock"></div></footer>
+
+      <!-- TASKBAR -->
+      <footer class="taskbar">
+        <button id="start-button" type="button"><span class="start-dot"></span>start</button>
+        <div class="taskbar-spacer"></div>
+        <div id="clock"></div>
+      </footer>
+
     </section>
   </main>
   <script src="script.js"></script>
