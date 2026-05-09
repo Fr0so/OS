@@ -239,7 +239,7 @@ p { margin: 0; }
   position: relative;
   color: white;
   background-color: #2b76cf;
-  background-image: url("Images/background.jpg");
+  background-image: url("images/background.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -825,21 +825,130 @@ p { margin: 0; }
 }
 
 .search-panel {
+  position: relative;
   display: grid;
   gap: 7px;
+  padding: 10px;
+  background: linear-gradient(rgba(215,220,227,.92), rgba(194,201,211,.88));
+  border: 1px solid #97a6bb;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.45);
+}
+.search-panel::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(180deg, rgba(255,255,255,.24), rgba(110,123,142,.06));
+  pointer-events: none;
 }
 .search-panel h3 {
-  margin: 6px 0 2px;
+  position: relative;
+  margin: 2px 0 2px;
   color: #29486f;
   font-size: 15px;
 }
+.search-row {
+  position: relative;
+  padding-right: 42px !important;
+  background: linear-gradient(#e8ebf0, #d5dae2) !important;
+  border: 1px solid #a2acbb !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.75), inset 0 0 0 1px rgba(132,140,154,.08);
+}
+.search-row::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(90deg, rgba(255,255,255,.18), rgba(0,0,0,0));
+  pointer-events: none;
+}
+.search-glass {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #5b6c84;
+  border-radius: 50%;
+  transform: translateY(-60%);
+}
+.search-glass::after {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  width: 7px;
+  height: 2px;
+  content: "";
+  background: #5b6c84;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
 
 .pending-invites {
+  position: relative;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   min-width: 0;
   background: rgba(255,255,255,.56);
   border: 1px solid #aabbd2;
+}
+.pending-invites::after {
+  position: absolute;
+  top: 74px;
+  right: 10px;
+  bottom: 54px;
+  width: 10px;
+  content: "";
+  background: linear-gradient(#d8dde6, #c3ccd8);
+  border: 1px solid #95a3b6;
+}
+.pending-invites::before {
+  position: absolute;
+  top: 116px;
+  right: 11px;
+  width: 8px;
+  height: 92px;
+  content: "";
+  background: linear-gradient(#ffffff, #d8e4f7);
+  border: 1px solid #8fa3c2;
+  z-index: 1;
+}
+.portal-main-top {
+  display: grid;
+  grid-template-columns: auto 1fr 170px;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px 10px;
+  background: linear-gradient(#fff, #eff4fb);
+  border-bottom: 1px solid #c2cfde;
+}
+.portal-main-left {
+  display: flex;
+  align-items: center;
+}
+.portal-main-titlebar {
+  height: 14px;
+  background: linear-gradient(90deg, #a8bad5, #f6f9fd);
+  border: 1px solid #bbcadc;
+}
+.portal-user-card {
+  display: grid;
+  gap: 2px;
+  padding: 10px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #b8c8da;
+}
+.portal-user-card span {
+  color: #60728a;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .45px;
+}
+.portal-user-card strong {
+  color: #233a5b;
+  font-size: 18px;
+}
+.portal-user-card small {
+  color: #566a84;
 }
 
 .pending-header {
@@ -883,16 +992,16 @@ p { margin: 0; }
 
 .invite-scroll {
   display: grid;
-  grid-template-columns: repeat(3, minmax(160px, 1fr));
-  gap: 14px;
-  padding: 16px;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding: 16px 28px 16px 16px;
   overflow: auto;
 }
 
 .invite-card {
   display: grid;
-  grid-template-rows: auto 1fr;
-  min-height: 245px;
+  grid-template-columns: 180px 1fr;
+  min-height: 112px;
   padding: 0;
   overflow: hidden;
   color: #1e385f;
@@ -907,12 +1016,18 @@ p { margin: 0; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 86px;
+  min-height: 100%;
   padding: 14px;
   color: white;
 }
 .invite-banner span { font-size: 40px; font-weight: bold; line-height: 1; }
-.invite-card strong { display: grid; place-items: center; padding: 18px; font-size: 23px; text-align: center; }
+.invite-card strong {
+  display: grid;
+  place-items: center start;
+  padding: 18px 22px;
+  font-size: 23px;
+  text-align: left;
+}
 
 .flight-invite .invite-banner { background: linear-gradient(135deg, #1e6ad6, #65a8ff); }
 .roskilde-invite .invite-banner { background: linear-gradient(135deg, #e36f00, #ffb35c); }
@@ -987,16 +1102,35 @@ p { margin: 0; }
 
 .portal-earth-corner {
   position: absolute;
-  right: 18px;
+  right: 16px;
   bottom: 12px;
-  width: 58px;
-  height: 58px;
-  display: grid;
-  place-items: center;
-  color: rgba(28,84,157,.75);
-  font-size: 52px;
-  font-weight: bold;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 36% 34%, rgba(255,255,255,.95), transparent 11%),
+    radial-gradient(circle at 60% 62%, #39c768 0 18%, transparent 19%),
+    radial-gradient(circle at 34% 58%, #389d63 0 20%, transparent 21%),
+    linear-gradient(135deg, #62afff, #0f59b3);
+  border: 2px solid rgba(255,255,255,.9);
+  box-shadow: 0 3px 8px rgba(29,70,130,.22);
   pointer-events: none;
+}
+.portal-earth-corner::before,
+.portal-earth-corner::after {
+  position: absolute;
+  content: "";
+  border-radius: 50%;
+}
+.portal-earth-corner::before {
+  inset: 8px 4px;
+  border-top: 1px solid rgba(255,255,255,.65);
+  border-bottom: 1px solid rgba(255,255,255,.65);
+}
+.portal-earth-corner::after {
+  inset: 4px 15px;
+  border-left: 1px solid rgba(255,255,255,.58);
+  border-right: 1px solid rgba(255,255,255,.58);
 }
 
 /* =============================================
@@ -1029,6 +1163,26 @@ p { margin: 0; }
   border-bottom: 1px solid #aebfd6;
 }
 .flight-row { cursor: pointer; }
+.flight-row.held {
+  background: linear-gradient(180deg, #2a4f80, #183763);
+}
+.flight-row.held td,
+.flight-row.held td strong,
+.flight-row.held td small {
+  color: #f4f8ff;
+}
+.flight-row.held td em {
+  color: #fff;
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.35);
+}
+.flight-row:hover, .flight-row:focus {
+  outline: none;
+  background: #e7f0ff;
+}
+.flight-row.held:hover, .flight-row.held:focus {
+  background: linear-gradient(180deg, #2a4f80, #183763);
+}
 .flight-row:hover, .flight-row:focus {
   outline: none;
   background: #e7f0ff;
@@ -1059,7 +1213,7 @@ p { margin: 0; }
 
 .flight-detail-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(260px, .8fr); gap: 16px; }
 .flight-file-card, .seat-card { padding: 18px; background: linear-gradient(#fff, #f3f8ff); border: 1px solid #c6d5e8; }
-.seat-card.locked { background: linear-gradient(#f7f7f7, #ececec); border-color: #c4c4c4; }
+.seat-card.locked { background: linear-gradient(#e4eefc, #ccdff8); border-color: #6f96ca; }
 
 .detail-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
 .detail-strip div, .detail-info-grid div { padding: 12px; background: white; border: 1px solid #d5e0ee; }
@@ -1477,7 +1631,8 @@ p { margin: 0; }
    ============================================= */
 @media (max-width: 900px) {
   .portal-home,
-  .invite-scroll,
+  .portal-main-top,
+  .invite-card,
   .flight-detail-layout,
   .orange-layout,
   .orange-tabs,
