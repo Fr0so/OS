@@ -361,28 +361,29 @@
 
           <!-- Login -->
           <div class="travel-login-screen" id="travel-login-screen">
-            <div class="travel-login-card">
-              <div class="travel-login-brand">
-                <div class="portal-icon-pair" aria-hidden="true">
-                  <span class="portal-desktop-icon"></span>
-                  <span class="portal-earth-icon"></span>
+            <div class="tp-login-window">
+              <div class="tp-login-titlebar">TravelPortal.exe</div>
+              <div class="tp-login-body">
+                <div class="tp-login-hero">
+                  <div class="tp-login-icons" aria-hidden="true">
+                    <span class="portal-desktop-icon"></span>
+                    <span class="portal-earth-icon"></span>
+                  </div>
+                  <div>
+                    <div class="page-kicker">Travel desk access</div>
+                    <h2>Log on to TravelPortal</h2>
+                    <p>Enter your passenger account to open pending summer invitations.</p>
+                  </div>
                 </div>
-                <div>
-                  <div class="page-kicker">Travel desk access</div>
-                  <h2>Log on to TravelPortal</h2>
-                </div>
-              </div>
-              <div class="travel-login-copy">
-                <p>Enter your passenger account details to open pending summer invitations.</p>
-              </div>
-              <div class="travel-login-form">
-                <label for="travel-username-input">Username</label>
-                <input id="travel-username-input" type="text" autocomplete="off" value="Name" />
-                <label for="travel-password-input">Password</label>
-                <input id="travel-password-input" type="password" autocomplete="off" />
-                <div class="travel-login-actions">
-                  <button class="xp-button" id="travel-login-button" type="button">Log in</button>
-                  <p id="travel-login-message"></p>
+                <div class="travel-login-form">
+                  <label for="travel-username-input">Username</label>
+                  <input id="travel-username-input" type="text" autocomplete="off" value="Name" />
+                  <label for="travel-password-input">Password</label>
+                  <input id="travel-password-input" type="password" autocomplete="off" />
+                  <div class="travel-login-actions">
+                    <button class="xp-button" id="travel-login-button" type="button">Log in</button>
+                    <p id="travel-login-message"></p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -411,66 +412,68 @@
 
             <!-- Home -->
             <section class="browser-page active" id="page-home">
-              <div class="portal-home">
-                <aside class="portal-left-panel">
-                  <div class="portal-panel-title">
+              <div class="tp-home-shell">
+                <aside class="tp-search-sidebar">
+                  <div class="tp-sidebar-user">
                     <span class="portal-desktop-icon mini" aria-hidden="true"></span>
                     <div>
                       <div class="page-kicker">User info</div>
                       <h2 class="dynamic-booking-name">Name</h2>
                     </div>
                   </div>
-                  <div class="user-info-grid">
+                  <div class="tp-user-status">
                     <div><span>Status</span><strong>Active</strong></div>
                     <div><span>Access</span><strong>Invited</strong></div>
                   </div>
-                  <div class="search-panel">
+                  <div class="tp-search-panel">
                     <h3>Search panel</h3>
-                    <div class="search-row"><span>From:</span><strong>USA, New York</strong><i class="search-glass" aria-hidden="true"></i></div>
-                    <div class="search-row"><span>To:</span><strong>Denmark</strong><i class="search-glass" aria-hidden="true"></i></div>
-                    <div class="search-row"><span>Activities:</span><strong>All</strong><i class="search-glass" aria-hidden="true"></i></div>
-                    <div class="search-row"><span>Dates:</span><strong>Summer</strong><i class="search-glass" aria-hidden="true"></i></div>
-                    <div class="search-row"><span>Accommodation:</span><strong>included</strong><i class="search-glass" aria-hidden="true"></i></div>
+                    <div class="tp-search-row"><span>From:</span><strong>USA, New York</strong><i class="search-glass" aria-hidden="true"></i></div>
+                    <div class="tp-search-row"><span>To:</span><strong>Denmark</strong><i class="search-glass" aria-hidden="true"></i></div>
+                    <div class="tp-search-row"><span>Activities:</span><strong>All</strong><i class="search-glass" aria-hidden="true"></i></div>
+                    <div class="tp-search-row"><span>Dates:</span><strong>Summer</strong><i class="search-glass" aria-hidden="true"></i></div>
+                    <div class="tp-search-row"><span>Accommodation:</span><strong>included</strong><i class="search-glass" aria-hidden="true"></i></div>
                   </div>
                 </aside>
 
-                <section class="pending-invites">
-                  <div class="portal-main-top">
-                    <div class="portal-main-left">
-                      <span class="portal-desktop-icon mini" aria-hidden="true"></span>
-                    </div>
-                    <div class="portal-main-titlebar"></div>
-                    <div class="portal-user-card">
+                <section class="tp-invite-panel">
+                  <div class="tp-main-topbar">
+                    <span class="portal-desktop-icon mini" aria-hidden="true"></span>
+                    <div class="tp-faux-address"></div>
+                    <div class="tp-top-user-info">
                       <span>User info</span>
                       <strong class="dynamic-booking-name">Name</strong>
-                      <small>Active</small>
-                      <small>Access: Invited</small>
+                      <em>Active</em>
+                      <em>Access: Invited</em>
                     </div>
                   </div>
-                  <div class="pending-header">
-                    <div class="pending-title">
+
+                  <div class="tp-pending-bar">
+                    <div class="tp-pending-title">
                       <span>P I</span>
                       <h3>Pending invites to <strong class="dynamic-booking-name">Name</strong></h3>
                     </div>
-                    <span class="pending-count">3 files</span>
+                    <span class="tp-count">3 files</span>
                   </div>
-                  <div class="invite-scroll">
-                    <button class="invite-card flight-invite" data-page="flights" type="button">
-                      <div class="invite-banner"><span>1.</span><i class="flight-symbol" aria-hidden="true"></i></div>
+
+                  <div class="tp-invite-scroll">
+                    <button class="tp-invite-card tp-flight-invite" data-page="flights" type="button">
+                      <div class="tp-invite-banner"><span>1.</span><i class="flight-symbol" aria-hidden="true"></i></div>
                       <strong>Flights</strong>
                     </button>
-                    <button class="invite-card roskilde-invite" data-page="orange" type="button">
-                      <div class="invite-banner"><span>2.</span><i class="tent-symbol" aria-hidden="true"></i></div>
+                    <button class="tp-invite-card tp-roskilde-invite" data-page="orange" type="button">
+                      <div class="tp-invite-banner"><span>2.</span><i class="tent-symbol" aria-hidden="true"></i></div>
                       <strong>Roskilde festival</strong>
                     </button>
-                    <button class="invite-card balkan-invite" data-page="balkan" type="button">
-                      <div class="invite-banner"><span>3.</span><i class="car-symbol" aria-hidden="true"></i></div>
+                    <button class="tp-invite-card tp-balkan-invite" data-page="balkan" type="button">
+                      <div class="tp-invite-banner"><span>3.</span><i class="car-symbol" aria-hidden="true"></i></div>
                       <strong>Balkan Roadtrip</strong>
                     </button>
                   </div>
+
+                  <div class="tp-scroll-rail" aria-hidden="true"><span></span></div>
                 </section>
 
-                <div class="portal-earth-corner" aria-hidden="true"></div>
+                <div class="tp-earth-corner" aria-hidden="true"></div>
               </div>
             </section>
 
