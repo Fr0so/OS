@@ -19,7 +19,13 @@ const flightData = {
   "cph-zurich": { route:"CPH → Zurich",  number:"LX 1271",  departCode:"CPH", departTime:"11:25", arriveCode:"ZRH", arriveTime:"13:20", stop:"Direct",  duration:"1h 55m", fare:"Flex",    cabin:"Economy", baggage:"1 cabin bag",               desk:"Swiss Booking Desk" }
 };
 
-const seats = ["12A","12C","12D","12F","14A","14C","14D","14F"];
+const seatMaps = {
+  "nyc-cph":    ["4A","18C","7F","23B","11D","29A","15E","32C","6B","21F"],
+  "cph-nyc":    ["3D","16A","27F","8C","22E","10B","34A","14F","25C","5E"],
+  "cph-tirana": ["2A","19D","6C","24F","12B","31A","9E","17F","28C","4D"],
+  "tirana-cph": ["5F","20A","13C","26D","7B","33E","11A","18F","30C","3B"],
+  "cph-zurich": ["1C","14A","8F","21D","4B","27E","12F","19A","6D","24C"]
+};
 
 const orangeDays = ["Mon 29","Tue 30","Wed 01","Thu 02","Fri 03","Sat 04"];
 
@@ -74,6 +80,7 @@ let campConfirmed   = false;
 let selectedVehicle = null;
 let vehicleReserved = false;
 let activeMsnContact = null;
+let osPasswordAttempts = 0;
 
 let draggingWindow  = null;
 let dragOffsetX = 0, dragOffsetY = 0;
@@ -120,6 +127,7 @@ function shakeElement(el) {
 function openPasswordDialog() {
   showScreen("password-screen");
   const pw = $("password"), msg = $("login-message");
+  osPasswordAttempts = 0;
   if (msg) msg.textContent = "";
   if (pw)  { pw.value = ""; setTimeout(() => pw.focus(), 30); }
 }
@@ -127,8 +135,10 @@ function openPasswordDialog() {
 function osLogin() {
   const pw = $("password"), msg = $("login-message");
   if (!pw || !msg) return;
-  if (pw.value === OS_PASSWORD) { msg.textContent = ""; startOsLoader(); return; }
-  msg.textContent = "Wrong password."; pw.value = ""; pw.focus();
+  if (pw.value === OS_PASSWORD) { msg.textContent = ""; osPasswordAttempts = 0; startOsLoader(); return; }
+  osPasswordAttempts++;
+  msg.textContent = osPasswordAttempts >= 2 ? "Wrong password. Hint: R****y" : "Wrong password.";
+  pw.value = ""; pw.focus();
   shakeElement(document.querySelector(".dialog-window"));
 }
 
@@ -272,7 +282,7 @@ function startTravelLoader() {
   if (!loader || !browser || !progress || !line || !log) return;
   loader.classList.remove("hidden"); browser.classList.add("hidden");
   progress.style.width = "0%"; log.innerHTML = "";
-  const steps = [[14,"Opening desk files...","desk files"],[31,"Reading route slips...","route slips"],[49,"Loading fare tables...","fare tables"],[67,"Checking allocation cards...","allocation cards"],[84,"Preparing road file...","road file"],[100,"Ready.","ready"]];
+  const steps = [[14,"Opening travel files...","travel files"],[31,"Reading route slips...","route slips"],[49,"Loading fare tables...","fare tables"],[67,"Checking allocation cards...","allocation cards"],[84,"Preparing road file...","road file"],[100,"Ready.","ready"]];
   let i = 0;
   function next() {
     const [pct, text, label] = steps[i];
@@ -291,7 +301,7 @@ function addressForPage(page, detail) {
   if (page === "home")           return "travelportal://home";
   if (page === "flights")        return "travelportal://flights";
   if (page === "flight-detail")  return detail ? `travelportal://flights/${detail}` : "travelportal://flights/detail";
-  if (page === "orange")         return "travelportal://orange";
+  if (page === "orange")         return "travelportal://roskilde";
   if (page === "balkan")         return "travelportal://balkan";
   if (page === "balkan-country") return detail ? `travelportal://balkan/${detail}` : "travelportal://balkan/country";
   return "travelportal://home";
@@ -331,15 +341,23 @@ function renderFlights() {
   const grid = $("flight-grid"); if (!grid) return; grid.innerHTML = "";
   Object.entries(flightData).forEach(([id, f]) => {
     const held = Object.hasOwn(heldFlightSeats, id);
-    const btn = document.createElement("button");
-    btn.className = "flight-card" + (held ? " held" : "");
-    btn.type = "button"; btn.dataset.flightId = id;
-    btn.innerHTML = `
-      <div class="flight-card-top"><strong>${f.route}</strong><span>${f.number}</span></div>
-      <div class="flight-meta"><span>${f.departCode}</span><span>${f.departTime}</span><span>${f.stop}</span><span>${f.arriveTime}</span><span>${f.arriveCode}</span></div>
-      <div class="flight-footer"><span>${f.duration}</span><em>${held ? "Held" : "View"}</em></div>`;
-    btn.addEventListener("click", () => openFlightDetail(id));
-    grid.appendChild(btn);
+    const row = document.createElement("tr");
+    row.className = "flight-row";
+    row.tabIndex = 0;
+    row.dataset.flightId = id;
+    row.innerHTML = `
+      <td><strong>${f.route}</strong></td>
+      <td>${f.number}</td>
+      <td><span>${f.departCode}</span><small>${f.departTime}</small></td>
+      <td><span>${f.arriveCode}</span><small>${f.arriveTime}</small></td>
+      <td>${f.stop}</td>
+      <td>${f.duration}</td>
+      <td><em>${held ? "held" : "View"}</em></td>`;
+    row.addEventListener("click", () => openFlightDetail(id));
+    row.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openFlightDetail(id); }
+    });
+    grid.appendChild(row);
   });
 }
 
@@ -362,6 +380,7 @@ function setFlightDetail(id) {
 
 function renderSeatMap() {
   const grid = $("seat-grid"); if (!grid) return; grid.innerHTML = "";
+  const seats = seatMaps[selectedFlightId] || seatMaps["nyc-cph"];
   seats.forEach((seat) => {
     const btn = document.createElement("button");
     btn.className = "seat-button"; btn.type = "button"; btn.dataset.seat = seat; btn.textContent = seat;
@@ -385,8 +404,8 @@ function updateFlightDetailState() {
     status.textContent = selectedSeat ? `Seat selected: ${selectedSeat}` : "No seat selected.";
     seatCopy.textContent = "Available"; return;
   }
-  holdBtn.disabled = true; holdBtn.textContent = "Held";
-  status.textContent = selectedSeat ? `Held seat: ${selectedSeat}` : "Held without seat.";
+  holdBtn.disabled = true; holdBtn.textContent = "Option locked";
+  status.textContent = selectedSeat ? `Locked seat: ${selectedSeat}` : "Option locked without seat.";
   seatCopy.textContent = "Locked";
 }
 
@@ -469,7 +488,6 @@ function renderOrangePanel(panel) {
     bindCampChecks(); updateOrangeConfirmState(); return;
   }
 
-  // access
   const allPacked = Object.values(campChecklist).every(Boolean);
   container.innerHTML = `
     <div class="access-sheet">
@@ -751,8 +769,7 @@ function bindStaticControls() {
     const item = $(id);
     item?.addEventListener("click", () => selectTrashFile(item.dataset.trashId));
     item?.addEventListener("dblclick", () => {
-      // open window after restoring—or just select
-      if (!$(id)) return; // already removed
+      if (!$(id)) return;
       selectTrashFile(item.dataset.trashId);
     });
   });
@@ -760,7 +777,7 @@ function bindStaticControls() {
   // Travel Portal
   $("travel-login-button")?.addEventListener("click", runTravelLogin);
   ["travel-username-input","travel-password-input"].forEach((id) => $(id)?.addEventListener("keydown", (e) => { if (e.key === "Enter") runTravelLogin(); }));
-  document.querySelectorAll(".agency-card").forEach((btn) => btn.addEventListener("click", () => navigateBrowser(btn.dataset.page)));
+  document.querySelectorAll(".agency-card, .invite-card").forEach((btn) => btn.addEventListener("click", () => navigateBrowser(btn.dataset.page)));
   $("browser-back-button")?.addEventListener("click", browserBack);
   $("browser-home-button")?.addEventListener("click", browserHome);
 
