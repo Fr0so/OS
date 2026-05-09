@@ -777,7 +777,7 @@ function bindStaticControls() {
   // Travel Portal
   $("travel-login-button")?.addEventListener("click", runTravelLogin);
   ["travel-username-input","travel-password-input"].forEach((id) => $(id)?.addEventListener("keydown", (e) => { if (e.key === "Enter") runTravelLogin(); }));
-  document.querySelectorAll(".agency-card, .invite-card").forEach((btn) => btn.addEventListener("click", () => navigateBrowser(btn.dataset.page)));
+  document.querySelectorAll(".agency-card, .invite-card, .tp-invite-card").forEach((btn) => btn.addEventListener("click", () => navigateBrowser(btn.dataset.page)));
   $("browser-back-button")?.addEventListener("click", browserBack);
   $("browser-home-button")?.addEventListener("click", browserHome);
 
