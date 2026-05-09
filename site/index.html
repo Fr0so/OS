@@ -363,16 +363,17 @@
           <div class="travel-login-screen" id="travel-login-screen">
             <div class="travel-login-card">
               <div class="travel-login-brand">
-                <div class="travel-badge">TP</div>
+                <div class="portal-icon-pair" aria-hidden="true">
+                  <span class="portal-desktop-icon"></span>
+                  <span class="portal-earth-icon"></span>
+                </div>
                 <div>
-                  <div class="page-kicker">Fortia Travel Desk</div>
-                  <h2>Passenger Access</h2>
+                  <div class="page-kicker">Travel desk access</div>
+                  <h2>Log on to TravelPortal</h2>
                 </div>
               </div>
-              <div class="login-ledger">
-                <div><span>desk</span><strong>private bookings</strong></div>
-                <div><span>file</span><strong>summer routes</strong></div>
-                <div><span>print</span><strong>26-06</strong></div>
+              <div class="travel-login-copy">
+                <p>Enter your passenger account details to open pending summer invitations.</p>
               </div>
               <div class="travel-login-form">
                 <label for="travel-username-input">Username</label>
@@ -390,8 +391,11 @@
           <!-- Loader -->
           <div class="travel-loader-screen hidden" id="travel-loader-screen">
             <div class="loader-panel">
-              <div class="travel-badge small">TP</div>
-              <div><h2>Travel Portal</h2><p id="loader-line">Opening desk files...</p></div>
+              <div class="portal-icon-pair small" aria-hidden="true">
+                <span class="portal-desktop-icon"></span>
+                <span class="portal-earth-icon"></span>
+              </div>
+              <div><h2>Travel Portal</h2><p id="loader-line">Opening travel files...</p></div>
             </div>
             <div class="progress-shell"><div class="progress-bar" id="progress-bar"></div></div>
             <ul class="loader-log" id="loader-log"></ul>
@@ -407,32 +411,54 @@
 
             <!-- Home -->
             <section class="browser-page active" id="page-home">
-              <div class="agency-home">
-                <div class="agency-hero">
-                  <div class="stamp">PRIVATE DESK</div>
-                  <div>
-                    <div class="page-kicker">Fortia Travel Bureau</div>
-                    <h2>Summer routing file</h2>
-                    <p>Passenger file, fare holds, partner allocation and road desk.</p>
+              <div class="portal-home">
+                <aside class="portal-left-panel">
+                  <div class="portal-panel-title">
+                    <span class="portal-desktop-icon mini" aria-hidden="true"></span>
+                    <div>
+                      <div class="page-kicker">User info</div>
+                      <h2 class="dynamic-booking-name">Name</h2>
+                    </div>
                   </div>
-                  <div class="ticket-stack" aria-hidden="true"><span></span><span></span><span></span></div>
-                </div>
-                <div class="agency-grid">
-                  <button class="agency-card" data-page="flights" type="button">
-                    <span>FL-26</span><strong>Flights</strong><p>Fare holds, route cards and seat map.</p>
-                  </button>
-                  <button class="agency-card orange-agency" data-page="orange" type="button">
-                    <span>OR-26</span><strong>Orange / Roskilde</strong><p>Day slips, camp list and handoff note.</p>
-                  </button>
-                  <button class="agency-card balkan-agency" data-page="balkan" type="button">
-                    <span>BK-26</span><strong>Balkan Roadtrip</strong><p>Country files, border notes and vehicle desk.</p>
-                  </button>
-                </div>
-                <div class="desk-strip">
-                  <span>Passenger: <strong class="dynamic-booking-name">Name</strong></span>
-                  <span>Volume: Summer 2026 (F:)</span>
-                  <span>Desk: Copenhagen</span>
-                </div>
+                  <div class="user-info-grid">
+                    <div><span>Status</span><strong>Active</strong></div>
+                    <div><span>Access</span><strong>Invited</strong></div>
+                  </div>
+                  <div class="search-panel">
+                    <h3>Search panel</h3>
+                    <div><span>From:</span><strong>USA, New York</strong></div>
+                    <div><span>To:</span><strong>Denmark</strong></div>
+                    <div><span>Activities:</span><strong>All</strong></div>
+                    <div><span>Dates:</span><strong>Summer</strong></div>
+                    <div><span>Accommodation:</span><strong>included</strong></div>
+                  </div>
+                </aside>
+
+                <section class="pending-invites">
+                  <div class="pending-header">
+                    <div class="pending-title">
+                      <span>P I</span>
+                      <h3>Pending invites to <strong class="dynamic-booking-name">Name</strong></h3>
+                    </div>
+                    <span class="pending-count">3 files</span>
+                  </div>
+                  <div class="invite-scroll">
+                    <button class="invite-card flight-invite" data-page="flights" type="button">
+                      <div class="invite-banner"><span>1.</span><i class="flight-symbol" aria-hidden="true"></i></div>
+                      <strong>Flights</strong>
+                    </button>
+                    <button class="invite-card roskilde-invite" data-page="orange" type="button">
+                      <div class="invite-banner"><span>2.</span><i class="tent-symbol" aria-hidden="true"></i></div>
+                      <strong>Roskilde festival</strong>
+                    </button>
+                    <button class="invite-card balkan-invite" data-page="balkan" type="button">
+                      <div class="invite-banner"><span>3.</span><i class="car-symbol" aria-hidden="true"></i></div>
+                      <strong>Balkan Roadtrip</strong>
+                    </button>
+                  </div>
+                </section>
+
+                <div class="portal-earth-corner" aria-hidden="true">🌐</div>
               </div>
             </section>
 
@@ -442,7 +468,22 @@
                 <div><div class="page-kicker">Flights</div><h2>Available routes</h2></div>
                 <div class="section-chip">Summer schedule</div>
               </div>
-              <div class="flight-grid" id="flight-grid"></div>
+              <div class="flight-table-shell">
+                <table class="flight-table">
+                  <thead>
+                    <tr>
+                      <th>Route</th>
+                      <th>No.</th>
+                      <th>Depart</th>
+                      <th>Arrive</th>
+                      <th>Stop</th>
+                      <th>Duration</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="flight-grid"></tbody>
+                </table>
+              </div>
             </section>
 
             <!-- Flight Detail -->
@@ -480,14 +521,14 @@
             <!-- Orange / Roskilde -->
             <section class="browser-page orange-page" id="page-orange">
               <div class="section-head">
-                <div><div class="page-kicker">Orange / Roskilde</div><h2>Partner allocation</h2></div>
+                <div><div class="page-kicker">Roskilde festival</div><h2>Partner allocation</h2></div>
                 <div class="section-chip orange-chip">OR-26</div>
               </div>
               <div class="orange-layout">
                 <div class="orange-ticket">
                   <div class="orange-ticket-top">
                     <span class="orange-dot"></span>
-                    <div><strong>ORANGE</strong><small>partner allocation sheet</small></div>
+                    <div><strong>ROSKILDE</strong><small>festival allocation sheet</small></div>
                   </div>
                   <div class="orange-file-stack">
                     <div class="orange-file-line"><span>Row</span><strong>017</strong></div>
