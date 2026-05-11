@@ -419,24 +419,21 @@
             <section class="browser-page active" id="page-home">
               <div class="tp-home-shell">
                 <aside class="tp-search-sidebar">
-                  <div class="tp-sidebar-user">
-                    <span class="portal-desktop-icon mini" aria-hidden="true"></span>
+                  <div class="tp-sidebar-system">
+                    <span class="tp-folder-stack" aria-hidden="true"></span>
                     <div>
-                      <div class="page-kicker">User info</div>
-                      <h2 class="dynamic-booking-name">Name</h2>
+                      <div class="page-kicker">Booking filter</div>
+                      <h2>Route Console</h2>
+                      <small>private summer registry</small>
                     </div>
-                  </div>
-                  <div class="tp-user-status">
-                    <div><span>Status</span><strong>Active</strong></div>
-                    <div><span>Access</span><strong>Invited</strong></div>
                   </div>
                   <div class="tp-search-panel">
                     <h3>Search panel</h3>
                     <div class="tp-search-row"><span>From:</span><strong>USA, New York</strong><i class="search-glass" aria-hidden="true"></i></div>
                     <div class="tp-search-row"><span>To:</span><strong>Denmark</strong><i class="search-glass" aria-hidden="true"></i></div>
                     <div class="tp-search-row"><span>Activities:</span><strong>All</strong><i class="search-glass" aria-hidden="true"></i></div>
-                    <div class="tp-search-row"><span>Dates:</span><strong>Summer</strong><i class="search-glass" aria-hidden="true"></i></div>
-                    <div class="tp-search-row"><span>Accommodation:</span><strong>included</strong><i class="search-glass" aria-hidden="true"></i></div>
+                    <div class="tp-search-row"><span>Dates:</span><strong>All summer</strong><i class="search-glass" aria-hidden="true"></i></div>
+                    <div class="tp-search-row"><span>Accommodation:</span><strong>Included</strong><i class="search-glass" aria-hidden="true"></i></div>
                   </div>
                 </aside>
 
@@ -458,7 +455,6 @@
 
                   <div class="tp-pending-bar">
                     <div class="tp-pending-title">
-                      <span>P I</span>
                       <h3>Pending invites to <strong class="dynamic-booking-name">Name</strong></h3>
                     </div>
                     <span class="tp-count">3 files</span>
@@ -466,23 +462,18 @@
 
                   <div class="tp-invite-scroll">
                     <button class="tp-invite-card tp-flight-invite" data-page="flights" type="button">
-                      <div class="tp-invite-banner"><span>1.</span><i class="flight-symbol" aria-hidden="true"></i></div>
+                      <img class="tp-category-icon tp-flight-icon" src="/images/fly.png" alt="" aria-hidden="true" />
                       <strong>Flights</strong>
-                      <em class="tp-file-meta" aria-hidden="true">route-hold.dat</em>
                     </button>
                     <button class="tp-invite-card tp-roskilde-invite" data-page="orange" type="button">
-                      <div class="tp-invite-banner"><span>2.</span><i class="tent-symbol" aria-hidden="true"></i></div>
+                      <img class="tp-category-icon tp-roskilde-icon" src="/images/Roskilde.png" alt="" aria-hidden="true" />
                       <strong>Roskilde festival</strong>
-                      <em class="tp-file-meta" aria-hidden="true">orange-row.inv</em>
                     </button>
                     <button class="tp-invite-card tp-balkan-invite" data-page="balkan" type="button">
-                      <div class="tp-invite-banner"><span>3.</span><i class="car-symbol" aria-hidden="true"></i></div>
+                      <img class="tp-category-icon tp-balkan-icon" src="/images/car.png" alt="" aria-hidden="true" />
                       <strong>Balkan Roadtrip</strong>
-                      <em class="tp-file-meta" aria-hidden="true">border-loop.bk</em>
                     </button>
                   </div>
-
-                  <div class="tp-scroll-rail" aria-hidden="true"><span></span></div>
                 </section>
 
                 <div class="tp-earth-corner" aria-hidden="true"></div>
@@ -559,7 +550,7 @@
                   </div>
                   <div class="orange-file-stack">
                     <div class="orange-file-line"><span>Row</span><strong>017</strong></div>
-                    <div class="orange-file-line"><span>Camp file</span><strong id="orange-camp-mini-status">pending pack</strong></div>
+                    <div class="orange-file-line"><span>Camp</span><strong>Silent &amp; Clean</strong></div>
                     <div class="orange-file-line"><span>Handoff</span><strong>on site</strong></div>
                   </div>
                   <div class="orange-divider-label">day slips</div>
@@ -569,7 +560,6 @@
                   <div class="orange-tabs">
                     <button class="orange-tab active" data-orange-panel="lineup" type="button">Lineup view</button>
                     <button class="orange-tab" data-orange-panel="camp" type="button">Camp list</button>
-                    <button class="orange-tab" data-orange-panel="access" type="button">Access note</button>
                   </div>
                   <div class="orange-panel" id="orange-panel"></div>
                   <button class="xp-button orange-confirm" id="orange-confirm-button" type="button" disabled>Complete packing list</button>
@@ -579,32 +569,27 @@
 
             <!-- Balkan -->
             <section class="browser-page balkan-page" id="page-balkan">
-              <div class="balkan-desk">
-                <div class="balkan-hero-card">
-                  <div>
+              <div class="balkan-desk balkan-split-desk">
+
+                <section class="balkan-rental-panel">
+                  <div class="balkan-panel-head">
                     <div class="page-kicker">TravelPortal / Balkan</div>
-                    <h2>Roadtrip guide desk</h2>
-                    <p>Country files, border notes and rental paperwork for a Tirana-start route.</p>
-                  </div>
-                  <div class="balkan-route-strip" aria-hidden="true">
-                    <span>Tirana</span><i></i><span>Kotor</span><i></i><span>Coast</span><i></i><span>Ohrid</span>
-                  </div>
-                </div>
-                <div class="balkan-index-row">
-                  <div class="route-ledger"><span>Route file</span><strong>BK-26 / Adriatic loop</strong></div>
-                  <div class="route-ledger"><span>Pickup</span><strong>Tirana</strong></div>
-                  <div class="route-ledger"><span>Countries</span><strong>6 cards</strong></div>
-                </div>
-                <div class="country-grid travelguide-grid" id="country-grid"></div>
-                <div class="rental-desk">
-                  <div class="rental-copy">
-                    <div class="page-kicker">Rental desk</div>
-                    <h3>Vehicle file</h3>
+                    <h2>Rental car</h2>
                     <p id="rental-status">Choose one vehicle.</p>
                   </div>
                   <div class="vehicle-grid" id="vehicle-grid"></div>
                   <button class="xp-button" id="reserve-car-button" type="button">Reserve vehicle</button>
-                </div>
+                </section>
+
+                <section class="balkan-country-panel">
+                  <div class="balkan-panel-head">
+                    <div class="page-kicker">Country files</div>
+                    <h2>Scrolling country desk</h2>
+                    <p>Select a country file to open the guide sheet.</p>
+                  </div>
+                  <div class="country-grid travelguide-grid" id="country-grid"></div>
+                </section>
+
               </div>
             </section>
 
