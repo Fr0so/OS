@@ -30,12 +30,12 @@ const seatMaps = {
 const orangeDays = ["Mon 29","Tue 30","Wed 01","Thu 02","Fri 03","Sat 04"];
 
 const orangeLineup = {
-  "Mon 29": { board:"First Days file",   meta:["camp arrival","warm-up","low print"],           picks:[["Tessa","main note"],["TV-2","legacy"],["EsDeeKid","new file"],["Bad Gyal","late"],["Aphaca","danish marker"]] },
-  "Tue 30": { board:"First Days file",   meta:["wristband day","camp traffic","late tent"],      picks:[["Addison Rae","pop"],["Lily Allen","pop"],["Kneecap","loud file"],["Ken Carson","night"],["Sierra Ferrell","sunset"]] },
-  "Wed 01": { board:"Orange opening slip",meta:["Pil opens Orange","stage file","row 017"],      picks:[["Pil","orange opener"],["Wolf Alice","guitar"],["Little Simz","rap"],["Clipse","rap"],["Aphaca","orange pool"]] },
-  "Thu 02": { board:"Main field slip",   meta:["bigger names","orange pool","late route"],       picks:[["Gorillaz","headline pool"],["Zara Larsson","pop"],["Jennie","pop"],["David Byrne","special file"],["Ethel Cain","dark marker"]] },
-  "Fri 03": { board:"Weekend slip",      meta:["heavy ground","late entries","camp note"],       picks:[["The Cure","black marker"],["Clipse","rap"],["Wolf Alice","guitar"],["Kneecap","late file"],["Lily Allen","pop"]] },
-  "Sat 04": { board:"Closing slip",      meta:["last field day","orange pool","packed camp"],    picks:[["Gorillaz","closing board"],["Yung Lean & Bladee","after dark"],["Zara Larsson","orange field"],["Jennie","pop"],["Little Simz","rap"]] }
+  "Mon 29": { board:"First Days file", picks:[["Tessa","Song placeholder"],["TV-2","Song placeholder"],["EsDeeKid","Song placeholder"]] },
+  "Tue 30": { board:"First Days file", picks:[["Addison Rae","Song placeholder"],["Lily Allen","Song placeholder"],["Kneecap","Song placeholder"]] },
+  "Wed 01": { board:"Orange opening slip", picks:[["Pil","Song placeholder"],["Wolf Alice","Song placeholder"],["Little Simz","Song placeholder"]] },
+  "Thu 02": { board:"Main field slip", picks:[["Gorillaz","Song placeholder"],["Zara Larsson","Song placeholder"],["Jennie","Song placeholder"]] },
+  "Fri 03": { board:"Weekend slip", picks:[["The Cure","Song placeholder"],["Clipse","Song placeholder"],["Wolf Alice","Song placeholder"]] },
+  "Sat 04": { board:"Closing slip", picks:[["Gorillaz","Song placeholder"],["Yung Lean & Bladee","Song placeholder"],["Zara Larsson","Song placeholder"]] }
 };
 
 const campItems = [
@@ -44,17 +44,89 @@ const campItems = [
   ["rain",      "Rain cover"],
   ["sunscreen", "Sunscreen"],
   ["socks",     "Dry socks"],
-  ["beer",      "Borrowing beer for the week"]
+  ["beer",      "Bring 4 rammer øl"]
 ];
 const campChecklist = Object.fromEntries(campItems.map(([k]) => [k, false]));
 
 const countryData = {
-  "Albania":        { code:"AL", slug:"albania",       sub:"Tirana / Riviera",   dish:"Tavë kosi",         see:"Tirana, Gjirokastër, Himarë coast",         note:"Coffee first, logistics second. Tirana works as the desk, the coast works as the reward.",                   border:"Keep car papers easy to reach.",                                  drive:"Mountain roads look short on paper and then eat the afternoon.",    copy:"Tirana pickup, bunker edges, mountain turns and a southbound coast file with too many places to stop.",                        stops:["Tirana","Gjirokastër","Himarë","Ksamil"] },
-  "Montenegro":     { code:"ME", slug:"montenegro",    sub:"Bay of Kotor",       dish:"Njeguši prosciutto", see:"Kotor bay road and Lovćen switchbacks",      note:"Small country, huge views. The slow parts are the point.",                                                   border:"Check green card / rental permission before entering.",            drive:"Take the bay road slowly; buses do not care about your confidence.", copy:"Kotor stone, steep turns, bay water and a route that looks tiny until the road starts climbing.",                              stops:["Kotor","Perast","Lovćen","Budva"] },
-  "Croatia":        { code:"HR", slug:"croatia",       sub:"Coast / old towns",  dish:"Peka",               see:"Adriatic old towns and late ferries",        note:"Pretty enough to feel suspicious. Parking is the real boss fight.",                                           border:"EU entry makes paperwork easier, not parking easier.",             drive:"Coast roads reward early starts and punish heroic schedules.",       copy:"A clean coast card: old stone, ferry timing, late dinners and one folder just for parking notes.",                             stops:["Dubrovnik","Split","Zadar","Plitvice"] },
-  "Kosovo":         { code:"XK", slug:"kosovo",        sub:"Prizren",            dish:"Flija",              see:"Prizren old town and fortress walk",         note:"Cafés double as planning offices. Five-minute stops become forty.",                                             border:"Entry stamp sequence can matter depending on route.",              drive:"Short drives, dense towns, park once and walk.",                     copy:"A compact city sheet for Prizren, border timing and the kind of coffee break that rewrites the afternoon.",                    stops:["Prizren","Pristina","Rugova","Gjakova"] },
-  "Serbia":         { code:"RS", slug:"serbia",        sub:"Belgrade",           dish:"Ćevapi",             see:"Belgrade after dark",                       note:"The playlist gets louder after midnight. Morning departures become theory.",                                      border:"Double-check rental cross-border permission.",                     drive:"City traffic first, river roads after.",                             copy:"Belgrade city file with night notes, river edges, parking caution and one very optimistic morning departure.",                 stops:["Belgrade","Novi Sad","Niš","Tara"] },
-  "North Macedonia":{ code:"MK", slug:"north-macedonia",sub:"Lake Ohrid",        dish:"Tavče gravče",       see:"Lake Ohrid and old town steps",             note:"Slow mornings are not delays. They are the itinerary defending itself.",                                         border:"Keep insurance papers visible at the desk.",                       drive:"Lake roads are easy until everyone stops for the same view.",        copy:"Ohrid lake card, soft mornings, monastery stops and a southern route that should not be rushed.",                             stops:["Ohrid","Skopje","Bitola","Matka Canyon"] }
+  "Albania": {
+    code:"AL",
+    slug:"albania",
+    sub:"Tirana / Riviera",
+    dish:"Tavë kosi",
+    dishDesc:"Baked lamb and rice in yogurt custard.",
+    see:"Tirana, Gjirokastër, Himarë coast",
+    note:"Hospitality is central; coffeehouses, family ties, and evening street life shape everyday social culture.",
+    border:"US: visa-free up to 1 year. Danish: visa-free up to 90 days.",
+    drive:"Mountain roads look short on paper and then eat the afternoon.",
+    copy:"Tirana pickup, bunker edges, mountain turns and a southbound coast file with too many places to stop.",
+    stops:["Tirana","Gjirokastër","Himarë","Ksamil"]
+  },
+  "Montenegro": {
+    code:"ME",
+    slug:"montenegro",
+    sub:"Bay of Kotor",
+    dish:"Njeguši prosciutto",
+    dishDesc:"Air-dried mountain ham, usually served thinly sliced.",
+    see:"Kotor bay road and Lovćen switchbacks",
+    note:"Culture is tied to clans, Orthodox monasteries, coastal Venetian towns, and a strong mountain identity.",
+    border:"US/Danish: visa-free up to 90 days with a valid passport.",
+    drive:"Take the bay road slowly; buses do not care about your confidence.",
+    copy:"Kotor stone, steep turns, bay water and a route that looks tiny until the road starts climbing.",
+    stops:["Kotor","Perast","Lovćen","Budva"]
+  },
+  "Croatia": {
+    code:"HR",
+    slug:"croatia",
+    sub:"Coast / old towns",
+    dish:"Peka",
+    dishDesc:"Meat or seafood slow-cooked under an iron bell.",
+    see:"Adriatic old towns and late ferries",
+    note:"Coastal culture mixes Adriatic, Mediterranean, and Central European influences; town squares and cafés anchor daily life.",
+    border:"US/Danish: visa-free under Schengen 90/180 short-stay rules.",
+    drive:"Coast roads reward early starts and punish heroic schedules.",
+    copy:"A clean coast card: old stone, ferry timing, late dinners and one folder just for parking notes.",
+    stops:["Dubrovnik","Split","Zadar","Plitvice"]
+  },
+  "Kosovo": {
+    code:"XK",
+    slug:"kosovo",
+    sub:"Prizren",
+    dish:"Flija",
+    dishDesc:"Layered pastry cooked slowly, usually with cream.",
+    see:"Prizren old town and fortress walk",
+    note:"Albanian culture dominates public life, with strong family networks, café culture, music, and hospitality.",
+    border:"US/Danish: visa-free up to 90 days within 6 months.",
+    drive:"Short drives, dense towns, park once and walk.",
+    copy:"A compact city sheet for Prizren, border timing and the kind of coffee break that rewrites the afternoon.",
+    stops:["Prizren","Pristina","Rugova","Gjakova"]
+  },
+  "Serbia": {
+    code:"RS",
+    slug:"serbia",
+    sub:"Belgrade",
+    dish:"Ćevapi",
+    dishDesc:"Grilled minced-meat sausages served with flatbread.",
+    see:"Belgrade after dark",
+    note:"Orthodox traditions, kafana social life, music, and Belgrade’s urban culture are central to Serbian identity.",
+    border:"US/Danish: visa-free up to 90 days; register your stay locally.",
+    drive:"City traffic first, river roads after.",
+    copy:"Belgrade city file with night notes, river edges, parking caution and one very optimistic morning departure.",
+    stops:["Belgrade","Novi Sad","Niš","Tara"]
+  },
+  "North Macedonia": {
+    code:"MK",
+    slug:"north-macedonia",
+    sub:"Lake Ohrid",
+    dish:"Tavče gravče",
+    dishDesc:"Baked beans with paprika, often served in a clay dish.",
+    see:"Lake Ohrid and old town steps",
+    note:"Macedonian, Albanian, Ottoman, and Orthodox influences meet in food, music, markets, and religious sites.",
+    border:"US/Danish: visa-free up to 90 days for short tourist stays.",
+    drive:"Lake roads are easy until everyone stops for the same view.",
+    copy:"Ohrid lake card, soft mornings, monastery stops and a southern route that should not be rushed.",
+    stops:["Ohrid","Skopje","Bitola","Matka Canyon"]
+  }
 };
 
 const vehicleData = {
@@ -441,6 +513,7 @@ function renderOrangeDays() {
 }
 
 function renderOrangePanel(panel) {
+  if (panel === "access") panel = "lineup";
   currentOrangePanel = panel;
   document.querySelectorAll(".orange-tab").forEach((btn) => btn.classList.toggle("active", btn.dataset.orangePanel === panel));
   const container = $("orange-panel"); if (!container) return;
@@ -450,16 +523,17 @@ function renderOrangePanel(panel) {
     container.innerHTML = `
       <div class="lineup-board">
         <div class="lineup-board-head">
+          <div>
+            <strong>${file.board}</strong>
+            <small>artist / song placeholders</small>
+          </div>
           <span>${selectedOrangeDay}</span>
-          <div><strong>${file.board}</strong>
-          <div class="lineup-meta-strip">${file.meta.map((m) => `<b>${m}</b>`).join("")}</div></div>
         </div>
         <div class="lineup-rows">
-          ${file.picks.map(([name, tag], i) => `
-            <div class="lineup-row ${i === 0 ? "top-row" : ""}">
-              <em>${String(i + 1).padStart(2, "0")}</em>
+          ${file.picks.slice(0, 3).map(([name, song]) => `
+            <div class="lineup-row artist-highlight-row">
               <strong>${name}</strong>
-              <span>${tag}</span>
+              <span class="artist-song">${song}</span>
             </div>`).join("")}
         </div>
       </div>`;
@@ -471,7 +545,7 @@ function renderOrangePanel(panel) {
       <div class="camp-layout">
         <div class="camp-task-card">
           <span>Camp task</span>
-          <strong>Borrowing beer for the week</strong>
+          <strong>Bring 4 rammer øl</strong>
           <small>${getBookingName()}</small>
           <div class="camp-progress-bar"><span class="camp-progress-fill" id="camp-progress-fill"></span></div>
           <em class="camp-progress-text" id="camp-progress-text">0 / ${campItems.length} packed</em>
@@ -488,22 +562,7 @@ function renderOrangePanel(panel) {
     bindCampChecks(); updateOrangeConfirmState(); return;
   }
 
-  const allPacked = Object.values(campChecklist).every(Boolean);
-  container.innerHTML = `
-    <div class="access-sheet">
-      <div class="access-sheet-title">
-        <span>Access note</span>
-        <strong>${getBookingName()} / row 017</strong>
-      </div>
-      <div class="access-note-grid">
-        <div class="access-note-card"><span>Wristband</span><strong>on-site handoff</strong></div>
-        <div class="access-note-card"><span>Camp</span><strong>${allPacked ? "ready for confirm" : "packing pending"}</strong></div>
-        <div class="access-note-card"><span>Bring</span><strong>ID + ticket mail</strong></div>
-        <div class="access-note-card"><span>Window</span><strong>partner desk</strong></div>
-      </div>
-      <div class="access-fineprint">orange_row=017 // camp_file=${allPacked ? "ready" : "pending"} // name=${getBookingName()}</div>
-    </div>`;
-  updateOrangeConfirmState();
+  renderOrangePanel("lineup");
 }
 
 function bindCampChecks() {
@@ -535,7 +594,7 @@ function updateOrangeConfirmState() {
 function confirmOrange() {
   if (!Object.values(campChecklist).every(Boolean) || campConfirmed) { shakeElement($("orange-panel")); return; }
   campConfirmed = true; updateOrangeConfirmState(); renderOrangePanel(currentOrangePanel);
-  queueMsnMessage("CAMPEN", `Hey ${getBookingName()}. Wristband handoff is on site. Camp placement follows row 017. Bring the pack list. You are still on beer duty.`);
+  queueMsnMessage("CAMPEN", `Hey ${getBookingName()}. Wristband handoff is on site. Camp placement follows row 017. Bring the pack list. Bring 4 rammer øl.`);
 }
 
 /* ─── Balkan ────────────────────────────────── */
@@ -544,12 +603,12 @@ function renderCountries() {
   const grid = $("country-grid"); if (!grid) return; grid.innerHTML = "";
   Object.entries(countryData).forEach(([country, data], i) => {
     const btn = document.createElement("button");
-    btn.className = "country-card"; btn.type = "button"; btn.dataset.country = country;
+    btn.className = `country-card country-${data.slug}`;
+    btn.type = "button";
+    btn.dataset.country = country;
     btn.innerHTML = `
-      <span>${String(i + 1).padStart(2, "0")} / ${data.code}</span>
-      <strong>${country}</strong>
-      <small>${data.sub}</small>
-      <em>${data.see}</em>`;
+      <span>${data.code}</span>
+      <strong>${country}</strong>`;
     btn.addEventListener("click", () => openCountry(country));
     grid.appendChild(btn);
   });
@@ -564,7 +623,8 @@ function setCountryDetail(country, pushHistory = true) {
   $("country-copy").textContent   = d.copy;
   $("country-code").textContent   = d.code;
   $("country-region").textContent = d.sub;
-  $("country-dish").textContent   = d.dish;
+  const dishEl = $("country-dish");
+  if (dishEl) dishEl.innerHTML = `<span>${d.dish}</span><em>${d.dishDesc || ""}</em>`;
   $("country-see").textContent    = d.see;
   $("country-note").textContent   = d.note;
   $("country-border").textContent = d.border;
