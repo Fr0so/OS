@@ -3120,3 +3120,704 @@ p { margin: 0; }
   }
 }
 
+
+/* =========================================================
+   TRAVELPORTAL V7 TUNING
+   Keeps TravelPortal login screen intact. Refines home only.
+   ========================================================= */
+
+/* Remove fake scrollbar completely */
+.tp-scroll-rail,
+.tp-scroll-rail::before,
+.tp-scroll-rail::after,
+.tp-scroll-rail span {
+  display: none !important;
+}
+
+/* Left header is no longer user info; user info exists in the main card */
+.tp-sidebar-system {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 9px 10px;
+  background:
+    linear-gradient(#f8fafc, #e6edf6);
+  border: 1px solid #aebccd;
+  box-shadow: inset 1px 1px 0 #fff, 2px 2px 0 rgba(48,70,102,.08);
+}
+.tp-sidebar-system h2 {
+  margin: 2px 0 1px;
+  color: #17375e;
+  font-size: 21px;
+  letter-spacing: .1px;
+}
+.tp-sidebar-system small {
+  display: block;
+  color: #637286;
+  font-family: "Lucida Console", Consolas, monospace;
+  font-size: 10px;
+}
+.tp-folder-stack {
+  position: relative;
+  width: 42px;
+  height: 34px;
+  background: linear-gradient(#f7de8a, #d59c32);
+  border: 1px solid #8e6a22;
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 rgba(50,60,75,.14);
+}
+.tp-folder-stack::before {
+  position: absolute;
+  left: 4px;
+  top: -6px;
+  width: 20px;
+  height: 8px;
+  content: "";
+  background: #f4d67d;
+  border: 1px solid #8e6a22;
+  border-bottom: 0;
+  border-radius: 3px 3px 0 0;
+}
+.tp-folder-stack::after {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  width: 28px;
+  height: 24px;
+  content: "";
+  background: linear-gradient(#fff, #dce7f4);
+  border: 1px solid #8898aa;
+  box-shadow: -2px -2px 0 rgba(255,255,255,.55);
+}
+
+/* Search rows: smaller, slimmer, less heavy */
+.tp-search-panel {
+  padding: 9px !important;
+}
+.tp-search-panel h3 {
+  margin-bottom: 8px !important;
+  font-size: 15px !important;
+}
+.tp-search-panel h3::after {
+  margin-top: 2px !important;
+  font-size: 9px !important;
+}
+.tp-search-row {
+  min-height: 39px !important;
+  margin-bottom: 6px !important;
+  padding: 5px 31px 5px 9px !important;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.46), rgba(255,255,255,.05)),
+    linear-gradient(#e5e9ee, #cbd1da) !important;
+}
+.tp-search-row::before {
+  width: 3px !important;
+}
+.tp-search-row span {
+  font-size: 9px !important;
+}
+.tp-search-row strong {
+  margin-top: 1px !important;
+  font-size: 14px !important;
+}
+.tp-search-row .search-glass {
+  right: 9px !important;
+  width: 12px !important;
+  height: 12px !important;
+  border-width: 2px !important;
+}
+.tp-search-row .search-glass::after {
+  right: -5px !important;
+  bottom: -4px !important;
+  width: 7px !important;
+}
+
+/* Pending header: remove PI and make it feel like an invitation card by shape/material */
+.tp-pending-bar {
+  position: relative;
+  min-height: 70px;
+  padding: 12px 14px 12px 18px !important;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.88), rgba(246,248,251,.88)),
+    repeating-linear-gradient(90deg, rgba(104,128,160,.12) 0 1px, transparent 1px 11px);
+  border: 1px solid #a9b9ce;
+  border-top: 0;
+}
+.tp-pending-bar::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 15px;
+  content: "";
+  background:
+    repeating-linear-gradient(135deg,
+      rgba(47,81,124,.45) 0 8px,
+      rgba(255,255,255,.35) 8px 14px,
+      rgba(150,92,65,.34) 14px 22px,
+      rgba(255,255,255,.35) 22px 28px);
+}
+.tp-pending-bar::after {
+  position: absolute;
+  right: 18px;
+  top: 10px;
+  width: 42px;
+  height: 42px;
+  content: "";
+  opacity: .32;
+  border: 2px solid #7b8fa9;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 4px rgba(255,255,255,.55);
+  transform: rotate(-9deg);
+}
+.tp-pending-title > span {
+  display: none !important;
+}
+.tp-pending-title h3 {
+  color: #1a3659 !important;
+  font-size: 23px !important;
+}
+.tp-count {
+  position: relative;
+  z-index: 1;
+  background: #fbf8ea !important;
+  border-color: #b8ad88 !important;
+}
+
+/* Invite rows: no numbers, no CSS symbols, no file labels; entire muted bar carries the color */
+.tp-invite-panel {
+  padding-right: 22px !important;
+}
+.tp-invite-scroll {
+  grid-auto-rows: 76px !important;
+  gap: 9px !important;
+  min-height: 260px !important;
+  padding-top: 14px !important;
+}
+.tp-invite-card {
+  grid-template-columns: 74px 1fr !important;
+  min-height: 76px !important;
+  border: 1px solid rgba(75, 91, 113, .52) !important;
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.58),
+    inset -1px -1px 0 rgba(35,42,55,.10),
+    3px 3px 0 rgba(39,66,102,.07) !important;
+}
+.tp-invite-card::before {
+  display: none !important;
+}
+.tp-invite-banner {
+  min-height: 100%;
+  padding: 0 !important;
+  background: transparent !important;
+  border-right: 1px solid rgba(40,50,68,.18);
+}
+.tp-invite-banner span,
+.tp-invite-banner i,
+.flight-symbol,
+.tent-symbol,
+.car-symbol,
+.tp-file-meta {
+  display: none !important;
+}
+.tp-invite-card > strong {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  padding: 0 18px !important;
+  color: #132b4c !important;
+  font-size: 22px !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.55);
+}
+.tp-flight-invite {
+  background:
+    linear-gradient(90deg, rgba(47,75,112,.22) 0 74px, rgba(255,255,255,.18) 74px),
+    repeating-linear-gradient(135deg, rgba(255,255,255,.18) 0 7px, rgba(255,255,255,0) 7px 16px),
+    linear-gradient(180deg, #c6d3e4, #9fb3cf) !important;
+}
+.tp-roskilde-invite {
+  background:
+    linear-gradient(90deg, rgba(118,80,44,.22) 0 74px, rgba(255,255,255,.18) 74px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.22) 0 1px, transparent 1px 14px),
+    linear-gradient(180deg, #dfc5a1, #c49a69) !important;
+}
+.tp-balkan-invite {
+  background:
+    linear-gradient(90deg, rgba(63,89,63,.22) 0 74px, rgba(255,255,255,.18) 74px),
+    radial-gradient(circle at 92% 30%, rgba(255,255,255,.24), transparent 18%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.16) 0 1px, transparent 1px 13px),
+    linear-gradient(180deg, #c3d1b7, #91ab82) !important;
+}
+.tp-flight-invite .tp-invite-banner {
+  background:
+    repeating-linear-gradient(180deg, rgba(31,55,88,.34) 0 7px, rgba(255,255,255,.20) 7px 10px) !important;
+}
+.tp-roskilde-invite .tp-invite-banner {
+  background:
+    repeating-linear-gradient(45deg, rgba(105,63,27,.32) 0 8px, rgba(255,255,255,.18) 8px 13px) !important;
+}
+.tp-balkan-invite .tp-invite-banner {
+  background:
+    repeating-linear-gradient(135deg, rgba(48,76,48,.32) 0 6px, rgba(255,255,255,.18) 6px 13px) !important;
+}
+
+/* Hover stays restrained, not neon */
+.tp-invite-card:hover,
+.tp-invite-card:focus {
+  filter: brightness(1.035);
+  border-color: #536d92 !important;
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.7),
+    0 0 0 2px rgba(49,106,197,.10),
+    3px 3px 0 rgba(39,66,102,.08) !important;
+}
+
+/* Remove unused responsive references to the deleted rail */
+@media (max-width: 900px) {
+  .tp-scroll-rail {
+    display: none !important;
+  }
+}
+
+
+/* =========================================================
+   v9 scoped changes: TravelPortal home + Roskilde only
+   ========================================================= */
+
+/* Empty bottom margin / less clipped scroll feeling on TravelPortal home only */
+#page-home.browser-page {
+  padding-bottom: 24px;
+}
+.tp-home-shell {
+  min-height: 452px;
+  padding-bottom: 30px;
+}
+.tp-invite-panel {
+  padding-bottom: 16px;
+}
+.tp-invite-scroll {
+  padding-bottom: 32px !important;
+  align-content: start;
+}
+
+/* Category blocks: centered XP text, subtle pattern over entire block */
+.tp-invite-card {
+  grid-template-columns: 1fr !important;
+  place-items: center;
+  min-height: 82px !important;
+}
+.tp-invite-banner {
+  display: none !important;
+}
+.tp-invite-card > strong {
+  display: grid !important;
+  place-items: center !important;
+  width: 100%;
+  min-height: 82px;
+  padding: 0 18px !important;
+  text-align: center !important;
+  font-family: Tahoma, Verdana, "MS Sans Serif", sans-serif;
+  font-size: 22px !important;
+  font-weight: bold;
+  letter-spacing: .15px;
+  color: #18304f !important;
+  text-shadow: 1px 1px 0 rgba(255,255,255,.65);
+}
+.tp-flight-invite {
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,.12) 0 1px, transparent 1px 14px),
+    linear-gradient(180deg, #dce6f3, #b9c9df 54%, #d7e2ef) !important;
+}
+.tp-roskilde-invite {
+  background:
+    radial-gradient(circle at 18px 18px, rgba(255,255,255,.18) 0 1px, transparent 2px) 0 0 / 20px 20px,
+    linear-gradient(180deg, #ead8be, #c9ae87 56%, #e6d3b7) !important;
+}
+.tp-balkan-invite {
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.11) 1px, transparent 1px) 0 0 / 24px 100%,
+    linear-gradient(0deg, rgba(255,255,255,.10) 1px, transparent 1px) 0 0 / 100% 24px,
+    linear-gradient(180deg, #d9e4d2, #b8caac 55%, #d4e0cd) !important;
+}
+
+/* Roskilde: access tab removed in HTML; keep layout clean */
+.orange-tabs {
+  grid-template-columns: repeat(2, 1fr) !important;
+}
+.orange-tab[data-orange-panel="access"] {
+  display: none !important;
+}
+
+/* Roskilde lineup: date right, notes removed, three artist/song cards */
+.lineup-board-head {
+  grid-template-columns: 1fr auto !important;
+}
+.lineup-board-head > span {
+  order: 2;
+  min-width: 76px;
+  text-align: center;
+}
+.lineup-board-head > div {
+  order: 1;
+}
+.lineup-board-head small {
+  display: block;
+  margin-top: 3px;
+  color: #9a6228;
+  font-size: 11px;
+  font-weight: normal;
+}
+.lineup-meta-strip,
+.lineup-row em {
+  display: none !important;
+}
+.lineup-rows {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.lineup-row.artist-highlight-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: center;
+  justify-items: center;
+  min-height: 112px;
+  padding: 14px 10px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255,122,0,.10), transparent 24%),
+    linear-gradient(#fffaf4, #ffe8c8);
+  border: 1px solid #e5a75f;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,.72), 3px 4px 0 rgba(160,90,30,.08);
+}
+.lineup-row.artist-highlight-row strong {
+  color: #3f2106;
+  font-size: 21px;
+}
+.lineup-row.artist-highlight-row .artist-song {
+  display: block;
+  margin-top: 9px;
+  padding: 5px 8px;
+  color: #7a4b1c;
+  font-family: "Lucida Console", Consolas, monospace;
+  font-size: 12px;
+  background: rgba(255,255,255,.72);
+  border: 1px solid #efc38e;
+}
+
+/* Roskilde camp task text */
+.camp-task-card strong {
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   v10 scoped changes: Balkan split rental/country desk only
+   ========================================================= */
+
+/* Two-panel Balkan layout: rental left, scrolling country files right. */
+.balkan-page {
+  padding: 16px;
+}
+.balkan-split-desk {
+  display: grid;
+  grid-template-columns: minmax(260px, .82fr) minmax(360px, 1.18fr);
+  gap: 16px;
+  min-height: 486px;
+}
+.balkan-rental-panel,
+.balkan-country-panel {
+  min-width: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.78), rgba(239,244,235,.88)),
+    linear-gradient(135deg, #f8f1df, #eef5e8);
+  border: 1px solid #8fa773;
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.82),
+    4px 5px 0 rgba(75,93,55,.08);
+}
+.balkan-rental-panel {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 14px;
+  padding: 16px;
+  border-left: 7px solid #435f31;
+}
+.balkan-country-panel {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 12px;
+  padding: 16px;
+  overflow: hidden;
+  border-left: 7px solid #6c7d4f;
+}
+.balkan-panel-head {
+  padding: 12px 14px;
+  background:
+    repeating-linear-gradient(90deg, rgba(72,92,55,.055) 0 1px, transparent 1px 9px),
+    linear-gradient(#fffdf4, #edf4e5);
+  border: 1px solid #b6c89a;
+}
+.balkan-panel-head h2 {
+  margin: 4px 0 6px;
+  color: #283f20;
+  font-size: 28px;
+  line-height: 1;
+}
+.balkan-panel-head p {
+  color: #5d6c53;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Remove/neutralize route-strip and old top-route layout if stale markup ever remains. */
+.balkan-route-strip,
+.balkan-index-row {
+  display: none !important;
+}
+
+/* Country section is now an actual scroll menu. */
+.balkan-country-panel .country-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  max-height: 358px;
+  padding: 2px 8px 12px 2px;
+  overflow-y: auto;
+  scrollbar-color: #7f9368 #dfe8d8;
+  scrollbar-width: thin;
+}
+.balkan-country-panel .country-grid::-webkit-scrollbar {
+  width: 12px;
+}
+.balkan-country-panel .country-grid::-webkit-scrollbar-track {
+  background: #dfe8d8;
+  border: 1px solid #a9b997;
+}
+.balkan-country-panel .country-grid::-webkit-scrollbar-thumb {
+  background: linear-gradient(#f7fbf2, #8ea576);
+  border: 1px solid #6f855d;
+}
+
+/* Country blocks: no descriptive info, only code + country name, with country-related colors/patterns. */
+.country-card {
+  display: grid;
+  grid-template-columns: 62px 1fr;
+  align-items: center;
+  gap: 12px;
+  min-height: 74px;
+  padding: 12px 16px;
+  text-align: left;
+  color: #243821;
+  border: 1px solid #9fb488;
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.74),
+    3px 3px 0 rgba(72,92,55,.08);
+}
+.country-card small,
+.country-card em {
+  display: none !important;
+}
+.country-card span {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 36px;
+  color: #fff;
+  font-family: "Lucida Console", Consolas, monospace;
+  font-size: 13px;
+  font-weight: bold;
+  border: 1px solid rgba(0,0,0,.24);
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,.26);
+}
+.country-card strong {
+  color: #1f3321;
+  font-size: 24px;
+  letter-spacing: .2px;
+}
+.country-card::after {
+  right: -28px;
+  bottom: -34px;
+  width: 116px;
+  height: 116px;
+  opacity: .62;
+}
+
+/* Country-specific styling. Patterns are symbolic/subtle rather than literal flags. */
+.country-albania {
+  background:
+    radial-gradient(circle at 86% 50%, rgba(123,28,28,.18), transparent 26%),
+    linear-gradient(180deg, #f7e5e1, #e8b8ae);
+  border-color: #b77267;
+}
+.country-albania span { background: #8f2929; }
+.country-montenegro {
+  background:
+    linear-gradient(90deg, rgba(160,123,45,.18) 0 8px, transparent 8px),
+    linear-gradient(180deg, #f4ead1, #dcc58a);
+  border-color: #b9974f;
+}
+.country-montenegro span { background: #8b6e26; }
+.country-croatia {
+  background:
+    repeating-linear-gradient(45deg, rgba(160,52,52,.12) 0 8px, rgba(255,255,255,.16) 8px 16px),
+    linear-gradient(180deg, #e6edf7, #bacbe5);
+  border-color: #7b91b8;
+}
+.country-croatia span { background: #345b94; }
+.country-kosovo {
+  background:
+    radial-gradient(circle at 82% 42%, rgba(224,174,50,.18), transparent 18%),
+    linear-gradient(180deg, #e2e9f3, #aebed8);
+  border-color: #7589aa;
+}
+.country-kosovo span { background: #355785; }
+.country-serbia {
+  background:
+    repeating-linear-gradient(0deg, rgba(120,55,70,.12) 0 10px, rgba(255,255,255,.08) 10px 20px),
+    linear-gradient(180deg, #e7e3ef, #c0bfd8);
+  border-color: #8180aa;
+}
+.country-serbia span { background: #514f8e; }
+.country-north-macedonia {
+  background:
+    radial-gradient(circle at 84% 50%, rgba(207,153,33,.22), transparent 22%),
+    repeating-linear-gradient(135deg, rgba(187,72,45,.10) 0 10px, transparent 10px 22px),
+    linear-gradient(180deg, #f3e0c4, #ddb46d);
+  border-color: #bc8c38;
+}
+.country-north-macedonia span { background: #955730; }
+
+/* Rental panel uses its own side of the split, not the old wide footer desk. */
+.balkan-rental-panel .vehicle-grid {
+  display: grid;
+  gap: 11px;
+  align-content: start;
+}
+.balkan-rental-panel .vehicle-card {
+  min-height: 66px;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.72), rgba(255,255,255,.20)),
+    linear-gradient(#ffffff, #edf5e7);
+  border: 1px solid #a9ba96;
+}
+.balkan-rental-panel #reserve-car-button {
+  justify-self: start;
+  min-width: 145px;
+}
+
+/* Country detail page remains unchanged; this only affects the overview split page. */
+@media (max-width: 900px) {
+  .balkan-split-desk {
+    grid-template-columns: 1fr;
+  }
+  .balkan-country-panel .country-grid {
+    max-height: 300px;
+  }
+}
+
+
+/* Requested: hosted icons for TravelPortal category cards */
+.tp-invite-card {
+  position: relative;
+}
+.tp-category-icon {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.tp-roskilde-icon {
+  width: 46px;
+  height: 46px;
+}
+.tp-balkan-icon {
+  width: 48px;
+  height: 42px;
+}
+.tp-invite-card > strong {
+  padding-left: 84px !important;
+  padding-right: 84px !important;
+}
+
+/* Requested: Balkan country hover keeps block color; only border/ring changes */
+.balkan-country-panel .country-card:hover,
+.balkan-country-panel .country-card:focus,
+.balkan-country-panel .country-card.active {
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.74),
+    0 0 0 2px rgba(44, 58, 42, .18),
+    3px 3px 0 rgba(72,92,55,.08);
+}
+.balkan-country-panel .country-albania:hover,
+.balkan-country-panel .country-albania:focus,
+.balkan-country-panel .country-albania.active {
+  background:
+    radial-gradient(circle at 86% 50%, rgba(123,28,28,.18), transparent 26%),
+    linear-gradient(180deg, #f7e5e1, #e8b8ae) !important;
+  border-color: #81312c !important;
+}
+.balkan-country-panel .country-montenegro:hover,
+.balkan-country-panel .country-montenegro:focus,
+.balkan-country-panel .country-montenegro.active {
+  background:
+    linear-gradient(90deg, rgba(160,123,45,.18) 0 8px, transparent 8px),
+    linear-gradient(180deg, #f4ead1, #dcc58a) !important;
+  border-color: #806326 !important;
+}
+.balkan-country-panel .country-croatia:hover,
+.balkan-country-panel .country-croatia:focus,
+.balkan-country-panel .country-croatia.active {
+  background:
+    repeating-linear-gradient(45deg, rgba(160,52,52,.12) 0 8px, rgba(255,255,255,.16) 8px 16px),
+    linear-gradient(180deg, #e6edf7, #bacbe5) !important;
+  border-color: #405f95 !important;
+}
+.balkan-country-panel .country-kosovo:hover,
+.balkan-country-panel .country-kosovo:focus,
+.balkan-country-panel .country-kosovo.active {
+  background:
+    radial-gradient(circle at 82% 42%, rgba(224,174,50,.18), transparent 18%),
+    linear-gradient(180deg, #e2e9f3, #aebed8) !important;
+  border-color: #3b557e !important;
+}
+.balkan-country-panel .country-serbia:hover,
+.balkan-country-panel .country-serbia:focus,
+.balkan-country-panel .country-serbia.active {
+  background:
+    repeating-linear-gradient(0deg, rgba(120,55,70,.12) 0 10px, rgba(255,255,255,.08) 10px 20px),
+    linear-gradient(180deg, #e7e3ef, #c0bfd8) !important;
+  border-color: #514f82 !important;
+}
+.balkan-country-panel .country-north-macedonia:hover,
+.balkan-country-panel .country-north-macedonia:focus,
+.balkan-country-panel .country-north-macedonia.active {
+  background:
+    radial-gradient(circle at 84% 50%, rgba(207,153,33,.22), transparent 22%),
+    repeating-linear-gradient(135deg, rgba(187,72,45,.10) 0 10px, transparent 10px 22px),
+    linear-gradient(180deg, #f3e0c4, #ddb46d) !important;
+  border-color: #8a5a21 !important;
+}
+
+/* Requested: short non-bold italic food description under dish */
+#country-dish span {
+  display: block;
+}
+#country-dish em {
+  display: block;
+  margin-top: 5px;
+  color: #60705a;
+  font-size: 11px;
+  font-style: italic;
+  font-weight: normal;
+  line-height: 1.35;
+}
+
