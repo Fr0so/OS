@@ -177,8 +177,79 @@ function syncDynamicNames() {
 
 function updateClock() {
   const el = $("clock");
-  if (el) el.textContent = new Date().toLocaleTimeString([], { hour:"2-digit", minute:"2-digit" });
+  const now = new Date();
+  if (el) {
+    const time = now.toLocaleTimeString([], { hour:"numeric", minute:"2-digit", hour12:true });
+    const date = now.toLocaleDateString("en-GB", { day:"2-digit", month:"2-digit", year:"numeric" });
+    el.innerHTML = `<span class="clock-time">${time}</span><span class="clock-date">${date}</span>`;
+  }
+  checkBirthdayPopup(now);
 }
+
+function isBirthdayDate(date = new Date()) {
+  return date.getFullYear() === 2026 && date.getMonth() === 4 && date.getDate() === 25;
+}
+
+function nudgeBirthdayPopup() {
+  const popup = $("birthday-popup");
+  if (!popup) return;
+  popup.classList.remove("birthday-nudge");
+  void popup.offsetWidth;
+  popup.classList.add("birthday-nudge");
+}
+
+function dismissBirthdayPopup() {
+  const overlay = $("birthday-overlay");
+  overlay?.remove();
+  document.body.classList.remove("birthday-active");
+  try { localStorage.setItem("fortia-birthday-2026-thanked", "yes"); } catch (_) {}
+}
+
+function showBirthdayPopup() {
+  if ($("birthday-overlay")) return;
+  let alreadyThanked = false;
+  try { alreadyThanked = localStorage.getItem("fortia-birthday-2026-thanked") === "yes"; } catch (_) {}
+  if (alreadyThanked) return;
+
+  const overlay = document.createElement("div");
+  overlay.id = "birthday-overlay";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.innerHTML = `
+    <div id="birthday-popup">
+      <div class="birthday-titlebar">Fortia OS Reminder</div>
+      <div class="birthday-body">
+        <div class="birthday-icon" aria-hidden="true">🎂</div>
+        <div>
+          <h2>Happy birthday!</h2>
+          <p>Today is 25/05/2026.</p>
+          <button id="birthday-thank-you" type="button">Thank you</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  document.body.classList.add("birthday-active");
+  $("birthday-thank-you")?.focus();
+}
+
+function checkBirthdayPopup(date = new Date()) {
+  if (isBirthdayDate(date)) showBirthdayPopup();
+}
+
+function guardBirthdayInteraction(e) {
+  if (!$("birthday-overlay")) return;
+  if (e.target.closest("#birthday-thank-you")) {
+    if (e.type === "click") dismissBirthdayPopup();
+    return;
+  }
+  e.preventDefault();
+  e.stopPropagation();
+  nudgeBirthdayPopup();
+}
+
+["mousedown","click","dblclick","contextmenu"].forEach((eventName) => {
+  document.addEventListener(eventName, guardBirthdayInteraction, true);
+});
 
 function shakeElement(el) {
   if (!el) return;
