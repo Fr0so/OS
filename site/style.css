@@ -3721,30 +3721,49 @@ p { margin: 0; }
 /* Requested: hosted icons for TravelPortal category cards */
 .tp-invite-card {
   position: relative;
+  display: grid !important;
+  grid-template-columns: 108px 1fr !important;
+  align-items: center !important;
 }
+
 .tp-category-icon {
-  position: absolute;
-  left: 24px;
-  top: 50%;
+  position: static !important;
   z-index: 2;
-  width: 42px;
-  height: 42px;
+  display: block;
+  justify-self: center;
+  align-self: center;
   object-fit: contain;
-  transform: translateY(-50%);
   pointer-events: none;
+  transform: none !important;
+  opacity: .92;
+  filter:
+    drop-shadow(1px 1px 0 rgba(255,255,255,.55))
+    drop-shadow(1px 2px 2px rgba(24,45,72,.18));
 }
+
+.tp-flight-icon {
+  width: 66px;
+  height: 58px;
+}
+
 .tp-roskilde-icon {
-  width: 46px;
-  height: 46px;
+  width: 82px;
+  height: 52px;
 }
+
 .tp-balkan-icon {
-  width: 48px;
-  height: 42px;
+  width: 86px;
+  height: 58px;
 }
+
 .tp-invite-card > strong {
-  padding-left: 84px !important;
-  padding-right: 84px !important;
+  justify-self: center !important;
+  align-self: center !important;
+  width: 100%;
+  padding: 0 108px 0 0 !important;
+  text-align: center !important;
 }
+
 
 /* Requested: Balkan country hover keeps block color; only border/ring changes */
 .balkan-country-panel .country-card:hover,
@@ -3819,5 +3838,124 @@ p { margin: 0; }
   font-style: italic;
   font-weight: normal;
   line-height: 1.35;
+}
+
+
+/* Requested: AM/PM clock, date, and 25/05/2026 birthday reminder */
+#clock {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 1px;
+  min-width: 112px;
+  height: 100%;
+  padding: 0 12px;
+  color: white;
+  font-size: 12px;
+  line-height: 1.05;
+  background: rgba(0,0,0,.08);
+  border-left: 1px solid rgba(255,255,255,.25);
+}
+
+.clock-time,
+.clock-date {
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.clock-time {
+  font-weight: bold;
+}
+
+.clock-date {
+  font-size: 10px;
+  opacity: .92;
+}
+
+#birthday-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: grid;
+  place-items: center;
+  background: rgba(4, 22, 58, .18);
+}
+
+#birthday-popup {
+  width: 360px;
+  color: #111;
+  background: #ece9d8;
+  border: 3px solid #0054e3;
+  border-radius: 8px 8px 3px 3px;
+  box-shadow: 8px 10px 28px rgba(0,0,0,.38);
+}
+
+.birthday-titlebar {
+  height: 29px;
+  padding: 6px 8px 6px 10px;
+  color: white;
+  font-weight: bold;
+  background: linear-gradient(#3a8cff, #0057d9 52%, #003eb3);
+  border-radius: 4px 4px 0 0;
+  text-shadow: 1px 1px 1px rgba(0,0,0,.45);
+}
+
+.birthday-body {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 12px;
+  padding: 18px;
+  align-items: start;
+}
+
+.birthday-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  font-size: 31px;
+  background: #fff;
+  border: 1px solid #9d9d9d;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,.8);
+}
+
+.birthday-body h2 {
+  margin: 0 0 7px;
+  color: #1b3457;
+  font-size: 22px;
+}
+
+.birthday-body p {
+  margin: 0 0 15px;
+  color: #333;
+}
+
+#birthday-thank-you {
+  min-width: 84px;
+  height: 25px;
+  padding: 1px 12px;
+  color: #111;
+  background: linear-gradient(#fff, #e7e7dc);
+  border: 1px solid #003c74;
+  border-radius: 2px;
+}
+
+#birthday-thank-you:hover,
+#birthday-thank-you:focus {
+  border-color: #245edb;
+  outline: none;
+}
+
+.birthday-nudge {
+  animation: birthday-nudge .22s ease;
+}
+
+@keyframes birthday-nudge {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
 }
 
