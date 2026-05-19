@@ -153,6 +153,15 @@ let selectedVehicle = null;
 let vehicleReserved = false;
 let activeMsnContact = null;
 let osPasswordAttempts = 0;
+let bootsyFirewallInstalled = false;
+let bootsyFirewallScanned = false;
+let bootsyWizardStep = 1;
+let bootsyInstallTimerIds = [];
+let bootsyScanTimerIds = [];
+let helpTranslationPackRestored = false;
+let helpTranslationPackInstalled = false;
+let activeHelpTopic = null;
+let helpPackTimerIds = [];
 
 let draggingWindow  = null;
 let dragOffsetX = 0, dragOffsetY = 0;
@@ -160,6 +169,19 @@ let selecting = false, selectionStartX = 0, selectionStartY = 0;
 
 const heldFlightSeats = {};
 const msnStore = {};
+
+const danishHelpPackEntries = [
+  { title:"Go cucumber", source:"gå agurk", literal:"go cucumber", actual:"go crazy" },
+  { title:"There is no cow on the ice", source:"der er ingen ko på isen", literal:"there is no cow on the ice", actual:"everything is fine" },
+  { title:"It blows half a pelican", source:"det blæser en halv pelikan", literal:"it blows half a pelican", actual:"it is very windy" },
+  { title:"Buy the cat in the sack", source:"købe katten i sækken", literal:"buy the cat in the sack", actual:"buy something without checking it" },
+  { title:"Bite in the sour apple", source:"bide i det sure æble", literal:"bite in the sour apple", actual:"accept an unpleasant task" },
+  { title:"Clean flour in the bag", source:"rent mel i posen", literal:"clean flour in the bag", actual:"honest intentions" },
+  { title:"Now the goat is shaved", source:"nu er den ged barberet", literal:"now the goat is shaved", actual:"the problem is solved" },
+  { title:"Step in the spinach", source:"træde i spinaten", literal:"step in the spinach", actual:"make a mistake" },
+  { title:"Monkeys on the ceiling", source:"aber på loftet", literal:"monkeys on the ceiling", actual:"hidden problems" },
+  { title:"Shoot parrots", source:"skyde papegøjer", literal:"shoot parrots", actual:"have unexpected luck" }
+];
 
 /* ─── Utilities ─────────────────────────────── */
 
@@ -305,16 +327,24 @@ function startOsLoader() {
 
 function openWindow(id) {
   const win = $(id); if (!win) return;
+  if (id === "bootsy-installer-window" && bootsyFirewallInstalled) return;
   highestZIndex++; win.classList.add("open"); win.style.zIndex = highestZIndex;
   placeWindow(win); closeStartMenu();
   if (id === "computer-window") switchComputerView(currentComputerView);
   if (["booking-username-window","passwd-window","program-window","system-window"].includes(id)) syncDynamicNames();
+  if (id === "bootsy-installer-window") resetBootsyWizard();
+  if (id === "bootsy-firewall-window") resetBootsyScanWindow();
   if (id === "msn-window") openMsnWindow();
+  if (id === "help-window" && helpTranslationPackRestored) showHelpPackRestored();
   const input = win.querySelector("input:not([readonly])");
   if (input) setTimeout(() => input.focus(), 40);
 }
 
-function closeWindow(win) { win?.classList.remove("open"); }
+function closeWindow(win) {
+  if (!win) return;
+  if (win.id === "bootsy-firewall-window") resetBootsyScanWindow();
+  win.classList.remove("open");
+}
 
 function placeWindow(win) {
   if (!win.style.left) win.style.left = (win.dataset.defaultLeft || "120") + "px";
@@ -330,6 +360,129 @@ function clampWindow(win) {
   const top  = parseInt(win.style.top  || win.dataset.defaultTop  || "80",  10);
   win.style.left = Math.max(margin, Math.min(left, maxLeft)) + "px";
   win.style.top  = Math.max(margin, Math.min(top,  maxTop))  + "px";
+}
+
+
+/* ─── Bootsy Firewall installer ────────────── */
+
+function clearBootsyInstallTimers() {
+  bootsyInstallTimerIds.forEach((timerId) => clearTimeout(timerId));
+  bootsyInstallTimerIds = [];
+}
+
+function setBootsyWizardStep(step) {
+  bootsyWizardStep = step;
+  document.querySelectorAll(".bootsy-step").forEach((panel) => {
+    panel.classList.toggle("active", panel.dataset.bootsyStep === String(step));
+  });
+
+  const back = $("bootsy-back-button");
+  const forward = $("bootsy-forward-button");
+  const quit = $("bootsy-quit-button");
+  const finish = $("bootsy-finish-button");
+
+  if (back) {
+    back.classList.toggle("hidden", step === 3);
+    back.disabled = true;
+  }
+  if (forward) {
+    forward.classList.toggle("hidden", step === 3);
+    forward.disabled = step !== 1;
+  }
+  if (quit) quit.classList.toggle("hidden", step === 3);
+  if (finish) finish.classList.toggle("hidden", step !== 3);
+}
+
+function resetBootsyWizard() {
+  clearBootsyInstallTimers();
+  document.querySelectorAll("#bootsy-install-lines p").forEach((line) => line.classList.remove("active"));
+  const progress = $("bootsy-progress-bar");
+  if (progress) progress.style.width = "0%";
+  setBootsyWizardStep(1);
+}
+
+function startBootsyInstall() {
+  clearBootsyInstallTimers();
+  setBootsyWizardStep(2);
+  const lines = Array.from(document.querySelectorAll("#bootsy-install-lines p"));
+  const progress = $("bootsy-progress-bar");
+  if (progress) progress.style.width = "0%";
+
+  lines.forEach((line, index) => {
+    bootsyInstallTimerIds.push(setTimeout(() => {
+      line.classList.add("active");
+      if (progress) progress.style.width = `${Math.round(((index + 1) / lines.length) * 100)}%`;
+    }, 420 + index * 560));
+  });
+
+  bootsyInstallTimerIds.push(setTimeout(() => {
+    applyBootsyInstallResult();
+    setBootsyWizardStep(3);
+  }, 3050));
+}
+
+function applyBootsyInstallResult() {
+  if (bootsyFirewallInstalled) return;
+  bootsyFirewallInstalled = true;
+  $("bootsy-installer-desktop-icon")?.classList.add("hidden");
+  $("bootsy-firewall-desktop-icon")?.classList.remove("hidden");
+  $("bootsy-installer-trash")?.classList.remove("hidden");
+  selectedTrashId = null;
+  document.querySelectorAll("#recycle-files .file-item").forEach((item) => item.classList.remove("selected"));
+}
+
+function finishBootsyInstall() {
+  applyBootsyInstallResult();
+  clearBootsyInstallTimers();
+  closeWindow($("bootsy-installer-window"));
+}
+
+function clearBootsyScanTimers() {
+  bootsyScanTimerIds.forEach((timerId) => clearTimeout(timerId));
+  bootsyScanTimerIds = [];
+}
+
+function resetBootsyScanWindow() {
+  clearBootsyScanTimers();
+  const panel = $("bootsy-scan-panel");
+  const shell = $("bootsy-scan-progress-shell");
+  const progress = $("bootsy-scan-progress-bar");
+  const result = $("bootsy-scan-result");
+  const button = $("bootsy-run-scan-button");
+  panel?.classList.add("hidden");
+  shell?.classList.add("hidden");
+  if (progress) progress.style.width = "0%";
+  if (result) result.textContent = "";
+  if (button) button.disabled = false;
+}
+
+function runBootsyScan() {
+  clearBootsyScanTimers();
+  const panel = $("bootsy-scan-panel");
+  const shell = $("bootsy-scan-progress-shell");
+  const progress = $("bootsy-scan-progress-bar");
+  const result = $("bootsy-scan-result");
+  const button = $("bootsy-run-scan-button");
+  if (!panel || !shell || !progress || !result || !button) return;
+
+  panel.classList.remove("hidden");
+  shell.classList.remove("hidden");
+  progress.style.width = "0%";
+  result.textContent = "Scanning local permissions...";
+  button.disabled = true;
+
+  bootsyScanTimerIds.push(setTimeout(() => { progress.style.width = "42%"; }, 260));
+  bootsyScanTimerIds.push(setTimeout(() => { progress.style.width = "76%"; }, 980));
+  bootsyScanTimerIds.push(setTimeout(() => { progress.style.width = "100%"; }, 1680));
+  bootsyScanTimerIds.push(setTimeout(() => {
+    if (!bootsyFirewallScanned) {
+      bootsyFirewallScanned = true;
+      result.textContent = "scan completed:\n-Fixed travelportal firewall issue";
+    } else {
+      result.textContent = "scan successful";
+    }
+    button.disabled = false;
+  }, 2150));
 }
 
 /* ─── My Computer ───────────────────────────── */
@@ -370,6 +523,10 @@ function restoreRecycleBin() {
     if (status) status.textContent = "Select one item to restore.";
     shakeElement($("recycle-window")); return;
   }
+  if (selectedTrashId === "help-pack") {
+    restoreHelpTranslationPack();
+    return;
+  }
   const map = {
     passwd: ["passwd-window",       "passwd.txt",           "passwd-file"],
     denmark:["denmark-rant-window", "Danmark VM 26.txt",    "denmark-rant-trash"],
@@ -397,7 +554,142 @@ function handlePasswdInBin() {
   shakeElement($("recycle-window"));
 }
 
+/* ─── Help and Translation Pack ─────────────── */
+
+function clearHelpPackTimers() {
+  helpPackTimerIds.forEach((timerId) => clearTimeout(timerId));
+  helpPackTimerIds = [];
+}
+
+function setActiveHelpTopic(topicId) {
+  activeHelpTopic = topicId;
+  document.querySelectorAll(".help-pack-card").forEach((button) => {
+    const selected = button.dataset.helpTopic === topicId;
+    button.classList.toggle("selected", selected);
+    button.setAttribute("aria-pressed", selected ? "true" : "false");
+  });
+}
+
+function showHelpPackList() {
+  const list = $("help-pack-list");
+  const loader = $("help-pack-loader");
+  const results = $("help-pack-results");
+  list?.classList.remove("hidden");
+  loader?.classList.add("hidden");
+  results?.classList.add("hidden");
+}
+
+function showDanishHelpPackResults() {
+  const list = $("help-pack-list");
+  const loader = $("help-pack-loader");
+  const results = $("help-pack-results");
+  setActiveHelpTopic("danish-english");
+  list?.classList.add("hidden");
+  loader?.classList.add("hidden");
+  renderHelpPackResults();
+  results?.classList.remove("hidden");
+}
+
+function showHelpPackRestored() {
+  const empty = $("help-empty-content");
+  const content = $("help-pack-content");
+  empty?.classList.add("hidden");
+  content?.classList.remove("hidden");
+
+  if (helpTranslationPackInstalled && activeHelpTopic === "danish-english") {
+    showDanishHelpPackResults();
+    return;
+  }
+
+  setActiveHelpTopic(null);
+  showHelpPackList();
+}
+
+function restoreHelpTranslationPack() {
+  const status = $("recycle-status");
+  helpTranslationPackRestored = true;
+  $("help-pack-trash")?.remove();
+  selectedTrashId = null;
+  showHelpPackRestored();
+  if (status) status.textContent = "Restored Help & Translation pack.pkg to Help and Support.";
+}
+
+function renderHelpPackResults() {
+  const grid = $("idiom-entry-grid");
+  if (!grid) return;
+  grid.innerHTML = danishHelpPackEntries.map((entry) => `
+    <article class="idiom-entry">
+      <h4>${entry.title}</h4>
+      <dl>
+        <div><dt>Source:</dt><dd>${entry.source}</dd></div>
+        <div><dt>Literal meaning:</dt><dd>${entry.literal}</dd></div>
+        <div><dt>Actual meaning:</dt><dd>${entry.actual}</dd></div>
+      </dl>
+    </article>`).join("");
+}
+
+function installDanishHelpPack() {
+  if (!helpTranslationPackRestored) return;
+  clearHelpPackTimers();
+  setActiveHelpTopic("danish-english");
+
+  if (helpTranslationPackInstalled) {
+    showDanishHelpPackResults();
+    return;
+  }
+
+  const list = $("help-pack-list");
+  const loader = $("help-pack-loader");
+  const results = $("help-pack-results");
+  const progress = $("help-pack-progress-bar");
+  const line = $("help-pack-loader-line");
+  const sub = $("help-pack-loader-sub");
+  list?.classList.add("hidden");
+  results?.classList.add("hidden");
+  loader?.classList.remove("hidden");
+  if (progress) progress.style.width = "0%";
+  if (line) line.textContent = "Installing language compatibility files...";
+  if (sub) sub.textContent = "Loading Danish idiom database...";
+
+  helpPackTimerIds.push(setTimeout(() => { if (progress) progress.style.width = "48%"; }, 180));
+  helpPackTimerIds.push(setTimeout(() => {
+    if (progress) progress.style.width = "78%";
+    if (line) line.textContent = "Loading Danish idiom database...";
+    if (sub) sub.textContent = "Preparing literal translation index...";
+  }, 760));
+  helpPackTimerIds.push(setTimeout(() => { if (progress) progress.style.width = "100%"; }, 1260));
+  helpPackTimerIds.push(setTimeout(() => {
+    helpTranslationPackInstalled = true;
+    showDanishHelpPackResults();
+  }, 1580));
+}
+
 /* ─── TravelPortal login ─────────────────────── */
+
+function showTravelLoginScreen() {
+  $("travel-login-screen")?.classList.remove("hidden");
+  $("travel-loader-screen")?.classList.add("hidden");
+  $("travel-firewall-error-screen")?.classList.add("hidden");
+  $("travel-browser")?.classList.add("hidden");
+  const pw = $("travel-password-input");
+  if (pw) { pw.value = ""; setTimeout(() => pw.focus(), 40); }
+}
+
+function showTravelFirewallError() {
+  travelLoaded = false;
+  $("travel-login-screen")?.classList.add("hidden");
+  $("travel-loader-screen")?.classList.add("hidden");
+  $("travel-browser")?.classList.add("hidden");
+  $("travel-firewall-error-screen")?.classList.remove("hidden");
+}
+
+function openTravelBrowser() {
+  $("travel-login-screen")?.classList.add("hidden");
+  $("travel-loader-screen")?.classList.add("hidden");
+  $("travel-firewall-error-screen")?.classList.add("hidden");
+  $("travel-browser")?.classList.remove("hidden");
+  navigateBrowser("home", false);
+}
 
 function runTravelLogin() {
   const username = $("travel-username-input")?.value.trim() || "";
@@ -407,11 +699,8 @@ function runTravelLogin() {
     currentTravelName = username || getOsName(); syncDynamicNames();
     if (msg) msg.textContent = "";
     $("travel-login-screen")?.classList.add("hidden");
-    if (travelLoaded) {
-      $("travel-loader-screen")?.classList.add("hidden");
-      $("travel-browser")?.classList.remove("hidden");
-      navigateBrowser("home", false);
-    } else { startTravelLoader(); }
+    if (travelLoaded && bootsyFirewallScanned) openTravelBrowser();
+    else startTravelLoader();
     return;
   }
   if (msg) msg.textContent = "Authentication failed.";
@@ -420,12 +709,12 @@ function runTravelLogin() {
 }
 
 function startTravelLoader() {
-  const loader = $("travel-loader-screen"), browser = $("travel-browser");
+  const loader = $("travel-loader-screen"), browser = $("travel-browser"), error = $("travel-firewall-error-screen");
   const progress = $("progress-bar"), line = $("loader-line"), log = $("loader-log");
   if (!loader || !browser || !progress || !line || !log) return;
-  loader.classList.remove("hidden"); browser.classList.add("hidden");
+  loader.classList.remove("hidden"); browser.classList.add("hidden"); error?.classList.add("hidden");
   progress.style.width = "0%"; log.innerHTML = "";
-  const steps = [[14,"Opening travel files...","travel files"],[31,"Reading route slips...","route slips"],[49,"Loading fare tables...","fare tables"],[67,"Checking allocation cards...","allocation cards"],[84,"Preparing road file...","road file"],[100,"Ready.","ready"]];
+  const steps = [[14,"Opening travel files...","travel files"],[31,"Reading route slips...","route slips"],[49,"Loading fare tables...","fare tables"],[67,"Checking allocation cards...","allocation cards"],[84,"Checking Bootsy Firewall scan...","bootsy firewall"],[100,"Ready.","ready"]];
   let i = 0;
   function next() {
     const [pct, text, label] = steps[i];
@@ -433,7 +722,11 @@ function startTravelLoader() {
     const li = document.createElement("li"); li.textContent = label; log.appendChild(li);
     i++;
     if (i < steps.length) setTimeout(next, 360);
-    else setTimeout(() => { travelLoaded = true; loader.classList.add("hidden"); browser.classList.remove("hidden"); navigateBrowser("home", false); }, 280);
+    else setTimeout(() => {
+      if (!bootsyFirewallScanned) { showTravelFirewallError(); return; }
+      travelLoaded = true;
+      openTravelBrowser();
+    }, 280);
   }
   setTimeout(next, 120);
 }
@@ -896,7 +1189,7 @@ function bindStaticControls() {
   $("empty-recycle-button")?.addEventListener("click", emptyRecycleBin);
   $("passwd-file")?.addEventListener("click", handlePasswdInBin);
   $("passwd-file")?.addEventListener("dblclick", handlePasswdInBin);
-  ["denmark-rant-trash","duke-rant-trash"].forEach((id) => {
+  ["denmark-rant-trash","duke-rant-trash","bootsy-installer-trash","help-pack-trash"].forEach((id) => {
     const item = $(id);
     item?.addEventListener("click", () => selectTrashFile(item.dataset.trashId));
     item?.addEventListener("dblclick", () => {
@@ -905,9 +1198,20 @@ function bindStaticControls() {
     });
   });
 
+  // Bootsy Firewall
+  $("bootsy-back-button")?.addEventListener("click", resetBootsyWizard);
+  $("bootsy-forward-button")?.addEventListener("click", startBootsyInstall);
+  $("bootsy-quit-button")?.addEventListener("click", () => closeWindow($("bootsy-installer-window")));
+  $("bootsy-finish-button")?.addEventListener("click", finishBootsyInstall);
+  $("bootsy-run-scan-button")?.addEventListener("click", runBootsyScan);
+
+  // Help and Translation Pack
+  $("danish-help-pack-button")?.addEventListener("click", installDanishHelpPack);
+
   // Travel Portal
   $("travel-login-button")?.addEventListener("click", runTravelLogin);
   ["travel-username-input","travel-password-input"].forEach((id) => $(id)?.addEventListener("keydown", (e) => { if (e.key === "Enter") runTravelLogin(); }));
+  $("travel-firewall-error-ok")?.addEventListener("click", showTravelLoginScreen);
   document.querySelectorAll(".agency-card, .invite-card, .tp-invite-card").forEach((btn) => btn.addEventListener("click", () => navigateBrowser(btn.dataset.page)));
   $("browser-back-button")?.addEventListener("click", browserBack);
   $("browser-home-button")?.addEventListener("click", browserHome);
