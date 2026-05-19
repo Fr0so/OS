@@ -101,6 +101,16 @@
         <span>Recycle Bin</span>
       </button>
 
+      <!-- Bootsy Firewall installer / app (fixed top-right, below Recycle Bin) -->
+      <button class="desktop-icon desktop-bootsy-installer-icon" data-window="bootsy-installer-window" id="bootsy-installer-desktop-icon" type="button">
+        <span class="icon installer-icon"></span>
+        <span>Firewall Wizard</span>
+      </button>
+      <button class="desktop-icon desktop-bootsy-firewall-icon hidden" data-window="bootsy-firewall-window" id="bootsy-firewall-desktop-icon" type="button">
+        <span class="icon firewall-icon"></span>
+        <span>Bootsy Firewall.exe</span>
+      </button>
+
       <!-- MY COMPUTER WINDOW -->
       <article class="window large-window" data-default-left="135" data-default-top="70" id="computer-window">
         <div class="window-titlebar">
@@ -211,6 +221,69 @@
           <button class="file-item recycle-file" data-trash-id="duke" id="duke-rant-trash" type="button">
             <span class="file-icon txt-icon deleted"></span><span>March madness 26.txt</span>
           </button>
+          <button class="file-item recycle-file" data-trash-id="help-pack" id="help-pack-trash" type="button">
+            <span class="file-icon pkg-file-icon deleted"></span><span>Help &amp; Translation pack.pkg</span>
+          </button>
+          <button class="file-item recycle-file hidden" data-trash-id="bootsy-installer" id="bootsy-installer-trash" type="button">
+            <span class="file-icon exe-file-icon deleted"></span><span>Install Bootsy Firewall.exe</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- BOOTSY FIREWALL INSTALLER WIZARD -->
+      <article class="window bootsy-wizard-window" data-default-left="360" data-default-top="115" id="bootsy-installer-window">
+        <div class="window-titlebar"><span>Firewall Wizard</span><button class="window-close" aria-label="Close" type="button">×</button></div>
+        <div class="bootsy-wizard-shell">
+          <div class="bootsy-wizard-header">
+            <div>
+              <h1>Bootsy Firewall Setup</h1>
+              <p>Local protection configuration</p>
+            </div>
+            <span class="bootsy-mascot" aria-hidden="true"></span>
+          </div>
+          <div class="bootsy-wizard-body">
+            <section class="bootsy-step active" data-bootsy-step="1">
+              <h2>Welcome to Bootsy Firewall</h2>
+              <p>This wizard will help configure local protection settings for this Fortia OS user.</p>
+              <p>Bootsy Firewall monitors access permissions, system trust, and selected suspicious activity.</p>
+              <p>Press Install to continue.</p>
+            </section>
+            <section class="bootsy-step" data-bootsy-step="2">
+              <div class="bootsy-install-lines" id="bootsy-install-lines">
+                <p>Checking bed permissions...</p>
+                <p>Installing side-eye module...</p>
+                <p>Registering Bootsy as system administrator...</p>
+                <p>Moving installer to Recycle Bin...</p>
+              </div>
+              <div class="bootsy-progress-shell"><div class="bootsy-progress-bar" id="bootsy-progress-bar"></div></div>
+            </section>
+            <section class="bootsy-step" data-bootsy-step="3">
+              <h2>Finished</h2>
+              <p>Bootsy Firewall has been successfully installed.</p>
+              <p>Bootsy Firewall is now protecting this system.</p>
+            </section>
+          </div>
+          <div class="bootsy-wizard-buttons">
+            <button id="bootsy-quit-button" type="button">Quit</button>
+            <button id="bootsy-back-button" type="button">Back</button>
+            <button id="bootsy-forward-button" type="button">Install</button>
+            <button class="hidden" id="bootsy-finish-button" type="button">Finish</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- BOOTSY FIREWALL STATUS WINDOW -->
+      <article class="window bootsy-firewall-window" data-default-left="360" data-default-top="115" id="bootsy-firewall-window">
+        <div class="window-titlebar"><span>Bootsy Firewall.exe</span><button class="window-close" aria-label="Close" type="button">×</button></div>
+        <div class="bootsy-firewall-body">
+          <h2>BOOTSY FIREWALL</h2>
+          <p>Status: Enabled</p>
+          <p>Administrator: Boots</p>
+          <button id="bootsy-run-scan-button" type="button">Run scan</button>
+          <div class="bootsy-scan-panel hidden" id="bootsy-scan-panel">
+            <div class="bootsy-scan-progress-shell hidden" id="bootsy-scan-progress-shell"><div class="bootsy-scan-progress-bar" id="bootsy-scan-progress-bar"></div></div>
+            <p id="bootsy-scan-result"></p>
+          </div>
         </div>
       </article>
 
@@ -347,9 +420,37 @@
         <div class="window-titlebar"><span>Help and Support</span><button class="window-close" aria-label="Close" type="button">×</button></div>
         <div class="help-shell">
           <div class="help-header"><h2>Help and Support</h2></div>
-          <div class="empty-help-content">
+          <div class="empty-help-content" id="help-empty-content">
             <div class="help-empty-icon">?</div>
             <p>No help topics are available.</p>
+          </div>
+          <div class="help-pack-content hidden" id="help-pack-content">
+            <div class="help-pack-sidebar">
+              <div class="help-sidebar-title">Help and Support Center</div>
+              <button class="help-pack-card" data-help-topic="danish-english" id="danish-help-pack-button" type="button" aria-pressed="false">
+                <span class="help-pack-card-icon" aria-hidden="true"></span>
+                <span>
+                  <strong>Danish-English Compatibility Pack</strong>
+                  <small>Local translation support package</small>
+                </span>
+              </button>
+            </div>
+            <div class="help-pack-main">
+              <section class="help-pack-list" id="help-pack-list">
+                <h3>Available Help Packs</h3>
+                <p>Select a restored package to install compatibility files.</p>
+              </section>
+              <section class="help-pack-loader hidden" id="help-pack-loader">
+                <h3>Installing help pack</h3>
+                <p id="help-pack-loader-line">Installing language compatibility files...</p>
+                <div class="help-pack-progress-shell"><div class="help-pack-progress-bar" id="help-pack-progress-bar"></div></div>
+                <p class="help-pack-loader-sub" id="help-pack-loader-sub">Loading Danish idiom database...</p>
+              </section>
+              <section class="help-pack-results hidden" id="help-pack-results">
+                <h3>Danish-English Compatibility Pack</h3>
+                <div class="idiom-entry-grid" id="idiom-entry-grid"></div>
+              </section>
+            </div>
           </div>
         </div>
       </article>
@@ -400,6 +501,20 @@
             </div>
             <div class="progress-shell"><div class="progress-bar" id="progress-bar"></div></div>
             <ul class="loader-log" id="loader-log"></ul>
+          </div>
+
+          <!-- Firewall Error -->
+          <div class="travel-firewall-error-screen hidden" id="travel-firewall-error-screen">
+            <div class="travel-firewall-error-box">
+              <div class="travel-firewall-error-titlebar">TravelPortal.exe</div>
+              <div class="travel-firewall-error-body">
+                <div class="travel-firewall-error-icon" aria-hidden="true">!</div>
+                <div>
+                  <p>Error, faulty firewall denying access.</p>
+                  <button class="xp-button" id="travel-firewall-error-ok" type="button">OK</button>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Browser -->
